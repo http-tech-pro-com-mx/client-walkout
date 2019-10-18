@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+declare const $: any;
 @Component({
   selector: 'app-ip',
   templateUrl: './ip.component.html',
@@ -8,21 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class IpComponent implements OnInit {
 
   public ips: Array<any>;
- 
+
   constructor() { }
 
   ngOnInit() {
 
-    this.ips =  [
-        ['163000IP26', 'O', true, true, 'MANATÍ'],
-        ['163000IP26', 'O', true, true, 'MANATÍ'],
-        ['163000IP26', 'O', true, true, 'MANATÍ'],
-        ['163000IP26', 'O', true, true, 'MANATÍ'],
-        ['163000IP26', 'O', true, true, 'MANATÍ'],
-        ['163000IP26', 'O', true, true, 'MANATÍ'],
-        ['163000IP26', 'O', true, true, 'MANATÍ']
+    this.ips = [
+      ['163000IP26', 'O', true, true, 'MANATÍ'],
+      ['163000IP26', 'O', true, true, 'MANATÍ'],
+      ['163000IP26', 'O', true, true, 'MANATÍ'],
+      ['163000IP26', 'O', true, true, 'MANATÍ'],
+      ['163000IP26', 'O', true, true, 'MANATÍ'],
+      ['163000IP26', 'O', true, true, 'MANATÍ'],
+      ['163000IP26', 'O', true, true, 'MANATÍ']
     ];
-   
+
   }
+
 
 }

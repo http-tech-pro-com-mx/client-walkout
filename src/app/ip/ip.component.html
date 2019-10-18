@@ -2,17 +2,25 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
-        
-          <div class="form-group">
-            <label for="buscar">BUSCAR:</label>
-            <input type="text" class="form-control" id="buscar" placeholder="ESCRIBE AQUÍ PARA INICIAR LA BUSQUEDA">
-          </div>
-       
+        <select class="selectpicker" data-live-search="true" data-live-search-placeholder="Buscar proyecto" data-title="Proyecto" data-width="50%">
+          <option data-tokens="ketchup mustard">Nombre proyecto</option>
+        </select>
       </div>
     </div>
     <div class="row">
-        <button type="button" class="btn btn-primary btn-circle btn-xl"><i class="fa fa-plus"></i>
-        </button>
+      <div class="col-md-12">
+        <br>
+        <div class="form-group">
+          <label for="buscar">BUSCAR:</label>
+          <input type="text" class="form-control" id="buscar" placeholder="ESCRIBE AQUÍ PARA INICIAR LA BUSQUEDA">
+        </div>
+
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" class="btn btn-primary btn-circle btn-xl">
+        <i class="fa fa-plus"></i>
+      </button>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -30,6 +38,7 @@
                   <th>QC</th>
                   <th>SP</th>
                   <th>UBICACIÓN</th>
+                  <th>ELIMINAR</th>
                 </tr>
               </thead>
               <tbody>
@@ -42,8 +51,10 @@
                   <td>
                     <i class="pe-7s-check"></i>
                   </td>
-                  <td>{{ip[4]}}</td>
-                  <td>{{ip[5]}}</td>
+                  <td>{{ip[4]}}</td>                  
+                  <td>
+                    <button class="btn btn-danger">ELIMINAR</button>
+                  </td>
                 </tr>
               </tbody>
             </table>
