@@ -11,6 +11,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
 import { HomeComponent } from '../../home/home.component';
 import { UserComponent } from '../../user/user.component';
 import { IconsComponent } from '../../icons/icons.component';
+import { IpComponent } from '../../ip/ip.component';
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import { IconsComponent } from '../../icons/icons.component';
     HomeComponent,
     UserComponent,
     IconsComponent,
+    IpComponent
   ]
 })
 
