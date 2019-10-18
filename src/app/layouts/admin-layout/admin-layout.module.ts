@@ -12,6 +12,7 @@ import { HomeComponent } from '../../home/home.component';
 import { UserComponent } from '../../user/user.component';
 import { IconsComponent } from '../../icons/icons.component';
 import { IpComponent } from '../../ip/ip.component';
+import { IpFormComponent } from '../../ip-form/ip-form.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { IpComponent } from '../../ip/ip.component';
     HomeComponent,
     UserComponent,
     IconsComponent,
-    IpComponent
+    IpComponent,
+    IpFormComponent
   ]
 })
 
