@@ -45,8 +45,8 @@
       </div>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="myModal" role="dialog">
-      <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="false">
+      <div class="modal-dialog modal-md">
         <div class="modal-content">
           <div class="modal-body">
             <!-- Formulario grid -->
@@ -59,37 +59,37 @@
                   </div>
                   <div class="content">
                     <div class="row">
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label>NUMERO DE PLANO</label>
                           <input type="text" class="form-control" placeholder="NO PLANO" value="">
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label>PIES</label>
                           <input type="text" class="form-control" placeholder="PIES" value="">
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label>CASAS</label>
                           <input type="number" class="form-control" placeholder="CASAS" value="">
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label>NEGOCIOS</label>
                           <input type="number" class="form-control" placeholder="NEGOCIOS" value="">
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label>ESCUELAS</label>
                           <input type="number" class="form-control" placeholder="ESCUELAS" value="">
                         </div>
                       </div>
-                      <div class="col-md-2">
+                      <div class="col-md-4">
                         <div class="form-group">
                           <label>BALDIOS</label>
                           <input type="number" class="form-control" placeholder="BALDIOS" value="">
@@ -106,6 +106,7 @@
             <!-- Fin Formulario grid -->
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
           </div>
         </div>
