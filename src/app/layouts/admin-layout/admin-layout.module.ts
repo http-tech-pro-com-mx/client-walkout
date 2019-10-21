@@ -3,14 +3,13 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { LbdModule } from '../../lbd/lbd.module';
+
 import { NguiMapModule} from '@ngui/map';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
 import { HomeComponent } from '../../home/home.component';
 import { UserComponent } from '../../user/user.component';
-import { IconsComponent } from '../../icons/icons.component';
 import { IpComponent } from '../../ip/ip.component';
 import { IpFormComponent } from '../../ip-form/ip-form.component';
 
@@ -19,13 +18,11 @@ import { IpFormComponent } from '../../ip-form/ip-form.component';
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    LbdModule,
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=YOUR_KEY_HERE'})
   ],
   declarations: [
     HomeComponent,
     UserComponent,
-    IconsComponent,
     IpComponent,
     IpFormComponent
   ]

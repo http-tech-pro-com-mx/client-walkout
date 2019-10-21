@@ -10,8 +10,8 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
     { path: '/dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '' },
     { path: '/user', title: 'Perfil',  icon:'pe-7s-user', class: '' },
-    { path: '/icons', title: 'Icons',  icon:'pe-7s-science', class: '' },
-    { path: '/ip', title: 'IP',  icon:'pe-7s-folder', class: '' }
+    { path: '/ip', title: 'IP',  icon:'pe-7s-folder', class: '' },
+    { path: '/ip/detalle', title: 'Detalle IP',  icon:'pe-7s-folder', class: '' },
 ];
 
 @Component({
@@ -24,7 +24,11 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.menuItems = ROUTES.filter(menuItem =>{ 
+        if(menuItem.path != '/ip/detalle'){
+            return menuItem;
+        }
+    });
   }
 
   
