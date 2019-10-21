@@ -12,6 +12,8 @@ import { HomeComponent } from '../../home/home.component';
 import { UserComponent } from '../../user/user.component';
 import { IpComponent } from '../../ip/ip.component';
 import { IpFormComponent } from '../../ip-form/ip-form.component';
+import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component';
+
 
 @NgModule({
   imports: [
@@ -24,6 +26,7 @@ import { IpFormComponent } from '../../ip-form/ip-form.component';
     HomeComponent,
     UserComponent,
     IpComponent,
+    ConfReporteComponent,
     IpFormComponent
   ]
 })

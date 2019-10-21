@@ -12,6 +12,7 @@ export const ROUTES: RouteInfo[] = [
     { path: '/user', title: 'Perfil',  icon:'pe-7s-user', class: '' },
     { path: '/ip', title: 'IP',  icon:'pe-7s-folder', class: '' },
     { path: '/ip/detalle', title: 'Detalle IP',  icon:'pe-7s-folder', class: '' },
+    { path: '/configuracion', title: 'Configuracion',  icon:'pe-7s-settings', class: '' }
 ];
 
 @Component({
