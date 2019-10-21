@@ -7,6 +7,13 @@ declare var $:any;
 })
 export class IpFormComponent implements OnInit {
 
+  public grids: Array<any> = [
+    ['215-433', 0 , 0 , 0 ,0,0,0,''],
+    ['215-433', 0 , 0 , 0 ,0,0,0,''],
+    ['215-433', 0 , 0 , 0 ,0,0,0,''],
+    ['215-433', 0 , 0 , 0 ,0,0,0,'']
+  ];
+
   constructor() { }
 
   ngOnInit() {
