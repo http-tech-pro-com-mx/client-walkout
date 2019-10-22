@@ -1,4 +1,5 @@
 export class Walker {
+    
 
     constructor(
         public id_walker: number,
@@ -8,7 +9,15 @@ export class Walker {
         public telefono: string,
         public usuario: string,
         public pwd: string,
-        public estatus: boolean
+        public estatus: boolean,
+        public compania: string,
+        public email: string,
+        public direccion: string,
+        public pais: string,
+        public ciudad: string, 
+        public codigo_postal: number, 
+        public sobre_mi: string
     ){}
+    
 
 }

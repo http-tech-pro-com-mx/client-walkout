@@ -1,4 +1,5 @@
-<div class="main-content">
+<app-loader *ngIf="loading"></app-loader>
+<div class="main-content" *ngIf="!loading">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
@@ -12,19 +13,19 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Company</label>
-                                        <input type="text" class="form-control" disabled placeholder="Company" value="TECH - PRO">
+                                        <input type="text" class="form-control" placeholder="Company" [value]="usuario.compania" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Usuario</label>
-                                        <input type="text" class="form-control" placeholder="Usuario" value="michael23">
+                                        <input type="text" class="form-control" placeholder="Usuario" [value]="usuario.usuario" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Nombre</label>
-                                        <input type="text" class="form-control" placeholder="Nombre" value="Mike">
+                                        <input type="text" class="form-control" placeholder="Nombre" [value]="usuario.nombre" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -33,13 +34,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Apellido Paterno</label>
-                                        <input type="text" class="form-control" placeholder="Apellido paterno" value="Andrew">
+                                        <input type="text" class="form-control" placeholder="Apellido paterno" [value]="usuario.apellido_paterno" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Apellido Materno</label>
-                                        <input type="text" class="form-control" placeholder="Apellido materno" value="Andrew">
+                                        <input type="text" class="form-control" placeholder="Apellido materno" [value]="usuario.apellido_materno" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +49,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Correo electrónico</label>
-                                        <input type="email" class="form-control" placeholder="Correo electrónico">
+                                        <input type="email" class="form-control" placeholder="Correo electrónico" [value]="usuario.email" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +58,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Dirección</label>
-                                        <input type="text" class="form-control" placeholder="Dirección" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09">
+                                        <input type="text" class="form-control" placeholder="Dirección"  [value]="usuario.direccion" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -66,19 +67,19 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>País</label>
-                                        <input type="text" class="form-control" placeholder="País" value="Andrew">
+                                        <input type="text" class="form-control" placeholder="País" [value]="usuario.pais" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Ciudad</label>
-                                        <input type="text" class="form-control" placeholder="Ciudad" value="Mike">
+                                        <input type="text" class="form-control" placeholder="Ciudad" [value]="usuario.ciudad" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Código Postal</label>
-                                        <input type="number" class="form-control" placeholder="Código Postal">
+                                        <input type="number" class="form-control" placeholder="Código Postal" [value]="usuario.codigo_postal" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -87,7 +88,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Sobre mi</label>
-                                        <textarea rows="5" class="form-control" placeholder="Aquí puedes escribir tu descripción" value="Mike">Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</textarea>
+                                        <textarea rows="5" class="form-control" placeholder="Aquí puedes escribir tu descripción" disabled>{{ usuario.sobre_mi }}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +99,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card card-user">
-                    <div class="image" >
+                    <div class="image">
                         <img src="assets/img/img-background-profile.jpg" alt="..." />
                     </div>
                     <div class="content">
@@ -106,15 +107,14 @@
                             <a href="javascript:void(0);">
                                 <img class="avatar border-gray" src="assets/img/faces/face-0.jpg" alt="..." />
 
-                                <h4 class="title">Mike Andrew
+                                <h4 class="title">{{ usuario.nombre + ' ' + usuario.apellido_paterno}}
                                     <br />
-                                    <small>michael24</small>
+                                    <small>{{ usuario.email }}</small>
                                 </h4>
                             </a>
                         </div>
-                        <p class="description text-center"> "Lamborghini Mercy
-                            <br> Your chick she so thirsty
-                            <br> I'm in that two seat Lambo"
+                        <p class="description text-center">
+                            {{ usuario.sobre_mi }}
                         </p>
                     </div>
                     <hr>

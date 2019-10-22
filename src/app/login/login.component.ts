@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.remember = false;
-    this.usuario = new Walker(-1,'','','','','','', false);
+    this.usuario = new Walker(-1,'','','','','','', false, '','','','','',-1,'');
     
   
     this.mensaje_error = "";

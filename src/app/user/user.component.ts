@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { UserService } from './user.service';
+import { FormBuilder } from '@angular/forms';
+import { Walker } from '../models/walker';
 
 @Component({
   selector: 'app-user',
@@ -7,9 +11,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserComponent implements OnInit {
 
-  constructor() { }
+  private usuario: Walker;
+  public loading: boolean;
+
+  constructor(
+    private service: UserService,
+    private fb: FormBuilder,
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
+
+    this.loading = true;
+
+    this.usuario = new Walker(-1,'','','','','','', false, '','','','','',-1,'');
+
+    this.service.getInfoPerfil(1).subscribe(result => {
+      this.usuario = result;
+      console.log(result);
+      this.loading = false;
+
+    }, error =>{
+
+      console.log( error );
+      this.loading = false;
+
+    });
+
+
   }
 
 }

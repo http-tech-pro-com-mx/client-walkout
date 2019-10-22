@@ -10,7 +10,7 @@ import { UserComponent } from '../../user/user.component';
 import { IpComponent } from '../../ip/ip.component';
 import { IpFormComponent } from '../../ip-form/ip-form.component';
 import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component';
-
+import { LoaderComponent } from '../../shared/loader/loader.component';
 
 @NgModule({
   imports: [
@@ -23,7 +23,8 @@ import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component'
     UserComponent,
     IpComponent,
     ConfReporteComponent,
-    IpFormComponent
+    IpFormComponent,
+    LoaderComponent
   ]
 })
 
