@@ -25,7 +25,7 @@ export class AuthService {
   }
 
   public getUserid(): number {
-    return jwt_decode(this.getToken()).userid || -1;
+    return jwt_decode(this.getToken()).id_walker || -1;
   }
 
   public getRoles():Array<string>{

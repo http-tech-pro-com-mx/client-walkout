@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
 
   private usuario: Walker;
   public loading: boolean;
+  public id: number;
 
   constructor(
     private service: UserService,
@@ -23,12 +24,12 @@ export class UserComponent implements OnInit {
   ngOnInit() {
 
     this.loading = true;
-
+    this.id = this.auth.getUserid();
     this.usuario = new Walker(-1,'','','','','','', false, '','','','','',-1,'');
 
-    this.service.getInfoPerfil(1).subscribe(result => {
+    this.service.getInfoPerfil(this.id).subscribe(result => {
       this.usuario = result;
-      console.log(result);
+
       this.loading = false;
 
     }, error =>{
