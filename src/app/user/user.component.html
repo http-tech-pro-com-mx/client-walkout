@@ -1,6 +1,6 @@
-<app-loader *ngIf="loading"></app-loader>
-<div class="main-content" *ngIf="!loading">
-    <div class="container-fluid">
+<div class="main-content">
+    <app-loader *ngIf="loading"></app-loader>
+    <div class="container-fluid" *ngIf="!loading">
         <div class="row">
             <div class="col-md-8">
                 <div class="card">
@@ -58,7 +58,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Dirección</label>
-                                        <input type="text" class="form-control" placeholder="Dirección"  [value]="usuario.direccion" disabled>
+                                        <input type="text" class="form-control" placeholder="Dirección" [value]="usuario.direccion" disabled>
                                     </div>
                                 </div>
                             </div>

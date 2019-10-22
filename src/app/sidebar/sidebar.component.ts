@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 declare const $: any;
+declare var toastr:any;
 declare interface RouteInfo {
     path: string;
     title: string;
@@ -23,7 +25,7 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem =>{ 
@@ -40,4 +42,24 @@ export class SidebarComponent implements OnInit {
       }
       return true;
   };
+
+  logout(event) {
+
+    try {
+      if (localStorage.data_user) {
+        localStorage.removeItem('data_user');
+      }
+    } catch (e) { }
+
+    try {
+      if (localStorage.t0k3N34lkoutl) {
+        localStorage.removeItem('t0k3N34lkoutl');
+      }
+    } catch (e) {
+      toastr.error('No se pudo cerrar sesión!');
+    }
+    this.router.navigate(['login']);
+    event.preventDefault();
+  }
+
 }
