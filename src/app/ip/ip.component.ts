@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IpService } from './ip.service';
 import { Ip } from '../models/ip';
 import { Proyecto } from '../models/proyecto';
+import swal from 'sweetalert2';
 
 declare const $: any;
 @Component({
@@ -62,7 +63,7 @@ export class IpComponent implements OnInit {
     
 
     if (this.selectedProject != -1 && this.selectedProject != null) {
-      
+
       this.busqueda = true;
 
       this.service.getInfoIPSForProject(this.selectedProject).subscribe(result => {
@@ -79,6 +80,41 @@ export class IpComponent implements OnInit {
 
     }
 
+  }
+
+  eliminar(ip: Ip){
+    swal.fire({
+      title: '<span style="color: #ffb74d">¿Desea eliminar IP?</span>',
+      html: '<p style="color: #ffb74d">IP: ' + ip.ip + '</p>',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ffb74d',
+      cancelButtonColor: '#ffa726 ',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si!',
+      allowOutsideClick: false,
+      allowEnterKey: false
+    }).then((result) => {
+      /*
+       * Si acepta
+       */
+      if (result.value) {
+
+        // this.service.updateEstatus(empleado.id_usuario, empleado.estatus).subscribe(response => {
+          
+        //   if (response.successful) {
+        //     empleado.estatus = !empleado.estatus;
+        //     swal.fire('Exito !', response.message, 'success');
+        //   } else {
+        //     toastr.error(response.message);
+        //   }
+        // }, error => {
+        //   toastr.error('Ocurrió un error al consultar! Error: ' + error.status);
+
+        // });
+
+      } else if (result.dismiss === swal.DismissReason.cancel) { }
+    })
   }
 
   limpiarBusqueda() {

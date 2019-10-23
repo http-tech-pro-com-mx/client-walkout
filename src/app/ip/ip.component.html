@@ -23,9 +23,9 @@
         </div>
       </div>
       <div class="row">
-        <button type="button" class="btn btn-primary btn-circle btn-xl">
+        <a type="button" class="btn btn-primary btn-circle btn-xl" [routerLink]="'detalle/crear/'+selectedProject">
           <i class="fa fa-plus"></i>
-        </button>
+        </a>
       </div>
       <div class="row">
         <div class="col-md-12">
@@ -64,10 +64,10 @@
                     </td>
                     <td>{{ip.ubicacion}}</td>
                     <td class="text-center">
-                      <button class="btn btn-info" routerLink="detalle/1">DETALLE</button>
+                      <button class="btn btn-info" [routerLink]="'detalle/'+ip.id_ip">DETALLE</button>
                     </td>
                     <td class="text-center">
-                      <button class="btn btn-danger">ELIMINAR</button>
+                      <button class="btn btn-danger" (click)="eliminar(ip)">ELIMINAR</button>
                     </td>
                   </tr>
                 </tbody>

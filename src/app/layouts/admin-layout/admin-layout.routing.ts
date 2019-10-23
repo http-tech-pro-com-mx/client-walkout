@@ -11,5 +11,6 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user', component: UserComponent },
     { path: 'ip', component: IpComponent },
     { path: 'ip/detalle/:id', component: IpFormComponent },
+    { path: 'ip/detalle/:id/:id_proyecto', component: IpFormComponent },
     { path: 'configuracion', component: ConfReporteComponent }
 ];
