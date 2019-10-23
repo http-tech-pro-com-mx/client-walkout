@@ -63,8 +63,8 @@ export class NavbarComponent implements OnInit{
           }
       }
 
-      if(titlee.includes("ip/detalle")){
-          return "Detalle IP";
+      if(titlee.includes("ip/")){
+          return "IP";
       }
 
       return ' - ';

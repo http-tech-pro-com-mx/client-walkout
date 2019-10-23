@@ -1,17 +1,25 @@
 <div class="main-content">
-  <div class="container-fluid">
+  <app-loader *ngIf="loading"></app-loader>
+  <div class="container-fluid" *ngIf="!loading">
     <div class="row">
       <div class="col-md-12">
         <div class="card">
           <div class="header">
-            <h4 class="title">Agregar - Editar IP</h4>
+            <h4 class="title">{{ create ? 'Crear IP' : 'Actualizar IP' }}</h4>
           </div>
           <div class="content">
             <div class="row">
               <div class="col-md-12">
-                  <select class="proyectos" [(ngModel)]="selectedProject"  (change)="limpiarBusqueda()">
-                      <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
-                  </select>
+                <label for="">Proyecto</label>
+                <select class="proyectos" [(ngModel)]="selectedProject" (change)="limpiarBusqueda()">
+                  <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == selectedProject">{{ proyecto.nombre }}</option>
+                </select>
+                <br>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
               </div>
             </div>
             <div class="row">
@@ -43,7 +51,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-6">
                 <div class="checkbox">
                   <input id="checkbox2" type="checkbox" checked>
                   <label for="checkbox2">
@@ -51,63 +59,78 @@
                   </label>
                 </div>
               </div>
+              <div class="col-md-6">
+                <div class="pull-right">
+                  <button type="button" class="btn btn-info" (click)="actionFormIp()">{{ create ? 'CREAR' : 'ACTUALIZAR' }}</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="col-md-12 text-center">
-        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">AGREGAR GRID</button>
+        <a href="javascript:void(0);" (click)="consultaGrids()">VER GRIDS</a>
       </div>
     </div>
-    <!-- Listado de grids -->
-    <div class="row">
-      <br>
-      <div class="col-md-12">
-        <div class="card">
-          <div class="header">
-            <h4 class="title">GRID</h4>
-            <p class="category">LISTADO DE GRIDS PARA IP 0.0.0.0</p>
-          </div>
-          <div class="content table-responsive table-full-width">
-            <table class="table table-hover table-striped">
-              <thead>
-                <tr>
-                  <th>NO. PLANO</th>
-                  <th>PIES</th>
-                  <th>CASAS</th>
-                  <th>NEGOCIOS</th>
-                  <th>ESCUELAS</th>
-                  <th>IGLESIAS</th>
-                  <th>BALDIOS</th>
-                  <th class="text-center">DETALLE</th>
-                  <th class="text-center">ELIMINAR</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let grid of grids" class="tr-puntero-color">
-                  <td>{{grid[0]}}</td>
-                  <td>{{grid[1]}}</td>
-                  <td>{{grid[2]}}</td>
-                  <td>{{grid[3]}}</td>
-                  <td>{{grid[4]}}</td>
-                  <td>{{grid[5]}}</td>
-                  <td>{{grid[6]}}</td>
-                  <td class="text-center">
-                    <button class="btn btn-info">DETALLE</button>
-                  </td>
-                  <td class="text-center">
-                    <button class="btn btn-danger">ELIMINAR</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+
+    <div *ngIf="consultaGrid">
+
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">AGREGAR GRID</button>
+        </div>
+      </div>
+      <!-- Listado de grids -->
+      <div class="row">
+        <br>
+        <div class="col-md-12">
+          <div class="card">
+            <div class="header">
+              <h4 class="title">GRID</h4>
+              <p class="category">LISTADO DE GRIDS PARA IP 0.0.0.0</p>
+            </div>
+            <div class="content table-responsive table-full-width">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th>NO. PLANO</th>
+                    <th>PIES</th>
+                    <th>CASAS</th>
+                    <th>NEGOCIOS</th>
+                    <th>ESCUELAS</th>
+                    <th>IGLESIAS</th>
+                    <th>BALDIOS</th>
+                    <th class="text-center">DETALLE</th>
+                    <th class="text-center">ELIMINAR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let grid of grids" class="tr-puntero-color">
+                    <td>{{grid[0]}}</td>
+                    <td>{{grid[1]}}</td>
+                    <td>{{grid[2]}}</td>
+                    <td>{{grid[3]}}</td>
+                    <td>{{grid[4]}}</td>
+                    <td>{{grid[5]}}</td>
+                    <td>{{grid[6]}}</td>
+                    <td class="text-center">
+                      <button class="btn btn-info">DETALLE</button>
+                    </td>
+                    <td class="text-center">
+                      <button class="btn btn-danger">ELIMINAR</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
+      <!-- Fin listado de grids -->
     </div>
-    <!-- Fin listado de grids -->
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="false">
       <div class="modal-dialog modal-md">

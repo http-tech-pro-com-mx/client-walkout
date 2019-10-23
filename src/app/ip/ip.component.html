@@ -19,11 +19,10 @@
             <label for="buscar">FILTRAR:</label>
             <input type="text" class="form-control" id="buscar" placeholder="ESCRIBE AQUÍ PARA FILTRAR">
           </div>
-
         </div>
       </div>
       <div class="row">
-        <a type="button" class="btn btn-primary btn-circle btn-xl" [routerLink]="'detalle/crear/'+selectedProject">
+        <a type="button" class="btn btn-primary btn-circle btn-xl" [routerLink]="'crear/'+selectedProject">
           <i class="fa fa-plus"></i>
         </a>
       </div>
@@ -64,7 +63,7 @@
                     </td>
                     <td>{{ip.ubicacion}}</td>
                     <td class="text-center">
-                      <button class="btn btn-info" [routerLink]="'detalle/'+ip.id_ip">DETALLE</button>
+                      <button class="btn btn-info" [routerLink]="'editar/'+ip.id_ip+'/' + selectedProject">DETALLE</button>
                     </td>
                     <td class="text-center">
                       <button class="btn btn-danger" (click)="eliminar(ip)">ELIMINAR</button>
