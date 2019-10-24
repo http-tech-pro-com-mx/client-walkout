@@ -1,3 +1,5 @@
+import { Proyecto } from "./proyecto";
+
 export class Ip {
 
     constructor(
@@ -12,7 +14,9 @@ export class Ip {
         public qc: boolean,
         public estatus: boolean,
         public tipo: number,
+        public proyecto: Proyecto = new Proyecto(-1,'','',true),
         public fecha_update?: Date,
         public usuario_update?: number
-    ){}
+    ){
+    }
 }

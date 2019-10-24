@@ -6,6 +6,8 @@ import { Ip } from '../models/ip';
 import { Grid } from '../models/grid';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
+import { noWhitespaceValidator } from '../utils';
+import swal from 'sweetalert2';
 
 declare var $: any;
 @Component({
@@ -40,6 +42,7 @@ export class IpFormComponent implements OnInit {
     let usuario = this.auth.getUserid();
     this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1);
     this.selectedProject = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
+    this.ip.proyecto.id_proyecto = this.selectedProject;
     if (this.router.url.includes('crear')) {
       this.create = true;
     } else {
@@ -73,10 +76,10 @@ export class IpFormComponent implements OnInit {
 
     this.form = this.fb.group({
       id_proyecto: new FormControl(this.selectedProject, [Validators.required]),
-      ip: new FormControl('', [Validators.required]),
+      ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_levantamiento: new FormControl('', [Validators.required]),
       km: new FormControl('', [Validators.required]),
-      ubicacion: new FormControl('', [Validators.required]),
+      ubicacion: new FormControl('', [Validators.required, noWhitespaceValidator]),
       tipo: new FormControl('')
     });
 
@@ -107,11 +110,6 @@ export class IpFormComponent implements OnInit {
 
       $(".calendario").datepicker("setDate", this.ip.fecha_levantamiento);
 
-      
-      
-
-     
-
     }, 60);
 
 
@@ -128,23 +126,23 @@ export class IpFormComponent implements OnInit {
 
     this.submitted = true;
 
-    console.log(this.form)
+    console.log(this.ip)
 
     if (this.form.valid) {
 
       if (this.create) {
 
-        console.log(this.ip)
+        this.service.createIp(this.ip).subscribe(result => {
 
-        // this.service.createIp(this.ip).subscribe(result => {
+          console.log('crear ip', result);
+          this.create = false;
+          swal.fire('Exito !', 'Ip registrada' , 'success');
 
-        //   console.log('crear ip', result);
+        }, error => {
 
-        // }, error => {
+          console.log('error crear ip', error)
 
-        //   console.log('error crear ip', error)
-
-        // });
+        });
 
       } else {
         //SECCION PARA EDITAR

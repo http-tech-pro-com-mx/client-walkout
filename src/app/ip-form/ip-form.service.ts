@@ -23,7 +23,7 @@ export class IpFormService {
 
   createIp(ip: Ip):Observable<any>{
     let params = JSON.stringify(ip);
-    return this.http.post<any>(this.URL + 'crear-IP', params);
+    return this.http.post<any>(this.URL + '/crear-IP', params);
   }
 
 }

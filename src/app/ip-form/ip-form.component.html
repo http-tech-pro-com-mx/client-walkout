@@ -32,6 +32,9 @@
                     <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)" class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
+                    <small *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  " class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
@@ -39,6 +42,9 @@
                       <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion" formControlName='ubicacion'>
                     </div>
                     <small *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)" class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
+                    <small *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required" class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
                   </div>
