@@ -16,7 +16,8 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     HomeComponent,

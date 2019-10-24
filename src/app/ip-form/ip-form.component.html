@@ -3,74 +3,93 @@
   <div class="container-fluid" *ngIf="!loading">
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
+        <div id="contenido" class="card">
           <div class="header">
             <h4 class="title">{{ create ? 'Crear IP' : 'Actualizar IP' }}</h4>
           </div>
           <div class="content">
-            <div class="row">
-              <div class="col-md-12">
-                <label for="">Proyecto</label>
-                <select class="proyectos" [(ngModel)]="selectedProject" (change)="limpiarBusqueda()">
-                  <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == selectedProject">{{ proyecto.nombre }}</option>
-                </select>
-                <br>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <br>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>IP</label>
-                  <input type="text" class="form-control" placeholder="IP" value="">
+            <form [formGroup]="form" (ngSubmit)="actionFormIp()" autocomplete="off">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="">Proyecto</label>
+                  <select class="proyectos" [(ngModel)]="selectedProject" formControlName='id_proyecto' (change)="limpiarBusqueda()">
+                    <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == selectedProject">{{ proyecto.nombre }}</option>
+                  </select>
+                  <small *ngIf="form.controls.id_proyecto.errors?.required && (form.controls.id_proyecto?.touched || submitted)" class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
+                  <br>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>FECHA LEVANTAMIENTO</label>
-                  <input type="text" class="form-control" placeholder="FECHA LEVANTAMIENTO" value="">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="col-md-12"></div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>IP</label>
+                      <input type="text" class="form-control ip" placeholder="IP" [(ngModel)]="ip.ip" formControlName='ip'>
+                    </div>
+                    <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)" class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>UBICACIÓN</label>
+                      <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion" formControlName='ubicacion'>
+                    </div>
+                    <small *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)" class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>KM</label>
+                      <input type="text" class="form-control" placeholder="KM" [(ngModel)]="ip.km" formControlName='km' disabled>
+                    </div>
+                    <small *ngIf="form.controls.km.errors?.required && (form.controls.km?.touched || submitted)" class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-2 col-xs-offset-2">
+                        <label class="title-calendario"> FECHA LEVANTAMIENTO</label>
+                        <div class="calendario"></div>
+                        <input type="hidden" [(ngModel)]="ip.fecha_levantamiento" formControlName='fecha_levantamiento'>
+                        <small *ngIf="ip.fecha_levantamiento == ''" class="form-text text-muted text-validator-error">
+                          Requerido
+                        </small>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <label>KM</label>
-                  <input type="text" class="form-control" placeholder="KM" value="">
+
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="checkbox">
+                    <input id="checkbox2" type="checkbox" [(ngModel)]="ip.tipo" formControlName='tipo' [checked]="ip.tipo == 2">
+                    <label for="checkbox2">
+                      FEEDER
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="pull-right">
+                    <button type="submit" class="btn btn-info">{{ create ? 'CREAR' : 'ACTUALIZAR' }}</button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label>UBICACIÓN</label>
-                  <input type="text" class="form-control" placeholder="UBICACIÓN" value="">
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="checkbox">
-                  <input id="checkbox2" type="checkbox" checked>
-                  <label for="checkbox2">
-                    FEEDER
-                  </label>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="pull-right">
-                  <button type="button" class="btn btn-info" (click)="actionFormIp()">{{ create ? 'CREAR' : 'ACTUALIZAR' }}</button>
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!create">
       <div class="col-md-12 text-center">
         <a href="javascript:void(0);" (click)="consultaGrids()">VER GRIDS</a>
       </div>
