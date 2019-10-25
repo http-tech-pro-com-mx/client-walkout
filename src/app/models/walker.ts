@@ -1,3 +1,5 @@
+import { Rol } from "app/models/rol";
+
 export class Walker {
     
 
@@ -16,7 +18,8 @@ export class Walker {
         public pais: string,
         public ciudad: string, 
         public codigo_postal: number, 
-        public sobre_mi: string
+        public sobre_mi: string,
+        public roles?: Array<Rol>
     ){}
     
 

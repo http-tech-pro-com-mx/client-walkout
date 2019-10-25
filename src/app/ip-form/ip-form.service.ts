@@ -18,7 +18,7 @@ export class IpFormService {
   }
 
   getGridsByIp(id_ip: number): Observable<any>{
-    return this.http.get<any>(this.URL + '/get-Grids/'+id_ip);
+    return this.http.get<any>(this.URL + '/get-Grids/'+id_ip+'/All-walkers');
   }
 
   createIp(ip: Ip):Observable<any>{

@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth/auth.service';
 import { noWhitespaceValidator } from '../utils';
 import swal from 'sweetalert2';
+import { Walker } from '../models/walker';
 
 declare var $: any;
 @Component({
@@ -19,6 +20,7 @@ export class IpFormComponent implements OnInit {
 
   public proyectos: Array<Proyecto>;
   public grids: Array<Grid>;
+  public walkers: Array<Walker>;
   public loading: boolean;
   public selectedIp: string;
   public selectedProject: number;
@@ -58,6 +60,7 @@ export class IpFormComponent implements OnInit {
     this.btnConsultaGrids = false;
     this.proyectos = [];
     this.grids = [];
+    this.walkers = [];
 
 
 
@@ -90,14 +93,14 @@ export class IpFormComponent implements OnInit {
 
 
     this.formGrid = this.fb.group({
-      numero_plano: new FormControl({value:''}, [Validators.required]),
-      total_pies: new FormControl({value:'' }, [Validators.required]),
-      total_casas: new FormControl({value:''}, [Validators.required]),
-      total_negocios: new FormControl({value:''}, [Validators.required]),
-      total_escuelas: new FormControl({value:''}, [Validators.required]),
-      total_iglesias: new FormControl({value:''}, [Validators.required]),
-      total_baldios: new FormControl({value:''}, [Validators.required]),
-      comentarios: new FormControl({value:''})
+      numero_plano: new FormControl({ value: '' }, [Validators.required]),
+      total_pies: new FormControl({ value: '' }, [Validators.required]),
+      total_casas: new FormControl({ value: '' }, [Validators.required]),
+      total_negocios: new FormControl({ value: '' }, [Validators.required]),
+      total_escuelas: new FormControl({ value: '' }, [Validators.required]),
+      total_iglesias: new FormControl({ value: '' }, [Validators.required]),
+      total_baldios: new FormControl({ value: '' }, [Validators.required]),
+      comentarios: new FormControl({ value: '' })
     });
 
 
@@ -127,14 +130,6 @@ export class IpFormComponent implements OnInit {
       $(".calendario").datepicker("setDate", this.ip.fecha_levantamiento);
 
 
-      $('.caminador').selectpicker({
-        container: 'body',
-        liveSearch: true,
-        liveSearchPlaceholder: 'Buscar caminador',
-        title: 'Caminador',
-        width: 100 + '%',
-        noneResultsText: 'No hay resultados {0}'
-      });
 
     }, 60);
 
@@ -148,7 +143,7 @@ export class IpFormComponent implements OnInit {
       this.ip.tipo = 1;
     }
 
-    
+
 
   }
 
@@ -171,6 +166,7 @@ export class IpFormComponent implements OnInit {
 
           this.create = false;
           this.btnConsultaGrids = true;
+          this.ip.id_ip = result.id_ip;
           swal.fire('Exito !', 'Ip registrada', 'success');
 
         }, error => {
@@ -198,8 +194,20 @@ export class IpFormComponent implements OnInit {
 
       console.log(' grids', result)
 
-      this.ip.grids = result;
+      this.ip.grids = result.grids;
+      this.walkers = result.walkers;
       this.consultaGrid = true;
+
+      setTimeout(() => {
+        $('.caminador').selectpicker({
+          container: 'body',
+          liveSearch: true,
+          liveSearchPlaceholder: 'Buscar caminador',
+          title: 'Caminador',
+          width: 100 + '%',
+          noneResultsText: 'No hay resultados {0}'
+        });
+      }, 100);
 
     }, error => {
 
