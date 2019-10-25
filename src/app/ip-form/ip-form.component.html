@@ -95,7 +95,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="!create">
+    <div class="row" *ngIf="btnConsultaGrids">
       <div class="col-md-12 text-center">
         <a href="javascript:void(0);" (click)="consultaGrids()">VER GRIDS</a>
       </div>
@@ -134,18 +134,18 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let grid of grids" class="tr-puntero-color">
-                    <td>{{grid[0]}}</td>
-                    <td>{{grid[1]}}</td>
-                    <td>{{grid[2]}}</td>
-                    <td>{{grid[3]}}</td>
-                    <td>{{grid[4]}}</td>
-                    <td>{{grid[5]}}</td>
-                    <td>{{grid[6]}}</td>
+                    <td>{{grid.numero_plano}}</td>
+                    <td>{{grid.total_pies}}</td>
+                    <td>{{grid.total_casas}}</td>
+                    <td>{{grid.total_negocios}}</td>
+                    <td>{{grid.total_escuelas}}</td>
+                    <td>{{grid.total_iglesias}}</td>
+                    <td>{{grid.total_baldios}}</td>
                     <td class="text-center">
-                      <button class="btn btn-info">DETALLE</button>
+                      <button class="btn btn-info" (click)="detalleGrid(grid)">DETALLE</button>
                     </td>
                     <td class="text-center">
-                      <button class="btn btn-danger">ELIMINAR</button>
+                      <button class="btn btn-danger" (click)="eliminar(grid)">ELIMINAR</button>
                     </td>
                   </tr>
                 </tbody>

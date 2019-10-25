@@ -23,6 +23,7 @@ export class IpFormComponent implements OnInit {
   public selectedIp: string;
   public selectedProject: number;
   public consultaGrid: boolean;
+  public btnConsultaGrids: boolean;
   public create: boolean;
   public ip: Ip;
   public form: FormGroup;
@@ -51,6 +52,7 @@ export class IpFormComponent implements OnInit {
 
 
     this.consultaGrid = false;
+    this.btnConsultaGrids = false;
     this.proyectos = [];
     this.grids = [];
 
@@ -126,7 +128,6 @@ export class IpFormComponent implements OnInit {
 
     this.submitted = true;
 
-    console.log(this.ip)
 
     if (this.form.valid) {
 
@@ -134,8 +135,8 @@ export class IpFormComponent implements OnInit {
 
         this.service.createIp(this.ip).subscribe(result => {
 
-          console.log('crear ip', result);
           this.create = false;
+          this.btnConsultaGrids = true;
           swal.fire('Exito !', 'Ip registrada' , 'success');
 
         }, error => {
@@ -157,6 +158,24 @@ export class IpFormComponent implements OnInit {
 
   consultaGrids() {
 
+    this.btnConsultaGrids = false;
+
+    this.service.getGridsByIp(this.ip.id_ip).subscribe(result =>{
+
+      console.log( ' grids', result )
+      
+      this.ip.grids = result;
+      this.consultaGrid = true;
+      
+    }, error =>{
+
+      this.btnConsultaGrids = true;
+      this.consultaGrid = false;
+      
+
+    });
+
+  
   }
 
 }

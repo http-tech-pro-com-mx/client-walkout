@@ -1,4 +1,5 @@
 import { Proyecto } from "./proyecto";
+import { Grid } from "./grid";
 
 export class Ip {
 
@@ -15,6 +16,7 @@ export class Ip {
         public estatus: boolean,
         public tipo: number,
         public proyecto: Proyecto = new Proyecto(-1,'','',true),
+        public grids: Array<Grid> = [] ,
         public fecha_update?: Date,
         public usuario_update?: number
     ){
