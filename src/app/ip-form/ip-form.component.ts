@@ -26,8 +26,10 @@ export class IpFormComponent implements OnInit {
   public btnConsultaGrids: boolean;
   public create: boolean;
   public ip: Ip;
+  public grid: Grid;
   public form: FormGroup;
-  public submitted:boolean;
+  public formGrid: FormGroup;
+  public submitted: boolean;
 
   constructor(
     private service: IpFormService,
@@ -42,6 +44,7 @@ export class IpFormComponent implements OnInit {
     this.submitted = false;
     let usuario = this.auth.getUserid();
     this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1);
+    this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true);
     this.selectedProject = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
     this.ip.proyecto.id_proyecto = this.selectedProject;
     if (this.router.url.includes('crear')) {
@@ -80,17 +83,29 @@ export class IpFormComponent implements OnInit {
       id_proyecto: new FormControl(this.selectedProject, [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_levantamiento: new FormControl('', [Validators.required]),
-      km: new FormControl('', [Validators.required]),
+      km: new FormControl({ value: '', disabled: true }, [Validators.required]),
       ubicacion: new FormControl('', [Validators.required, noWhitespaceValidator]),
       tipo: new FormControl('')
     });
 
- 
-    
+
+    this.formGrid = this.fb.group({
+      numero_plano: new FormControl({value:''}, [Validators.required]),
+      total_pies: new FormControl({value:'' }, [Validators.required]),
+      total_casas: new FormControl({value:''}, [Validators.required]),
+      total_negocios: new FormControl({value:''}, [Validators.required]),
+      total_escuelas: new FormControl({value:''}, [Validators.required]),
+      total_iglesias: new FormControl({value:''}, [Validators.required]),
+      total_baldios: new FormControl({value:''}, [Validators.required]),
+      comentarios: new FormControl({value:''})
+    });
+
+
+
 
     setTimeout(() => {
 
-      
+
       $('.proyectos').selectpicker({
         container: 'body',
         liveSearch: true,
@@ -107,14 +122,33 @@ export class IpFormComponent implements OnInit {
         defaultDate: this.ip.fecha_levantamiento
       }).on('changeDate', (ev) => {
         this.ip.fecha_levantamiento = ev.date;
-        
       });
 
       $(".calendario").datepicker("setDate", this.ip.fecha_levantamiento);
 
+
+      $('.caminador').selectpicker({
+        container: 'body',
+        liveSearch: true,
+        liveSearchPlaceholder: 'Buscar caminador',
+        title: 'Caminador',
+        width: 100 + '%',
+        noneResultsText: 'No hay resultados {0}'
+      });
+
     }, 60);
 
+  }
 
+  changeStatus(event: any) {
+
+    if (event.target.checked) {
+      this.ip.tipo = 2;
+    } else {
+      this.ip.tipo = 1;
+    }
+
+    
 
   }
 
@@ -137,7 +171,7 @@ export class IpFormComponent implements OnInit {
 
           this.create = false;
           this.btnConsultaGrids = true;
-          swal.fire('Exito !', 'Ip registrada' , 'success');
+          swal.fire('Exito !', 'Ip registrada', 'success');
 
         }, error => {
 
@@ -160,22 +194,26 @@ export class IpFormComponent implements OnInit {
 
     this.btnConsultaGrids = false;
 
-    this.service.getGridsByIp(this.ip.id_ip).subscribe(result =>{
+    this.service.getGridsByIp(this.ip.id_ip).subscribe(result => {
 
-      console.log( ' grids', result )
-      
+      console.log(' grids', result)
+
       this.ip.grids = result;
       this.consultaGrid = true;
-      
-    }, error =>{
+
+    }, error => {
 
       this.btnConsultaGrids = true;
       this.consultaGrid = false;
-      
+
 
     });
 
-  
+
+  }
+
+  actionFormGrid() {
+
   }
 
 }

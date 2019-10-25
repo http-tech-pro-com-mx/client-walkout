@@ -32,7 +32,8 @@
                     <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)" class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
-                    <small *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  " class="form-text text-muted text-validator-error">
+                    <small *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
+                      class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
                   </div>
@@ -44,14 +45,15 @@
                     <small *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)" class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
-                    <small *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required" class="form-text text-muted text-validator-error">
+                    <small *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
+                      class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
                   </div>
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>KM</label>
-                      <input type="text" class="form-control" placeholder="KM" [(ngModel)]="ip.km" formControlName='km' disabled>
+                      <input type="text" class="form-control" placeholder="KM" [(ngModel)]="ip.km" formControlName='km'>
                     </div>
                     <small *ngIf="form.controls.km.errors?.required && (form.controls.km?.touched || submitted)" class="form-text text-muted text-validator-error">
                       Requerido
@@ -77,7 +79,7 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="checkbox">
-                    <input id="checkbox2" type="checkbox" [(ngModel)]="ip.tipo" formControlName='tipo' [checked]="ip.tipo == 2">
+                    <input id="checkbox2" type="checkbox" [(ngModel)]="ip.tipo" formControlName='tipo' [checked]="ip.tipo == 2" (change)="changeStatus($event)">
                     <label for="checkbox2">
                       FEEDER
                     </label>
@@ -115,7 +117,7 @@
           <div class="card">
             <div class="header">
               <h4 class="title">GRID</h4>
-              <p class="category">LISTADO DE GRIDS PARA IP 0.0.0.0</p>
+              <p class="category">LISTADO DE GRIDS PARA {{ ((ip.tipo == 2)? " FEEDER " : " IP ") + ip.ip }}</p>
             </div>
             <div class="content table-responsive table-full-width">
               <table class="table table-hover table-striped">
@@ -123,11 +125,11 @@
                   <tr>
                     <th>NO. PLANO</th>
                     <th>PIES</th>
-                    <th>CASAS</th>
-                    <th>NEGOCIOS</th>
-                    <th>ESCUELAS</th>
-                    <th>IGLESIAS</th>
-                    <th>BALDIOS</th>
+                    <th *ngIf="ip.tipo == 1">CASAS</th>
+                    <th *ngIf="ip.tipo == 1">NEGOCIOS</th>
+                    <th *ngIf="ip.tipo == 1">ESCUELAS</th>
+                    <th *ngIf="ip.tipo == 1">IGLESIAS</th>
+                    <th *ngIf="ip.tipo == 1">BALDIOS</th>
                     <th class="text-center">DETALLE</th>
                     <th class="text-center">ELIMINAR</th>
                   </tr>
@@ -136,11 +138,11 @@
                   <tr *ngFor="let grid of grids" class="tr-puntero-color">
                     <td>{{grid.numero_plano}}</td>
                     <td>{{grid.total_pies}}</td>
-                    <td>{{grid.total_casas}}</td>
-                    <td>{{grid.total_negocios}}</td>
-                    <td>{{grid.total_escuelas}}</td>
-                    <td>{{grid.total_iglesias}}</td>
-                    <td>{{grid.total_baldios}}</td>
+                    <td *ngIf="ip.tipo == 1">{{grid.total_casas}}</td>
+                    <td *ngIf="ip.tipo == 1">{{grid.total_negocios}}</td>
+                    <td *ngIf="ip.tipo == 1">{{grid.total_escuelas}}</td>
+                    <td *ngIf="ip.tipo == 1">{{grid.total_iglesias}}</td>
+                    <td *ngIf="ip.tipo == 1">{{grid.total_baldios}}</td>
                     <td class="text-center">
                       <button class="btn btn-info" (click)="detalleGrid(grid)">DETALLE</button>
                     </td>
@@ -170,58 +172,66 @@
                     <hr>
                   </div>
                   <div class="content">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>NUMERO DE PLANO</label>
-                          <input type="text" class="form-control" placeholder="NO PLANO" value="">
+                    <form [formGroup]="formGrid" (ngSubmit)="actionFormGrid()" autocomplete="off">
+                      <div class="row">
+                        <div class="col-md-12"></div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label>NUMERO DE PLANO</label>
+                            <input type="text" class="form-control" placeholder="NO PLANO" [(ngModel)]="grid.numero_plano" formControlName='numero_plano'>
+                          </div>
+                        </div>
+                        <div [ngClass]="{'col-md-4': ip.tipo == 1 , 'col-md-8' : ip.tipo == 2 }">
+                          <div class="form-group">
+                            <label>PIES</label>
+                            <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="grid.total_pies" formControlName='total_pies'>
+                          </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="ip.tipo == 1">
+                          <div class="form-group">
+                            <label>CASAS</label>
+                            <input type="number" class="form-control" placeholder="CASAS" [(ngModel)]="grid.total_casas" formControlName='total_casas'>
+                          </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="ip.tipo == 1">
+                          <div class="form-group">
+                            <label>NEGOCIOS</label>
+                            <input type="number" class="form-control" placeholder="NEGOCIOS" [(ngModel)]="grid.total_negocios" formControlName='total_negocios'>
+                          </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="ip.tipo == 1">
+                          <div class="form-group">
+                            <label>ESCUELAS</label>
+                            <input type="number" class="form-control" placeholder="ESCUELAS" [(ngModel)]="grid.total_escuelas" formControlName='total_escuelas'>
+                          </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="ip.tipo == 1">
+                          <div class="form-group">
+                            <label>IGLESIAS</label>
+                            <input type="number" class="form-control" placeholder="IGLESIAS" [(ngModel)]="grid.total_iglesias" formControlName='total_iglesias'>
+                          </div>
+                        </div>
+                        <div class="col-md-4" *ngIf="ip.tipo == 1">
+                          <div class="form-group">
+                            <label>BALDIOS</label>
+                            <input type="number" class="form-control" placeholder="BALDIOS" [(ngModel)]="grid.total_baldios" formControlName='total_baldios'>
+                          </div>
+                        </div>
+                        <div class="col-md-8" *ngIf="ip.tipo == 1">
+                          <label>COMENTARIOS</label>
+                          <input type="text" class="form-control" placeholder="COMENTARIOS" [(ngModel)]="grid.comentarios" formControlName='comentarios'>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>PIES</label>
-                          <input type="text" class="form-control" placeholder="PIES" value="">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <select class="caminador" multiple>
+                            <option data-tokens="Caminador 1">Caminador 1</option>
+                            <option data-tokens="Caminador 2">Caminador 2</option>
+                            <option data-tokens="Caminador 3">Caminador 3</option>
+                          </select>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>CASAS</label>
-                          <input type="number" class="form-control" placeholder="CASAS" value="">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>NEGOCIOS</label>
-                          <input type="number" class="form-control" placeholder="NEGOCIOS" value="">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>ESCUELAS</label>
-                          <input type="number" class="form-control" placeholder="ESCUELAS" value="">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label>BALDIOS</label>
-                          <input type="number" class="form-control" placeholder="BALDIOS" value="">
-                        </div>
-                      </div>
-                      <div class="col-md-12">
-                        <input type="text" class="form-control" placeholder="COMENTARIOS" value="">
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <br>
-                        <select class="selectpicker" data-container="body" data-live-search="true" data-live-search-placeholder="Caminador" data-title="Caminador"
-                          data-width="100%" multiple>
-                          <option data-tokens="Caminador 1">Caminador 1</option>
-                          <option data-tokens="Caminador 2">Caminador 2</option>
-                          <option data-tokens="Caminador 3">Caminador 3</option>
-                        </select>
-                      </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
