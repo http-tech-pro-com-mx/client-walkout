@@ -1,4 +1,5 @@
 import { Walker } from "./walker";
+import { Ip } from "./ip";
 
 export class Grid {
 
@@ -15,7 +16,8 @@ export class Grid {
         public comentarios: string,
         public archivo: string,
         public estatus: boolean,
-        public walkers?: Array<Walker>
+        public ip?: Ip,
+        public walkers?: Array<Walker>,
         
     ){}
 

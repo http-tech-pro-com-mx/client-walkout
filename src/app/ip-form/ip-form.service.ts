@@ -3,6 +3,7 @@ import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { Ip } from '../models/ip';
+import { Grid } from '../models/grid';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,11 @@ export class IpFormService {
   createIp(ip: Ip):Observable<any>{
     let params = JSON.stringify(ip);
     return this.http.post<any>(this.URL + '/crear-IP', params);
+  }
+
+  createGrid(grid: Grid): Observable<any>{
+    let params = JSON.stringify(grid);
+    return this.http.post<any>(this.URL + '/crear-Grid', params);
   }
 
 }

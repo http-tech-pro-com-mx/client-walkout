@@ -33,6 +33,7 @@ export class IpFormComponent implements OnInit {
   public formGrid: FormGroup;
   public submitted: boolean;
   public submittedGrid: boolean;
+  public walkerSelected: any;
 
   constructor(
     private service: IpFormService,
@@ -48,7 +49,7 @@ export class IpFormComponent implements OnInit {
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
     this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1);
-    this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true);
+    this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     this.selectedProject = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
     this.ip.proyecto.id_proyecto = this.selectedProject;
     if (this.router.url.includes('crear')) {
@@ -204,7 +205,8 @@ export class IpFormComponent implements OnInit {
       this.consultaGrid = true;
 
       setTimeout(() => {
-        $('.caminador').selectpicker({
+
+        this.walkerSelected = $('.caminador').selectpicker({
           container: 'body',
           liveSearch: true,
           liveSearchPlaceholder: 'Buscar caminador',
@@ -212,6 +214,26 @@ export class IpFormComponent implements OnInit {
           width: 100 + '%',
           noneResultsText: 'No hay resultados {0}'
         });
+
+        $('.caminador').on('changed.bs.select', (e, clickedIndex, isSelected, newValue , previousValue) => {
+          
+          let wSelect = this.walkerSelected.val();
+         
+          let walkers:Array<Walker> = [];
+
+          wSelect.forEach(element => {
+            let id_walker = parseInt(element);
+             
+            walkers.push(new Walker(id_walker,'','','','','','',true,'','','','','',0,''));
+
+          });
+          
+          this.grid.walkers =  walkers;
+          
+
+        });
+        
+
       }, 100);
 
     }, error => {
@@ -227,23 +249,44 @@ export class IpFormComponent implements OnInit {
 
   agregarGrid(): void {
 
+    this.walkerSelected.selectpicker('deselectAll');
     this.formGrid.controls.numero_plano.reset();
     this.submittedGrid = false;
-    this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true);
+    this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     $('#modalGrid').modal('show');
 
-    console.log('valores grids', this.grid)
-
+  
   }
 
   actionFormGrid(){
 
     this.submittedGrid = true;
-   
+  
+    if (this.formGrid.valid && this.grid.walkers.length > 0) {
 
-    if (this.formGrid.valid) {
+       this.service.createGrid( this.grid ).subscribe( result =>{
+
+
+        if( result.successful ){
+          this.grids.push( result.grid );
+          $('#modalGrid').modal('hide');
+          swal.fire('Exito !', result.message, 'success');
+
+        }else{
+
+          swal.fire('Exito !', result.message, 'error');
+
+        }
+
+       }, error =>{
+
+          alert('Error registro de grid')
+
+       });
 
     } else { 
+
+      alert('INGRESE TODOS LOS DATOS');
 
     }
 

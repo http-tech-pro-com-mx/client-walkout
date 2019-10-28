@@ -272,6 +272,10 @@
                           <select class="caminador" multiple>
                             <option data-tokens="walker.nombre +' '+ walker.apellido_paterno" *ngFor="let walker of walkers" [value]="walker.id_walker">{{ walker.nombre +' '+ walker.apellido_paterno }}</option>
                           </select>
+                          <small *ngIf="submittedGrid && (grid.walkers.length == 0)"
+                            class="form-text text-muted text-validator-error">
+                            Requerido
+                          </small>
                         </div>
                       </div>
 
