@@ -5,6 +5,8 @@ import { Proyecto } from '../models/proyecto';
 import swal from 'sweetalert2';
 
 declare const $: any;
+declare const toastr: any;
+
 @Component({
   selector: 'app-ip',
   templateUrl: './ip.component.html',
@@ -69,16 +71,19 @@ export class IpComponent implements OnInit {
       this.busqueda = true;
 
       this.service.getInfoIPSForProject(this.selectedProject).subscribe(result => {
-        console.log(result)
+     
         this.ips = result;
+
       }, error => {
-        console.log(error)
+
+        toastr.error(error.error, 'Error!');
+
       });
 
 
     } else {
 
-      alert('Seleccione proyecto')
+      toastr.error('Seleccione un proyecto', 'Error!',  {timeOut: 2000});
 
     }
 
