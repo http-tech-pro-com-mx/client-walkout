@@ -10,7 +10,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'user', component: UserComponent },
     { path: 'ip', component: IpComponent },
-    { path: 'ip/editar/:id_ip/:id_proyecto', component: IpFormComponent },
+    { path: 'ip/editar/:id_ip', component: IpFormComponent },
     { path: 'ip/crear/:id_proyecto', component: IpFormComponent },
     { path: 'configuracion', component: ConfReporteComponent }
 ];

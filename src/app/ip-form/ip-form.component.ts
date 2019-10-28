@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 import { Walker } from '../models/walker';
 
 declare var $: any;
+declare var toastr: any;
 @Component({
   selector: 'app-ip-form',
   templateUrl: './ip-form.component.html',
@@ -55,7 +56,10 @@ export class IpFormComponent implements OnInit {
     if (this.router.url.includes('crear')) {
       this.create = true;
     } else {
-      // this.selectedIp = this._route.snapshot.paramMap.get('id_ip');
+
+      this.create = false;
+      this.selectedIp = this._route.snapshot.paramMap.get('id_ip');
+
     }
 
 
@@ -71,15 +75,46 @@ export class IpFormComponent implements OnInit {
     this.service.getInfoProyectos().subscribe(result => {
 
       this.proyectos = result;
-      this.loading = false;
-      this.plugins();
+
+      if (this.create) {
+        //Carga los plugins
+        this.loading = false;
+        this.plugins();
+
+      } else {
+
+        //Consulta la ip para despues cargar los plugin
+        let id = parseInt(this.selectedIp);
+        this.getIP(id);
+
+      }
+
 
     }, error => {
 
       this.loading = false;
+      toastr.error(error.error, 'Error!');
 
     });
 
+  }
+
+  getIP(id_ip: number) {
+
+    this.service.getInfoByIp(id_ip).subscribe(result => {
+
+      console.log( result );
+      this.ip = result;
+      this.loading = false;
+      this.plugins();
+      
+   
+    }, error => {
+
+      this.loading = false;
+      toastr.error(error.error, 'Error!');
+
+    });
   }
 
   plugins() {
@@ -127,10 +162,14 @@ export class IpFormComponent implements OnInit {
         language: 'es',
         defaultDate: this.ip.fecha_levantamiento
       }).on('changeDate', (ev) => {
-        this.ip.fecha_levantamiento = ev.date;
+
+        if( this.create ){
+          this.ip.fecha_levantamiento = ev.date;
+        }
+
       });
 
-      $(".calendario").datepicker("setDate", this.ip.fecha_levantamiento);
+      $(".calendario").datepicker("setDate", new Date(this.ip.fecha_levantamiento));
 
 
 
@@ -215,24 +254,24 @@ export class IpFormComponent implements OnInit {
           noneResultsText: 'No hay resultados {0}'
         });
 
-        $('.caminador').on('changed.bs.select', (e, clickedIndex, isSelected, newValue , previousValue) => {
-          
+        $('.caminador').on('changed.bs.select', (e, clickedIndex, isSelected, newValue, previousValue) => {
+
           let wSelect = this.walkerSelected.val();
-         
-          let walkers:Array<Walker> = [];
+
+          let walkers: Array<Walker> = [];
 
           wSelect.forEach(element => {
             let id_walker = parseInt(element);
-             
-            walkers.push(new Walker(id_walker,'','','','','','',true,'','','','','',0,''));
+
+            walkers.push(new Walker(id_walker, '', '', '', '', '', '', true, '', '', '', '', '', 0, ''));
 
           });
-          
-          this.grid.walkers =  walkers;
-          
+
+          this.grid.walkers = walkers;
+
 
         });
-        
+
 
       }, 100);
 
@@ -255,36 +294,36 @@ export class IpFormComponent implements OnInit {
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     $('#modalGrid').modal('show');
 
-  
+
   }
 
-  actionFormGrid(){
+  actionFormGrid() {
 
     this.submittedGrid = true;
-  
+
     if (this.formGrid.valid && this.grid.walkers.length > 0) {
 
-       this.service.createGrid( this.grid ).subscribe( result =>{
+      this.service.createGrid(this.grid).subscribe(result => {
 
 
-        if( result.successful ){
-          this.grids.push( result.grid );
+        if (result.successful) {
+          this.grids.push(result.grid);
           $('#modalGrid').modal('hide');
           swal.fire('Exito !', result.message, 'success');
 
-        }else{
+        } else {
 
           swal.fire('Exito !', result.message, 'error');
 
         }
 
-       }, error =>{
+      }, error => {
 
-          alert('Error registro de grid')
+        alert('Error registro de grid')
 
-       });
+      });
 
-    } else { 
+    } else {
 
       alert('INGRESE TODOS LOS DATOS');
 

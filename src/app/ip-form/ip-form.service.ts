@@ -22,6 +22,10 @@ export class IpFormService {
     return this.http.get<any>(this.URL + '/get-Grids/'+id_ip+'/All-walkers');
   }
 
+  getInfoByIp(id_ip): Observable<any>{
+    return this.http.get<any>(this.URL + '/get-IP/'+id_ip);
+  }
+
   createIp(ip: Ip):Observable<any>{
     let params = JSON.stringify(ip);
     return this.http.post<any>(this.URL + '/crear-IP', params);
