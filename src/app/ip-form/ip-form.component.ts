@@ -32,6 +32,7 @@ export class IpFormComponent implements OnInit {
   public form: FormGroup;
   public formGrid: FormGroup;
   public submitted: boolean;
+  public submittedGrid: boolean;
 
   constructor(
     private service: IpFormService,
@@ -44,6 +45,7 @@ export class IpFormComponent implements OnInit {
   ngOnInit() {
     this.loading = true;
     this.submitted = false;
+    this.submittedGrid = false;
     let usuario = this.auth.getUserid();
     this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1);
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true);
@@ -94,7 +96,7 @@ export class IpFormComponent implements OnInit {
 
     this.formGrid = this.fb.group({
       numero_plano: new FormControl({ value: '' }, [Validators.required]),
-      total_pies: new FormControl({ value: '' }, [Validators.required]),
+      total_pies: new FormControl({ value: 0 }, [Validators.required]),
       total_casas: new FormControl({ value: '' }, [Validators.required]),
       total_negocios: new FormControl({ value: '' }, [Validators.required]),
       total_escuelas: new FormControl({ value: '' }, [Validators.required]),
@@ -196,6 +198,9 @@ export class IpFormComponent implements OnInit {
 
       this.ip.grids = result.grids;
       this.walkers = result.walkers;
+
+
+
       this.consultaGrid = true;
 
       setTimeout(() => {
@@ -220,7 +225,27 @@ export class IpFormComponent implements OnInit {
 
   }
 
-  actionFormGrid() {
+  agregarGrid(): void {
+
+    this.formGrid.controls.numero_plano.reset();
+    this.submittedGrid = false;
+    this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true);
+    $('#modalGrid').modal('show');
+
+    console.log('valores grids', this.grid)
+
+  }
+
+  actionFormGrid(){
+
+    this.submittedGrid = true;
+   
+
+    if (this.formGrid.valid) {
+
+    } else { 
+
+    }
 
   }
 
