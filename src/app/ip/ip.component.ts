@@ -17,6 +17,7 @@ export class IpComponent implements OnInit {
   public loading: boolean;
   public busqueda: boolean;
   public selectedProject: number;
+  public filtrar: string;
 
   constructor(private service: IpService) { }
 
@@ -27,6 +28,7 @@ export class IpComponent implements OnInit {
     this.ips = [];
     this.proyectos = [];
     this.selectedProject = -1;
+    this.filtrar = "";
 
 
     this.service.getInfoProyectos().subscribe(result => {
@@ -120,6 +122,7 @@ export class IpComponent implements OnInit {
   limpiarBusqueda() {
     this.ips = [];
     this.busqueda = false;
+    this.filtrar = "";
   }
 
 

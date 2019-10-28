@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PipeModule } from '../../pipe/pipe.module';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -17,6 +18,7 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
+    PipeModule,
     ReactiveFormsModule
   ],
   declarations: [

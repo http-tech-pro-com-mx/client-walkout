@@ -17,7 +17,7 @@
           <br>
           <div class="form-group">
             <label for="buscar">FILTRAR:</label>
-            <input type="text" class="form-control" id="buscar" placeholder="ESCRIBE AQUÍ PARA FILTRAR">
+            <input type="text" class="form-control" id="buscar" placeholder="ESCRIBE AQUÍ PARA FILTRAR" [(ngModel)]="filtrar" [ngModelOptions]="{standalone: true}">
           </div>
         </div>
       </div>
@@ -38,6 +38,7 @@
                 <thead>
                   <tr>
                     <th>IP</th>
+                    <th>FECHA LEVANTAMIENTO</th>
                     <th>KM</th>
                     <th>QC</th>
                     <th>SP</th>
@@ -48,10 +49,11 @@
                 </thead>
                 <tbody>
                   <tr *ngIf="ips.length == 0">
-                    <td class="text-center" colspan="7" >SIN REGISTROS</td>
+                    <td class="text-center" colspan="8" >SIN REGISTROS</td>
                   </tr>
-                  <tr *ngFor="let ip of ips" class="tr-puntero-color">
+                  <tr *ngFor="let ip of ips | searchIP: filtrar" class="tr-puntero-color">
                     <td>{{ ip.ip }}</td>
+                    <td>{{ ip.fecha_levantamiento | date: 'yyyy-MM-dd' }}</td>
                     <td>{{ ip.km }}</td>
                     <td>
                       <i class="pe-7s-check" *ngIf="ip.qc"></i>
