@@ -12,8 +12,8 @@
               <div class="row">
                 <div class="col-md-12">
                   <label for="">Proyecto</label>
-                  <select class="proyectos" [(ngModel)]="selectedProject" formControlName='id_proyecto' (change)="limpiarBusqueda()">
-                    <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == selectedProject">{{ proyecto.nombre }}</option>
+                  <select class="proyectos" [(ngModel)]="ip.proyecto.id_proyecto" formControlName='id_proyecto'>
+                    <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == ip.proyecto.id_proyecto">{{ proyecto.nombre }}</option>
                   </select>
                   <small *ngIf="form.controls.id_proyecto.errors?.required && (form.controls.id_proyecto?.touched || submitted)" class="form-text text-muted text-validator-error">
                     Requerido
@@ -135,7 +135,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let grid of grids" class="tr-puntero-color">
+                  <tr *ngFor="let grid of ip.grids" class="tr-puntero-color">
                     <td>{{grid.numero_plano}}</td>
                     <td>{{grid.total_pies}}</td>
                     <td *ngIf="ip.tipo == 1">{{grid.total_casas}}</td>

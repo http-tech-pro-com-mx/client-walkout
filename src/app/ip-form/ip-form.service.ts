@@ -26,9 +26,19 @@ export class IpFormService {
     return this.http.get<any>(this.URL + '/get-IP/'+id_ip);
   }
 
+
+  getDetalleByGrid(id_ip): Observable<any>{
+    return this.http.get<any>(this.URL + '/get-Grid/'+id_ip);
+  }
+
   createIp(ip: Ip):Observable<any>{
     let params = JSON.stringify(ip);
     return this.http.post<any>(this.URL + '/crear-IP', params);
+  }
+
+  updateIP(ip: Ip):Observable<any>{
+    let params = JSON.stringify(ip);
+    return this.http.post<any>(this.URL + '/update-IP', params);
   }
 
   createGrid(grid: Grid): Observable<any>{

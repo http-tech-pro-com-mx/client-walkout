@@ -20,11 +20,9 @@ declare var toastr: any;
 export class IpFormComponent implements OnInit {
 
   public proyectos: Array<Proyecto>;
-  public grids: Array<Grid>;
   public walkers: Array<Walker>;
   public loading: boolean;
   public selectedIp: string;
-  public selectedProject: number;
   public consultaGrid: boolean;
   public btnConsultaGrids: boolean;
   public create: boolean;
@@ -49,10 +47,9 @@ export class IpFormComponent implements OnInit {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1);
+    this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1, new Proyecto(-1,'','',true));
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
-    this.selectedProject = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
-    this.ip.proyecto.id_proyecto = this.selectedProject;
+    this.ip.proyecto.id_proyecto =  parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
     if (this.router.url.includes('crear')) {
       this.create = true;
     } else {
@@ -66,7 +63,7 @@ export class IpFormComponent implements OnInit {
     this.consultaGrid = false;
     this.btnConsultaGrids = false;
     this.proyectos = [];
-    this.grids = [];
+    // this.grids = [];
     this.walkers = [];
 
 
@@ -103,12 +100,16 @@ export class IpFormComponent implements OnInit {
 
     this.service.getInfoByIp(id_ip).subscribe(result => {
 
-      console.log( result );
-      this.ip = result;
+      this.ip = result.ip;
+      this.ip.proyecto = new Proyecto(result.id_proyecto,'','',true);
+
+
+      this.ip.fecha_levantamiento = new Date(this.ip.fecha_levantamiento);
       this.loading = false;
+      this.btnConsultaGrids = true;
       this.plugins();
-      
-   
+
+
     }, error => {
 
       this.loading = false;
@@ -121,7 +122,7 @@ export class IpFormComponent implements OnInit {
 
 
     this.form = this.fb.group({
-      id_proyecto: new FormControl(this.selectedProject, [Validators.required]),
+      id_proyecto: new FormControl( this.ip.proyecto.id_proyecto , [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_levantamiento: new FormControl('', [Validators.required]),
       km: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -162,11 +163,7 @@ export class IpFormComponent implements OnInit {
         language: 'es',
         defaultDate: this.ip.fecha_levantamiento
       }).on('changeDate', (ev) => {
-
-        if( this.create ){
           this.ip.fecha_levantamiento = ev.date;
-        }
-
       });
 
       $(".calendario").datepicker("setDate", new Date(this.ip.fecha_levantamiento));
@@ -190,11 +187,6 @@ export class IpFormComponent implements OnInit {
   }
 
 
-
-  limpiarBusqueda() {
-
-  }
-
   actionFormIp() {
 
     this.submitted = true;
@@ -206,23 +198,66 @@ export class IpFormComponent implements OnInit {
 
         this.service.createIp(this.ip).subscribe(result => {
 
-          this.create = false;
-          this.btnConsultaGrids = true;
-          this.ip.id_ip = result.id_ip;
-          swal.fire('Exito !', 'Ip registrada', 'success');
+          if(result.successful){
+
+            this.create = false;
+            this.btnConsultaGrids = true;
+            this.ip.id_ip = result.ip.id_ip;
+            swal.fire('Exito !', 'Ip registrada', 'success');
+
+          }else{
+
+            swal.fire('Error !', result.message , 'error');
+
+          }
+
+        
 
         }, error => {
 
-          console.log('error crear ip', error)
+          toastr.error(error.error, 'Error!');
 
         });
 
       } else {
-        //SECCION PARA EDITAR
-      }
 
-    } else {
-      alert('SE REQUIEREN TODOS LOS DATOS')
+        swal.fire({
+          title: '<span style="color: #2196f3">¿Esta seguro de actualizar?</span>',
+          type: 'question',
+          showCancelButton: true,
+          confirmButtonColor: '#0075D3',
+          cancelButtonColor: '#2196f3 ',
+          cancelButtonText: 'Cancelar',
+          confirmButtonText: 'Si!',
+          allowOutsideClick: false,
+          allowEnterKey: false
+        }).then((result) => {
+          /*
+           * Si acepta
+           */
+          if (result.value) {
+
+          
+            this.service.updateIP(this.ip).subscribe(response => {
+
+              if (response.successful) {
+
+                swal.fire('Exito !', response.message, 'success');
+
+
+              } else {
+                toastr.error(response.message);
+              }
+            }, error => {
+              toastr.error('Ocurrió un error al enviar! Error: ' + error.status);
+
+            });
+
+
+          }
+
+        })
+      }
     }
 
 
@@ -233,8 +268,6 @@ export class IpFormComponent implements OnInit {
     this.btnConsultaGrids = false;
 
     this.service.getGridsByIp(this.ip.id_ip).subscribe(result => {
-
-      console.log(' grids', result)
 
       this.ip.grids = result.grids;
       this.walkers = result.walkers;
@@ -297,6 +330,26 @@ export class IpFormComponent implements OnInit {
 
   }
 
+
+  detalleGrid( grid: Grid ): void {
+
+
+    this.service.getDetalleByGrid( grid.id_grid ).subscribe( result =>{
+
+      this.grid = result;
+      console.log( result, 'detalle de grid');
+      let arg = this.grid.walkers.map(el => el.id_walker);
+      this.walkerSelected.selectpicker('val', arg);
+      $('#modalGrid').modal('show');
+
+    }, error =>{
+
+      toastr.error('No se encontro grid', 'Error de consutar!');      
+
+    });
+
+  }
+
   actionFormGrid() {
 
     this.submittedGrid = true;
@@ -307,7 +360,8 @@ export class IpFormComponent implements OnInit {
 
 
         if (result.successful) {
-          this.grids.push(result.grid);
+
+          this.ip.grids.push(result.grid);
           $('#modalGrid').modal('hide');
           swal.fire('Exito !', result.message, 'success');
 
@@ -319,13 +373,13 @@ export class IpFormComponent implements OnInit {
 
       }, error => {
 
-        alert('Error registro de grid')
+        toastr.error(error.error, 'Error!');
 
       });
 
     } else {
 
-      alert('INGRESE TODOS LOS DATOS');
+      toastr.error('Ingrese los datos requeridos', 'Error de captura!');
 
     }
 
