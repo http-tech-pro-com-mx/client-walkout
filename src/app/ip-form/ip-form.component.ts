@@ -26,6 +26,7 @@ export class IpFormComponent implements OnInit {
   public consultaGrid: boolean;
   public btnConsultaGrids: boolean;
   public create: boolean;
+  public create_grid: boolean;
   public ip: Ip;
   public grid: Grid;
   public form: FormGroup;
@@ -59,7 +60,7 @@ export class IpFormComponent implements OnInit {
 
     }
 
-
+    this.create_grid = true;
     this.consultaGrid = false;
     this.btnConsultaGrids = false;
     this.proyectos = [];
@@ -321,7 +322,8 @@ export class IpFormComponent implements OnInit {
 
   agregarGrid(): void {
 
-    this.walkerSelected.selectpicker('deselectAll');
+    this.create_grid = true;
+    this.walkerSelected.selectpicker('val', []);
     this.formGrid.controls.numero_plano.reset();
     this.submittedGrid = false;
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
@@ -333,11 +335,12 @@ export class IpFormComponent implements OnInit {
 
   detalleGrid( grid: Grid ): void {
 
+    
 
     this.service.getDetalleByGrid( grid.id_grid ).subscribe( result =>{
 
+      this.create_grid = false;
       this.grid = result;
-      console.log( result, 'detalle de grid');
       let arg = this.grid.walkers.map(el => el.id_walker);
       this.walkerSelected.selectpicker('val', arg);
       $('#modalGrid').modal('show');

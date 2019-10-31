@@ -287,7 +287,8 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
-              <button type="submit" class="btn btn-default" style="z-index:2">CREAR</button>
+              <button type="submit" class="btn btn-default" style="z-index:2" *ngIf="create_grid">CREAR</button>
+              <button type="submit" class="btn btn-default" style="z-index:2" *ngIf="!create_grid">ACTUALIZAR</button>
             </div>
           </form>
         </div>
