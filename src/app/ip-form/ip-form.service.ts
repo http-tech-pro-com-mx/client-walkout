@@ -27,8 +27,8 @@ export class IpFormService {
   }
 
 
-  getDetalleByGrid(id_ip): Observable<any>{
-    return this.http.get<any>(this.URL + '/get-Grid/'+id_ip);
+  getDetalleByGrid(id_grid): Observable<any>{
+    return this.http.get<any>(this.URL + '/get-Grid/'+id_grid);
   }
 
   createIp(ip: Ip):Observable<any>{
@@ -44,6 +44,11 @@ export class IpFormService {
   createGrid(grid: Grid): Observable<any>{
     let params = JSON.stringify(grid);
     return this.http.post<any>(this.URL + '/crear-Grid', params);
+  }
+
+  updateGrid(grid: Grid):Observable<any>{
+    let params = JSON.stringify(grid);
+    return this.http.post<any>(this.URL + '/update-Grid', params);
   }
 
 }

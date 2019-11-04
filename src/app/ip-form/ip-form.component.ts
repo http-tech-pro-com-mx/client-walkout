@@ -48,9 +48,9 @@ export class IpFormComponent implements OnInit {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1, new Proyecto(-1,'','',true));
+    this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1, new Proyecto(-1, '', '', true));
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
-    this.ip.proyecto.id_proyecto =  parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
+    this.ip.proyecto.id_proyecto = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
     if (this.router.url.includes('crear')) {
       this.create = true;
     } else {
@@ -102,7 +102,7 @@ export class IpFormComponent implements OnInit {
     this.service.getInfoByIp(id_ip).subscribe(result => {
 
       this.ip = result.ip;
-      this.ip.proyecto = new Proyecto(result.id_proyecto,'','',true);
+      this.ip.proyecto = new Proyecto(result.id_proyecto, '', '', true);
 
 
       this.ip.fecha_levantamiento = new Date(this.ip.fecha_levantamiento);
@@ -123,7 +123,7 @@ export class IpFormComponent implements OnInit {
 
 
     this.form = this.fb.group({
-      id_proyecto: new FormControl( this.ip.proyecto.id_proyecto , [Validators.required]),
+      id_proyecto: new FormControl({value: this.ip.proyecto.id_proyecto, disabled: !this.create }, [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_levantamiento: new FormControl('', [Validators.required]),
       km: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -164,7 +164,7 @@ export class IpFormComponent implements OnInit {
         language: 'es',
         defaultDate: this.ip.fecha_levantamiento
       }).on('changeDate', (ev) => {
-          this.ip.fecha_levantamiento = ev.date;
+        this.ip.fecha_levantamiento = ev.date;
       });
 
       $(".calendario").datepicker("setDate", new Date(this.ip.fecha_levantamiento));
@@ -199,20 +199,20 @@ export class IpFormComponent implements OnInit {
 
         this.service.createIp(this.ip).subscribe(result => {
 
-          if(result.successful){
+          if (result.successful) {
 
             this.create = false;
             this.btnConsultaGrids = true;
             this.ip.id_ip = result.ip.id_ip;
             swal.fire('Exito !', 'Ip registrada', 'success');
 
-          }else{
+          } else {
 
-            swal.fire('Error !', result.message , 'error');
+            swal.fire('Error !', result.message, 'error');
 
           }
 
-        
+
 
         }, error => {
 
@@ -238,7 +238,7 @@ export class IpFormComponent implements OnInit {
            */
           if (result.value) {
 
-          
+
             this.service.updateIP(this.ip).subscribe(response => {
 
               if (response.successful) {
@@ -333,21 +333,22 @@ export class IpFormComponent implements OnInit {
   }
 
 
-  detalleGrid( grid: Grid ): void {
+  detalleGrid(grid: Grid, ip: Ip): void {
 
-    
 
-    this.service.getDetalleByGrid( grid.id_grid ).subscribe( result =>{
 
+    this.service.getDetalleByGrid(grid.id_grid).subscribe(result => {
+      console.log( result );
       this.create_grid = false;
       this.grid = result;
+      this.grid.ip = this.ip;
       let arg = this.grid.walkers.map(el => el.id_walker);
       this.walkerSelected.selectpicker('val', arg);
       $('#modalGrid').modal('show');
 
-    }, error =>{
+    }, error => {
 
-      toastr.error('No se encontro grid', 'Error de consutar!');      
+      toastr.error('No se encontro grid', 'Error de consutar!');
 
     });
 
@@ -359,26 +360,70 @@ export class IpFormComponent implements OnInit {
 
     if (this.formGrid.valid && this.grid.walkers.length > 0) {
 
-      this.service.createGrid(this.grid).subscribe(result => {
+      if (this.create_grid) {
+
+        this.service.createGrid(this.grid).subscribe(result => {
 
 
-        if (result.successful) {
+          if (result.successful) {
 
-          this.ip.grids.push(result.grid);
-          $('#modalGrid').modal('hide');
-          swal.fire('Exito !', result.message, 'success');
+            this.ip.grids.push(result.grid);
 
-        } else {
+            let total_pies = this.ip.grids.map(el=> el.total_pies).reduce((a, b) =>  a + b);
 
-          swal.fire('Exito !', result.message, 'error');
+            this.ip.km = ( total_pies * 0.0003048 );
 
-        }
+            $('#modalGrid').modal('hide');
+            swal.fire('Exito !', result.message, 'success');
 
-      }, error => {
+          } else {
 
-        toastr.error(error.error, 'Error!');
+            swal.fire('Exito !', result.message, 'error');
 
-      });
+          }
+
+        }, error => {
+
+          toastr.error(error.error, 'Error!');
+
+        });
+
+      } else {
+
+        this.service.updateGrid(this.grid).subscribe(result => {
+          console.log( ' update grid ', this.grid );
+          if (result.successful) {
+
+            let update: Grid = result.grid;
+
+            this.ip.grids = this.ip.grids.map(grid => {
+
+              if (grid.id_grid == update.id_grid) return update;
+              return grid;
+
+            });
+
+            let total_pies = this.ip.grids.map(el=> el.total_pies).reduce((a, b) =>  a + b);
+
+            this.ip.km = (total_pies * 0.0003048);
+
+
+            $('#modalGrid').modal('hide');
+            swal.fire('Exito !', result.message, 'success');
+
+          } else {
+
+            toastr.error(result.message, 'Error!');
+
+          }
+
+        }, error => {
+
+          toastr.error(error.error, 'Error!');
+
+        });
+
+      }
 
     } else {
 
@@ -387,5 +432,7 @@ export class IpFormComponent implements OnInit {
     }
 
   }
+
+
 
 }

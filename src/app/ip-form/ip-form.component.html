@@ -144,7 +144,7 @@
                     <td *ngIf="ip.tipo == 1">{{grid.total_iglesias}}</td>
                     <td *ngIf="ip.tipo == 1">{{grid.total_baldios}}</td>
                     <td class="text-center">
-                      <button class="btn btn-info" (click)="detalleGrid(grid)">DETALLE</button>
+                      <button class="btn btn-info" (click)="detalleGrid(grid, ip)">DETALLE</button>
                     </td>
                     <td class="text-center">
                       <button class="btn btn-danger" (click)="eliminar(grid)">ELIMINAR</button>
