@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEvent, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpRequest, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { Ip } from '../models/ip';
@@ -50,5 +50,10 @@ export class IpFormService {
     let params = JSON.stringify(grid);
     return this.http.post<any>(this.URL + '/update-Grid', params);
   }
+
+  deleteGrid(id_grid: number):Observable<any>{
+    return this.http.delete<any>(this.URL+'/delete-Grid/' + id_grid );
+  }
+
 
 }

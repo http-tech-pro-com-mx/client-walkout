@@ -123,7 +123,7 @@ export class IpFormComponent implements OnInit {
 
 
     this.form = this.fb.group({
-      id_proyecto: new FormControl({value: this.ip.proyecto.id_proyecto, disabled: !this.create }, [Validators.required]),
+      id_proyecto: new FormControl({ value: this.ip.proyecto.id_proyecto, disabled: !this.create }, [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_levantamiento: new FormControl('', [Validators.required]),
       km: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -338,7 +338,7 @@ export class IpFormComponent implements OnInit {
 
 
     this.service.getDetalleByGrid(grid.id_grid).subscribe(result => {
-      console.log( result );
+
       this.create_grid = false;
       this.grid = result;
       this.grid.ip = this.ip;
@@ -369,9 +369,8 @@ export class IpFormComponent implements OnInit {
 
             this.ip.grids.push(result.grid);
 
-            let total_pies = this.ip.grids.map(el=> el.total_pies).reduce((a, b) =>  a + b);
 
-            this.ip.km = ( total_pies * 0.0003048 );
+            this.ip.km = this.updateKilometros(this.ip.grids);
 
             $('#modalGrid').modal('hide');
             swal.fire('Exito !', result.message, 'success');
@@ -391,7 +390,7 @@ export class IpFormComponent implements OnInit {
       } else {
 
         this.service.updateGrid(this.grid).subscribe(result => {
-          console.log( ' update grid ', this.grid );
+
           if (result.successful) {
 
             let update: Grid = result.grid;
@@ -403,9 +402,7 @@ export class IpFormComponent implements OnInit {
 
             });
 
-            let total_pies = this.ip.grids.map(el=> el.total_pies).reduce((a, b) =>  a + b);
-
-            this.ip.km = (total_pies * 0.0003048);
+            this.ip.km = this.updateKilometros(this.ip.grids);
 
 
             $('#modalGrid').modal('hide');
@@ -430,6 +427,58 @@ export class IpFormComponent implements OnInit {
       toastr.error('Ingrese los datos requeridos', 'Error de captura!');
 
     }
+
+  }
+
+  eliminar(grid: Grid): void {
+
+    swal.fire({
+      title: '<span style="color: #d32f2f">¿Esta seguro de eliminar?</span>',
+      html: '<b style="color: #d32f2f">Número de plano: ' + grid.numero_plano + '</b>',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef9a9a',
+      cancelButtonColor: '#d32f2f ',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si!',
+      allowOutsideClick: false,
+      allowEnterKey: false
+    }).then((result) => {
+      /*
+       * Si acepta
+       */
+      if (result.value) {
+
+        this.service.deleteGrid(grid.id_grid).subscribe(result => {
+
+          this.ip.grids = this.ip.grids.filter(el => {
+            if(el.id_grid != grid.id_grid)return el;
+          });
+
+          this.ip.km = this.updateKilometros(this.ip.grids);
+          swal.fire('Exito !', 'Se elimino: ' + grid.numero_plano + ' correctamente ', 'success');
+
+        }, error => {
+
+          toastr.error(error.error, 'Error!');
+
+        });
+
+      }
+
+    });
+
+  }
+
+  updateKilometros(grids: Array<Grid>): number {
+
+    if( grids.length == 0) return 0;
+
+    let total_pies = grids.map(el => el.total_pies).reduce((a, b) => a + b);
+
+    let total_km = parseFloat( (total_pies * 0.0003048).toFixed(5));
+
+    return total_km;
 
   }
 
