@@ -67,14 +67,17 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('data_user', JSON.stringify(result));
             this.router.navigate(['home']); 
           } else {
-            // toastr.error('LocalStorage no soportado en este navegador!');
+            toastr.error('LocalStorage no soportado en este navegador!');
           }
         } else {
           this.mensaje_error = result.response.message;
-          // toastr.error('Error en el inicio de sesión!')
+          toastr.error('Error en el inicio de sesión!');
+          
         }
         this.disabled = false;
+
       }, error => {
+
         this.disabled = false;
         let mensaje = "";
 
@@ -86,11 +89,12 @@ export class LoginComponent implements OnInit {
             mensaje = "Contraseña incorrecta";
             break;
         }
-        // toastr.error('Error! ' + mensaje);
+        toastr.error('Error! ' + mensaje);
+
       });
 
     } else {
-      // toastr.error('Verifique los datos capturados!');
+      toastr.error('Verifique los datos capturados!');
     }
 
   }

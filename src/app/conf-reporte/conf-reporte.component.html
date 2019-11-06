@@ -1,52 +1,68 @@
 <div class="main-content">
-    <div class="container-fluid">
+  <app-loader *ngIf="loading"></app-loader>
+  <div class="container-fluid" *ngIf="!loading">
+    <div class="row">
+      <div class="col-md-6">
+        <select class="proyectos" [(ngModel)]="selectedProject"  (change)="limpiarBusqueda()">
+          <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-info" (click)="busquedaConfig()">VER CONFIGURACIONES</button>
+      </div>
+    </div>
+    <div class="contenedor busqueda" *ngIf="busqueda">
       <div class="row">
         <div class="col-md-12">
-          <select class="selectpicker" data-live-search="true" data-live-search-placeholder="Buscar proyecto" data-title="Proyecto" data-width="50%">
-            <option data-tokens="ketchup mustard">Nombre proyecto</option>
-          </select>
+          <br>
+          <div class="form-group">
+            <label for="buscar">FILTRAR:</label>
+            <input type="text" class="form-control" id="buscar" placeholder="ESCRIBE AQUÍ PARA FILTRAR" [(ngModel)]="filtrar" [ngModelOptions]="{standalone: true}">
+          </div>
         </div>
       </div>
-      <div class="row">
-        <button type="button" class="btn btn-succes btn-circle btn-xl">
+      <!-- <div class="row">
+        <a type="button" class="btn btn-primary btn-circle btn-xl" [routerLink]="'crear/'+selectedProject">
           <i class="fa fa-plus"></i>
-        </button>
-      </div>
+        </a>
+      </div> -->
       <div class="row">
         <div class="col-md-12">
-          <br><br>
           <div class="card">
             <div class="header">
-              <h4 class="title">CONFIGURACIÓN DE REPORTE</h4>
-              <p class="category">LISTADO DE CONFIGURACIONES PARA DESPLEGAR REPORTES</p>
+              <h4 class="title">LISTADO DE CONFIGURACIONES</h4>
             </div>
             <div class="content table-responsive table-full-width">
               <table class="table table-hover table-striped">
                 <thead>
                   <tr>
+                    <th>NOMBRE</th>
                     <th>FECHA INICIO</th>
                     <th>FECHA FIN</th>
-                    <th>NOMBRE PERIODO</th>
                     <th>META</th>
-                    <th class="text-center">DETALLE</th>
-                    <th class="text-center">ELIMINAR</th>
+                    <th>DESCRIPCIÓN</th>
+                    <th>ESTATUS</th>
                   </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                      <td>DATOS CAMPO</td>
-                      <td>DATOS CAMPO</td>
-                      <td>DATOS CAMPO</td>
-                      <td>DATOS CAMPO</td>
-                      <td>DATOS CAMPO</td>
-                      <td>DATOS CAMPO</td>
-                    </tr>
+                  <tr *ngIf="proyecto_selected.configuraciones.length == 0">
+                    <td class="text-center" colspan="6" >SIN REGISTROS</td>
+                  </tr>
+                  <tr *ngFor="let config of proyecto_selected.configuraciones" class="tr-puntero-color">
+                    <td>{{ config.nombre }}</td>
+                    <td>{{ config.fecha_inicio | date: 'yyyy-MM-dd' }}</td>
+                    <td>{{ config.fecha_fin | date: 'yyyy-MM-dd' }}</td>
+                    <td>{{ config.meta }}</td>
+                    <td>{{ config.descripcion }}</td>
+                    <td>{{ (config.estatus == 1)? 'ACTIVO' : ' INACTIVO' }}</td>
+                  </tr>
                 </tbody>
               </table>
-  
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

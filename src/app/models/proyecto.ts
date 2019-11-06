@@ -1,4 +1,5 @@
 import { Ip } from "./ip";
+import { Configuracion } from "./configuracion";
 
 export class Proyecto {
 
@@ -7,7 +8,8 @@ export class Proyecto {
         public nombre: string,
         public descripcion: string,
         public estatus:  boolean,
-        public ips?: Array<Ip>
+        public ips?: Array<Ip>,
+        public configuraciones?: Array<Configuracion>
     ){}
 
 }
