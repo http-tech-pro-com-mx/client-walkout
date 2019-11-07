@@ -8,7 +8,7 @@
                 </fieldset>
                 <div class="col-md-4">
                     <select class="proyectos" [(ngModel)]="proyeto_selected" [ngModelOptions]="{standalone: true}">
-                        <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" >{{ proyecto.nombre }}</option>
+                        <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
                     </select>
                 </div>
                 <div class="col-md-4 text-center">
@@ -33,6 +33,24 @@
                     </div>
                 </div>
             </form>
+        </div>
+        <div class="row">
+            <br>
+            <div class="col-md-4">
+                <div class="market-update-gd">
+                    <div class="market-update-block clr-block-3">
+                        <div class="col-md-8 market-update-left">
+                            <h5>23 KM</h5>
+                            <h6>Puerto Rico #2</h6>
+                            <small>Ultima actualización</small>
+                        </div>
+                        <div class="col-md-4 market-update-right">
+                            <i class="fa fa-blind"> </i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="row">
             <br>
