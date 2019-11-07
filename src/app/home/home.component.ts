@@ -1,82 +1,93 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import { optionsChartLine } from './configCharts';
 import * as Highcharts from 'highcharts';
+import { HomeService } from './home.service';
+import { Proyecto } from '../models/proyecto';
+
+declare var $:any;
+declare const toastr: any;
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
 
+  public tipo_reporte: number;
+  public proyeto_selected: number;
+  public proyectos: Array<Proyecto>;
+  public loading: boolean;
+  public showRpt: boolean;
 
-  public options: any = {
-    title: {
-      text: 'Solar Employment Growth by Sector, 2010-2016'
-    },
 
-    subtitle: {
-      text: 'Source: thesolarfoundation.com'
-    },
+  constructor( private service: HomeService) { }
 
-    yAxis: {
-      title: {
-        text: 'Number of Employees'
-      }
-    },
-    legend: {
-      layout: 'vertical',
-      align: 'right',
-      verticalAlign: 'middle'
-    },
+  ngOnInit() {
 
-    plotOptions: {
-      series: {
-        label: {
-          connectorAllowed: false
-        },
-        pointStart: 2010
-      }
-    },
+    this.loading = true;
+    this.showRpt = false;
+    this.tipo_reporte = -1;
+    this.proyectos = [];
+    this.proyeto_selected = -1;
+  
+    this.service.getInfoProyectos().subscribe(result => {
 
-    series: [{
-      name: 'Installation',
-      data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-    }, {
-      name: 'Manufacturing',
-      data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
-    }, {
-      name: 'Sales & Distribution',
-      data: [11744, 17722, 16005, 19771, 20185, 24377, 32147, 39387]
-    }, {
-      name: 'Project Development',
-      data: [null, null, 7988, 12169, 15112, 22452, 34400, 34227]
-    }, {
-      name: 'Other',
-      data: [12908, 5948, 8105, 11248, 8989, 11816, 18274, 18111]
-    }],
+      this.proyectos = result;
+      this.loading = false;
+      this.plugins();
 
-    responsive: {
-      rules: [{
-        condition: {
-          maxWidth: 500
-        },
-        chartOptions: {
-          legend: {
-            layout: 'horizontal',
-            align: 'center',
-            verticalAlign: 'bottom'
-          }
-        }
-      }]
-    }
+    }, error => {
+
+      this.loading = false;
+      toastr.error(error.error, 'Error!');
+
+    });
+   
+    
+  }
+
+  plugins() {
+
+    setTimeout(() => {
+      $('.proyectos').selectpicker({
+        container: 'body',
+        liveSearch: true,
+        liveSearchPlaceholder: 'Buscar proyecto',
+        title: 'Proyecto',
+        width: 100 + '%',
+        noneResultsText: 'No hay resultados {0}'
+      });
+    }, 60);
+
+  }
+
+  cambiaTipo( tipo_reporte: number ): void{
+    this.tipo_reporte = tipo_reporte;
   }
 
 
-  constructor() { }
+  generaRpt(): void{
 
-  ngOnInit() {
-    Highcharts.chart('container', this.options);
+
+    if( this.tipo_reporte == -1 || this.proyeto_selected == -1){
+
+      toastr.error('Se requiere proyecto y tipo de reporte', 'Error!', { timeOut: 1500});
+
+    }else{
+
+
+      this.showRpt = true;
+
+      setTimeout(()=>{
+
+        Highcharts.chart('container', optionsChartLine);
+
+      }, 100);
+
+    }
+
   }
 
 }
