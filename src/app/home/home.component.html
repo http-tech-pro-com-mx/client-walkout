@@ -34,18 +34,39 @@
                 </div>
             </form>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="showRpt">
             <br>
-            <div class="col-md-4">
+            <div class="col-md-12">
+                <h6>Información general del proyecto:</h6>
+            </div>
+        </div>
+        <div class="row" *ngIf="showRpt">
+            <br>
+            <div class="col-md-4 col-sm-12" >
                 <div class="market-update-gd">
-                    <div class="market-update-block clr-block-3">
-                        <div class="col-md-8 market-update-left">
-                            <h5>23 KM</h5>
+                    <div class="market-update-block clr-block-3 km">
+                        <div class="col-md-8 col-sm-8 market-update-left">
+                            <h5 class="title-card">23 KM</h5>
                             <h6>Puerto Rico #2</h6>
-                            <small>Ultima actualización</small>
+                            <small>Km registrados al momento</small>
                         </div>
-                        <div class="col-md-4 market-update-right">
+                        <div class="col-md-4 col-sm-4 market-update-right km">
                             <i class="fa fa-blind"> </i>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12" >
+                <div class="market-update-gd">
+                    <div class="market-update-block clr-block-3 mejor">
+                        <div class="col-md-8  col-sm-8 market-update-left">
+                            <h5>NOMBRE CAMINADOR</h5>
+                            <h6>MEJOR WALKER </h6>
+                            <small>Kilometraje: 50 KM</small>
+                        </div>
+                        <div class="col-md-4 col-sm-4 market-update-right mejor">
+                            <i class="fa fa-user"> </i> 
                         </div>
                         <div class="clearfix"> </div>
                     </div>
