@@ -52,6 +52,7 @@ export class HomeComponent implements OnInit {
   plugins() {
 
     setTimeout(() => {
+
       $('.proyectos').selectpicker({
         container: 'body',
         liveSearch: true,
@@ -60,6 +61,11 @@ export class HomeComponent implements OnInit {
         width: 100 + '%',
         noneResultsText: 'No hay resultados {0}'
       });
+
+      $(".proyectos").on("changed.bs.select", (e, clickedIndex, newValue, oldValue) => {
+           this.proyeto_selected = e.target.value;
+        });
+
     }, 60);
 
   }
@@ -75,6 +81,8 @@ export class HomeComponent implements OnInit {
 
 
   generaRpt(): void {
+
+    console.log(this.proyeto_selected)
 
 
     if (this.tipo_reporte == -1 || this.proyeto_selected == -1) {
@@ -111,12 +119,12 @@ export class HomeComponent implements OnInit {
               if (reporte.length > 0) {
 
                 datos.data = reporte.map(el => (el[0] * 0.0003048));
-                
-                optionsChartGlobal.xAxis.categories = reporte.map(el => el[2]);
-                optionsChartGlobal.series.push( datos );
 
-                setTimeout(()=> Highcharts.chart('container', optionsChartGlobal) , 100);
-               
+                optionsChartGlobal.xAxis.categories = reporte.map(el => el[2]);
+                optionsChartGlobal.series.push(datos);
+
+                setTimeout(() => Highcharts.chart('container', optionsChartGlobal), 100);
+
 
               } else {
 
@@ -127,7 +135,7 @@ export class HomeComponent implements OnInit {
 
             } else {
 
-              toastr.error('Error al consultar', 'Error!', { timeOut: 1500 });              
+              toastr.error('Error al consultar', 'Error!', { timeOut: 1500 });
 
             }
 
@@ -154,6 +162,10 @@ export class HomeComponent implements OnInit {
 
     }
 
+  }
+
+  changeSelected(ev): void {
+    console.log('change', ev);
   }
 
 }

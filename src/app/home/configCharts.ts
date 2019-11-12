@@ -41,6 +41,8 @@ var optionsChartGlobal: any = {
     series: {
       dataLabels: {
         enabled: true,
+        inside: false,
+        y: 5,
         formatter: function(){
           return parseFloat(this.y).toFixed(4);
         }

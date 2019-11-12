@@ -7,7 +7,7 @@
                     <legend>PARAMETROS DE BUSQUEDA:</legend>
                 </fieldset>
                 <div class="col-md-4">
-                    <select class="proyectos" [(ngModel)]="proyeto_selected" [ngModelOptions]="{standalone: true}">
+                    <select class="proyectos">
                         <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
                     </select>
                 </div>
