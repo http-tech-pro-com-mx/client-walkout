@@ -16,5 +16,10 @@ export class HomeService {
     return this.http.get<any>(this.URL + '/get-proyectos');
   }
 
+
+  rptGlobalProyecto(id_proyecto: number): Observable<any>{
+    return this.http.get<any>(this.URL + '/rpt-global/'+id_proyecto);
+  }
+
   
 }

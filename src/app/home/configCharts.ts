@@ -34,11 +34,17 @@ var optionsChartGlobal: any = {
   xAxis: {
     categories: []
   },
-
+  tooltip: {
+    valueDecimals: 4
+  },
   plotOptions: {
     series: {
       dataLabels: {
-        enabled: true
+        enabled: true,
+        formatter: function(){
+          return parseFloat(this.y).toFixed(4);
+        }
+        
       },
       events: {
         legendItemClick: function () {
@@ -53,7 +59,7 @@ var optionsChartGlobal: any = {
 
   series: [],
   colors: ['#00897b'],
-  
+
   responsive: {
     rules: [{
       condition: {
