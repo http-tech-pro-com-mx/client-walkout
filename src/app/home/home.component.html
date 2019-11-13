@@ -5,33 +5,33 @@
             <form action="">
                 <fieldset>
                     <legend>PARAMETROS DE BUSQUEDA:</legend>
+                    <div class="col-md-4">
+                        <select class="proyectos" [(ngModel)]="proyectoSelected" (change)="limpiarBusqueda()" name="proyectos">
+                            <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="group-radio">
+                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte1" value="1" (change)="cambiaTipo(1)" />
+                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 1 }" for="tipo_reporte1">
+                                SEMANAL
+                            </label>
+                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte2" value="2" (change)="cambiaTipo(2)" />
+                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 2 }" for="tipo_reporte2">
+                                GLOBAL
+                            </label>
+                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte3" value="3" (change)="cambiaTipo(3)" />
+                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 3 }" for="tipo_reporte3">
+                                DIA
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <div class="margen-btn">
+                            <button class="btn btn-primary btn-sm" (click)="generaRpt()">GENERAR REPORTE</button>
+                        </div>
+                    </div>
                 </fieldset>
-                <div class="col-md-4">
-                    <select class="proyectos" [(ngModel)]="proyectoSelected"  (change)="limpiarBusqueda()" name="proyectos">
-                        <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
-                    </select>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="group-radio">
-                        <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte1" value="1" (change)="cambiaTipo(1)" />
-                        <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 1 }" for="tipo_reporte1">
-                            SEMANAL
-                        </label>
-                        <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte2" value="2" (change)="cambiaTipo(2)" />
-                        <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 2 }" for="tipo_reporte2">
-                            GLOBAL
-                        </label>
-                        <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte3" value="3" (change)="cambiaTipo(3)" />
-                        <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 3 }" for="tipo_reporte3">
-                            DIA
-                        </label>
-                    </div>
-                </div>
-                <div class="col-md-4 text-center">
-                    <div class="margen-btn">
-                        <button class="btn btn-primary btn-sm" (click)="generaRpt()">GENERAR REPORTE</button>
-                    </div>
-                </div>
             </form>
         </div>
         <div class="row" *ngIf="showRpt">
@@ -42,7 +42,7 @@
         </div>
         <div class="row" *ngIf="showRpt">
             <br>
-            <div class="col-md-4 col-sm-12" >
+            <div class="col-md-4 col-sm-12">
                 <div class="market-update-gd">
                     <div class="market-update-block clr-block-3 km">
                         <div class="col-md-8 col-sm-8 market-update-left">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-sm-12" >
+            <div class="col-md-4 col-sm-12">
                 <div class="market-update-gd">
                     <div class="market-update-block clr-block-3 mejor">
                         <div class="col-md-8  col-sm-8 market-update-left">
@@ -68,7 +68,7 @@
                             <small>Kilometraje: {{ mejor_km }} KM</small>
                         </div>
                         <div class="col-md-4 col-sm-4 market-update-right mejor">
-                            <i class="fa fa-user"> </i> 
+                            <i class="fa fa-user"> </i>
                         </div>
                         <div class="clearfix"> </div>
                     </div>

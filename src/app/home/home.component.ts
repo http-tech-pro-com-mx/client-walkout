@@ -43,7 +43,6 @@ export class HomeComponent implements OnInit {
 
       this.proyectos = result;
       this.loading = false;
-      console.log(this.proyectos)
       this.plugins();
 
     }, error => {
@@ -74,11 +73,14 @@ export class HomeComponent implements OnInit {
   }
 
   cambiaTipo(tipo_reporte: number): void {
+
     this.tipo_reporte = tipo_reporte;
+    this.limpiarBusqueda();
+
   }
 
   getTituloProyecto(id_proyecto: number): string {
-    let proyecto: Proyecto = this.proyectos.filter(el => el.id_proyecto = id_proyecto)[0];
+    let proyecto: Proyecto = this.proyectos.filter(el => el.id_proyecto == id_proyecto)[0];
     return proyecto.nombre;
   }
 
@@ -86,8 +88,6 @@ export class HomeComponent implements OnInit {
   generaRpt(): void {
 
     this.showRpt = false;
-
-    console.log(this.proyectoSelected)
 
 
     if (this.tipo_reporte == -1 || this.proyectoSelected == -1) {
@@ -167,10 +167,14 @@ export class HomeComponent implements OnInit {
   }
 
   limpiarBusqueda(): void {
+
+
     this.showRpt = false;
     this.meta_real = 0;
     this.mejor_walker = 'NOMBRE CAMINADOR';
     this.mejor_km = '0.0';
+
+    
   }
 
   pluginCount(): void {
