@@ -7,7 +7,7 @@
                     <legend>PARAMETROS DE BUSQUEDA:</legend>
                 </fieldset>
                 <div class="col-md-4">
-                    <select class="proyectos">
+                    <select class="proyectos" [(ngModel)]="proyectoSelected"  (change)="limpiarBusqueda()" name="proyectos">
                         <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
                     </select>
                 </div>
@@ -63,9 +63,9 @@
                 <div class="market-update-gd">
                     <div class="market-update-block clr-block-3 mejor">
                         <div class="col-md-8  col-sm-8 market-update-left">
-                            <h5>NOMBRE CAMINADOR</h5>
+                            <h5>{{ mejor_walker }}</h5>
                             <h6>MEJOR WALKER </h6>
-                            <small>Kilometraje: 50 KM</small>
+                            <small>Kilometraje: {{ mejor_km }} KM</small>
                         </div>
                         <div class="col-md-4 col-sm-4 market-update-right mejor">
                             <i class="fa fa-user"> </i> 

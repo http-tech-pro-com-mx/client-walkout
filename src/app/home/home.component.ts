@@ -17,10 +17,13 @@ declare const CountUp: any;
 export class HomeComponent implements OnInit {
 
   public tipo_reporte: number;
-  public proyeto_selected: number;
+  public proyectoSelected: number;
   public proyectos: Array<Proyecto>;
   public loading: boolean;
   public showRpt: boolean;
+  public meta_real: number;
+  public mejor_walker: string;
+  public mejor_km: string;
 
 
   constructor(private service: HomeService) { }
@@ -31,12 +34,16 @@ export class HomeComponent implements OnInit {
     this.showRpt = false;
     this.tipo_reporte = -1;
     this.proyectos = [];
-    this.proyeto_selected = -1;
+    this.proyectoSelected = -1;
+    this.meta_real = 0;
+    this.mejor_walker = 'NOMBRE CAMINADOR';
+    this.mejor_km = '0.0';
 
     this.service.getInfoProyectos().subscribe(result => {
 
       this.proyectos = result;
       this.loading = false;
+      console.log(this.proyectos)
       this.plugins();
 
     }, error => {
@@ -62,11 +69,7 @@ export class HomeComponent implements OnInit {
         noneResultsText: 'No hay resultados {0}'
       });
 
-      $(".proyectos").on("changed.bs.select", (e, clickedIndex, newValue, oldValue) => {
-           this.proyeto_selected = e.target.value;
-        });
-
-    }, 60);
+    }, 100);
 
   }
 
@@ -82,16 +85,16 @@ export class HomeComponent implements OnInit {
 
   generaRpt(): void {
 
-    console.log(this.proyeto_selected)
+    this.showRpt = false;
+
+    console.log(this.proyectoSelected)
 
 
-    if (this.tipo_reporte == -1 || this.proyeto_selected == -1) {
+    if (this.tipo_reporte == -1 || this.proyectoSelected == -1) {
 
       toastr.error('Se requiere proyecto y tipo de reporte', 'Error!', { timeOut: 1500 });
 
     } else {
-
-
 
 
       switch (this.tipo_reporte) {
@@ -104,11 +107,11 @@ export class HomeComponent implements OnInit {
           let datos = { data: [], color: '#00897b', name: 'KM CAMINADOS' };
           optionsChartGlobal.series = [];
           optionsChartGlobal.xAxis.categories = [];
-          optionsChartGlobal.title.text = ' KILOMETRAJE ' + this.getTituloProyecto(this.proyeto_selected);
+          optionsChartGlobal.title.text = ' KILOMETRAJE ' + this.getTituloProyecto(this.proyectoSelected);
           optionsChartGlobal.subtitle.text = ' REPORTE GLOBAL ';
           optionsChartGlobal.yAxis.title.text = 'Kilometros';
 
-          this.service.rptGlobalProyecto(this.proyeto_selected).subscribe(result => {
+          this.service.rptGlobalProyecto(this.proyectoSelected).subscribe(result => {
 
             this.showRpt = true;
 
@@ -118,12 +121,20 @@ export class HomeComponent implements OnInit {
 
               if (reporte.length > 0) {
 
+                this.meta_real = reporte.map(el => (el[0] * 0.0003048)).reduce((num1, num2) => num1 + num2);
+
                 datos.data = reporte.map(el => (el[0] * 0.0003048));
 
                 optionsChartGlobal.xAxis.categories = reporte.map(el => el[2]);
                 optionsChartGlobal.series.push(datos);
 
-                setTimeout(() => Highcharts.chart('container', optionsChartGlobal), 100);
+                this.mejor_walker = reporte.filter( el => el )[0][2];
+                this.mejor_km = (reporte.filter( el => el )[0][0] * 0.0003048).toFixed(4);
+
+                setTimeout(() => {
+                  Highcharts.chart('container', optionsChartGlobal);
+                  this.pluginCount();
+                }, 100);
 
 
               } else {
@@ -151,21 +162,26 @@ export class HomeComponent implements OnInit {
 
       }
 
-      setTimeout(() => {
-        let numAnim = new CountUp("kilometraje_total", 0, 650, 0, 3);
-        if (!numAnim.error) {
-          numAnim.start();
-        } else {
-          console.error(numAnim.error);
-        }
-      }, 1000)
-
     }
 
   }
 
-  changeSelected(ev): void {
-    console.log('change', ev);
+  limpiarBusqueda(): void {
+    this.showRpt = false;
+    this.meta_real = 0;
+    this.mejor_walker = 'NOMBRE CAMINADOR';
+    this.mejor_km = '0.0';
+  }
+
+  pluginCount(): void {
+
+    let numAnim = new CountUp("kilometraje_total", 0, this.meta_real, 4, 3);
+    if (!numAnim.error) {
+      numAnim.start();
+    } else {
+      console.error(numAnim.error);
+    }
+
   }
 
 }
