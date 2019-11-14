@@ -26,7 +26,14 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-md-4 text-center">
+                    <div class="col-md-1 text-center" *ngIf="tipo_reporte == 3">
+                        <div class="margen-btn">
+                            <button class="btn btn-info btn-sm" (click)="openModal()">
+                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-3 text-center">
                         <div class="margen-btn">
                             <button class="btn btn-primary btn-sm" (click)="generaRpt()">GENERAR REPORTE</button>
                         </div>
@@ -37,7 +44,7 @@
         <div class="row" *ngIf="showRpt">
             <br>
             <div class="col-md-12">
-                <h6>Información general del proyecto:</h6>
+                <h6>RESULTADOS DEL REPORTE:</h6>
             </div>
         </div>
         <div class="row" *ngIf="showRpt">
@@ -49,8 +56,8 @@
                             <h5 class="title-card">
                                 <span id="kilometraje_total">0</span>&nbsp;KM
                             </h5>
-                            <h6>Puerto Rico #2</h6>
-                            <small>Km registrados al momento</small>
+                            <h6>{{ titulo_1er_card }}</h6>
+                            <small>Km registrados</small>
                         </div>
                         <div class="col-md-4 col-sm-4 market-update-right km">
                             <i class="fa fa-blind"> </i>
@@ -64,7 +71,7 @@
                     <div class="market-update-block clr-block-3 mejor">
                         <div class="col-md-8  col-sm-8 market-update-left">
                             <h5>{{ mejor_walker }}</h5>
-                            <h6>MEJOR WALKER </h6>
+                            <h6>{{ titulo_2da_card }}</h6>
                             <small>Kilometraje: {{ mejor_km }} KM</small>
                         </div>
                         <div class="col-md-4 col-sm-4 market-update-right mejor">
@@ -81,5 +88,20 @@
                 <div id="container" style="width:100%; height:400px;"></div>
             </div>
         </div>
+        <!-- modal calendario -->
+        <div class="modal fade" id="modalCalendario" tabindex="-1" role="dialog" data-backdrop="false">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Seleccione día</h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <div class="calendario"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- fin modal calendario -->
     </div>
 </div>

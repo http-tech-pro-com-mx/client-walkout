@@ -21,5 +21,10 @@ export class HomeService {
     return this.http.get<any>(this.URL + '/rpt-global/'+id_proyecto);
   }
 
+
+  rptGlobalProyectoByDay(id_proyecto: number, date: Date): Observable<any>{
+    return this.http.get<any>(this.URL + '/rpt-global/'+id_proyecto+'/'+date);
+  }
+
   
 }
