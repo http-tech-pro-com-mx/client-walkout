@@ -15,6 +15,7 @@ import { IpComponent } from '../../ip/ip.component';
 import { IpFormComponent } from '../../ip-form/ip-form.component';
 import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
+import { AuthGuardSecurity } from '../../auth/auth.guard.security';
 
 registerLocaleData(localeEsMx);
 
@@ -35,6 +36,7 @@ registerLocaleData(localeEsMx);
     LoaderComponent
   ],
   providers: [
+    AuthGuardSecurity, 
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: LOCALE_ID, useValue: 'es-MX' }
 

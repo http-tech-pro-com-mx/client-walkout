@@ -1,20 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 declare const $: any;
-declare var toastr:any;
+declare var toastr: any;
 declare interface RouteInfo {
-    path: string;
-    title: string;
-    icon: string;
-    class: string;
+  path: string;
+  title: string;
+  icon: string;
+  class: string;
+  roles: Array<string>
 }
 export const ROUTES: RouteInfo[] = [
-    { path: '/dashboard', title: 'Dashboard',  icon: 'pe-7s-graph', class: '' },
-    { path: '/user', title: 'Perfil',  icon:'pe-7s-user', class: '' },
-    { path: '/ip', title: 'IP',  icon:'pe-7s-folder', class: '' },
-    { path: '/ip/crear', title: 'Detalle IP',  icon:'pe-7s-folder', class: '' },
-    { path: '/configuracion', title: 'Configuracion',  icon:'pe-7s-settings', class: '' }
+  { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '', roles: ['ADMIN', 'WALKER' , 'HQ'] },
+  { path: '/user', title: 'Perfil', icon: 'pe-7s-user', class: '', roles: ['ADMIN', 'WALKER' , 'HQ'] },
+  { path: '/ip', title: 'IP', icon: 'pe-7s-folder', class: '', roles: ['HQ'] },
+  { path: '/ip/crear', title: 'Detalle IP', icon: 'pe-7s-folder', class: '', roles: ['HQ'] },
+  { path: '/configuracion', title: 'Configuracion', icon: 'pe-7s-settings', class: '', roles: ['HQ'] }
 ];
 
 @Component({
@@ -25,22 +27,47 @@ export const ROUTES: RouteInfo[] = [
 export class SidebarComponent implements OnInit {
   menuItems: any[];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private auth: AuthService) { }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem =>{ 
-        if(menuItem.path != '/ip/crear' && menuItem.path != '/ip/editar'){
-            return menuItem;
-        }
+
+    this.menuItems = ROUTES.filter(menuItem => {
+     
     });
+
+    // filtra menu basado en roles
+    this.menuItems = ROUTES.filter(menuItem => {
+
+      let hasPermiso = false;
+
+      for (let index = 0; index < menuItem.roles.length ; index++) {
+
+        if (this.auth.hasPermission(menuItem.roles[index])){
+          hasPermiso = true;
+          break;
+        }
+         
+      }
+
+      if(hasPermiso){
+
+        if (menuItem.path != '/ip/crear' && menuItem.path != '/ip/editar') {
+          return menuItem;
+        }
+
+      }
+
+    });
+
   }
 
-  
+
   isMobileMenu() {
-      if ($(window).width() > 991) {
-          return false;
-      }
-      return true;
+    if ($(window).width() > 991) {
+      return false;
+    }
+    return true;
   };
 
   logout(event) {
