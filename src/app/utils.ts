@@ -7,6 +7,18 @@ function noWhitespaceValidator(control: FormControl) {
 }
 
 
+/**
+* @function clone
+* @param  {JSON} json -  atributos
+* @return  {string} 
+* @description permite clonar objeto
+*/
+function clone(json) {
+    return JSON.parse(JSON.stringify(json));
+}
+
+
 export{
-    noWhitespaceValidator
+    noWhitespaceValidator,
+    clone
 }

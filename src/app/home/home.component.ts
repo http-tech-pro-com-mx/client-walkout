@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
+import { LocationStrategy, PlatformLocation, Location, DatePipe } from '@angular/common';
 import { optionsChartGlobal } from './configCharts';
 import * as Highcharts from 'highcharts';
 import { HomeService } from './home.service';
 import { Proyecto } from '../models/proyecto';
+import { clone } from '../utils';
+
 
 declare var $: any;
 declare const toastr: any;
@@ -25,6 +27,7 @@ export class HomeComponent implements OnInit {
   public mejor_walker: string;
   public mejor_km: string;
   public dia_selected: Date;
+  public graficas: Array<any>;
 
   public titulo_1er_card: string;
   public titulo_2da_card: string;
@@ -45,6 +48,7 @@ export class HomeComponent implements OnInit {
     this.titulo_1er_card = "";
     this.titulo_2da_card = "";
     this.dia_selected = new Date();
+    this.graficas = [];
 
     this.service.getInfoProyectos().subscribe(result => {
 
@@ -123,9 +127,67 @@ export class HomeComponent implements OnInit {
       switch (this.tipo_reporte) {
 
         case 1:
+
+          this.service.rptGlobalProyectoSemanal(this.proyectoSelected).subscribe(result => {
+            this.showRpt = true;
+            console.log(result);
+            if (result.successful) {
+
+              this.graficas = result.datos;
+
+              setTimeout(() => {
+
+                this.graficas.forEach((el, index) => {
+                
+                  let config_grafica = clone(optionsChartGlobal);
+
+                  // Formato dia
+                  let datePipe = new DatePipe('en-ES');
+                  el[1].fecha_inicio = datePipe.transform( el[1].fecha_inicio , 'yyyy/MM/dd');
+                  el[1].fecha_fin = datePipe.transform( el[1].fecha_fin , 'yyyy/MM/dd');
+                  // Fin formato dia
+
+                  let datos = { data: [], color: '#0d47a1', name: 'KM CAMINADOS' };
+                  config_grafica.series = [];
+                  config_grafica.xAxis.categories = [];
+                  config_grafica.title.text = el[1].nombre;
+                  config_grafica.yAxis.title.text = 'Kilometros';
+
+                  
+
+                  config_grafica.subtitle.text =  el[1].fecha_inicio + ' AL ' + el[1].fecha_fin
+
+                  el[0].map(el => (el[0] * 0.0003048)).reduce((num1, num2) => num1 + num2);
+
+                  datos.data = el[0].map(el => (el[0] * 0.0003048));
+
+                  config_grafica.xAxis.categories = el[0].map(el => el[2]);
+                  config_grafica.series.push(datos);
+
+
+                  $('#container' + index).highcharts(config_grafica);
+
+                });
+
+              }, 500);
+
+
+            } else {
+
+              toastr.error('Error al consultar reporte', 'Error!', { timeOut: 1500 });
+
+            }
+
+          }, error => {
+
+            toastr.error('Error al consultar reporte', 'Error!', { timeOut: 1500 });
+
+          });
+
           break;
 
         case 2:
+
 
 
 
@@ -167,6 +229,7 @@ export class HomeComponent implements OnInit {
 
     }
 
+
   }
 
   limpiarBusqueda(): void {
@@ -175,6 +238,7 @@ export class HomeComponent implements OnInit {
     this.meta_real = 0;
     this.mejor_walker = 'NOMBRE CAMINADOR';
     this.mejor_km = '0.0';
+    this.graficas = [];
 
 
   }
@@ -209,7 +273,7 @@ export class HomeComponent implements OnInit {
         this.titulo_2da_card = 'MEJOR WALKER PROYECTO';
         break;
       case 3:
-        this.titulo_1er_card =  '';
+        this.titulo_1er_card = '';
         this.titulo_2da_card = 'MEJOR WALKER DÍA';
         break;
     }
@@ -226,7 +290,7 @@ export class HomeComponent implements OnInit {
 
       if (tipo_rpt == 3) {
         optionsChartGlobal.subtitle.text = subtitulo + " " + result.dia;
-        this.titulo_1er_card =  'DÍA: ' + result.dia;
+        this.titulo_1er_card = 'DÍA: ' + result.dia;
       } else {
         optionsChartGlobal.subtitle.text = subtitulo;
       }
