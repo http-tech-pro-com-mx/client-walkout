@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location, DatePipe } from '@angular/common';
-import { optionsChartGlobal } from './configCharts';
+import { optionsChartGlobal, optionsChartWeek } from './configCharts';
 import * as Highcharts from 'highcharts';
 import { HomeService } from './home.service';
 import { Proyecto } from '../models/proyecto';
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
   public titulo_2da_card: string;
 
 
-  constructor(private service: HomeService) { }
+  constructor(private service: HomeService) {}
 
   ngOnInit() {
 
@@ -130,7 +130,8 @@ export class HomeComponent implements OnInit {
 
           this.service.rptGlobalProyectoSemanal(this.proyectoSelected).subscribe(result => {
             this.showRpt = true;
-            console.log(result);
+            console.log( result );
+       
             if (result.successful) {
 
               this.graficas = result.datos;
@@ -139,19 +140,20 @@ export class HomeComponent implements OnInit {
 
                 this.graficas.forEach((el, index) => {
                 
-                  let config_grafica = clone(optionsChartGlobal);
-
+                  let config_grafica = clone( optionsChartWeek );
+                 
                   // Formato dia
-                  let datePipe = new DatePipe('en-ES');
-                  el[1].fecha_inicio = datePipe.transform( el[1].fecha_inicio , 'yyyy/MM/dd');
-                  el[1].fecha_fin = datePipe.transform( el[1].fecha_fin , 'yyyy/MM/dd');
+                  let datePipe = new DatePipe('es-MX');
+                  el[1].fecha_inicio = datePipe.transform( el[1].fecha_inicio , 'fullDate');
+                  el[1].fecha_fin = datePipe.transform( el[1].fecha_fin , 'fullDate');
                   // Fin formato dia
 
-                  let datos = { data: [], color: '#0d47a1', name: 'KM CAMINADOS' };
+                  let datos = { data: [], color: '#0d47a1', name: 'KM CAMINADOS',  type: 'column' };
+                  let datos_meta = { data: [], color: '#8bc34a', name: 'META',  type: 'line' };
                   config_grafica.series = [];
                   config_grafica.xAxis.categories = [];
                   config_grafica.title.text = el[1].nombre;
-                  config_grafica.yAxis.title.text = 'Kilometros';
+                  config_grafica.yAxis.title.text = 'KM';
 
                   
 
@@ -159,10 +161,15 @@ export class HomeComponent implements OnInit {
 
                   el[0].map(el => (el[0] * 0.0003048)).reduce((num1, num2) => num1 + num2);
 
-                  datos.data = el[0].map(el => (el[0] * 0.0003048));
+                  let meta = el[1].meta;
+                  
+                  datos.data = el[0].map(el =>{
+                    datos_meta.data.push( meta );
+                    return (el[0] * 0.0003048);
+                  });
 
                   config_grafica.xAxis.categories = el[0].map(el => el[2]);
-                  config_grafica.series.push(datos);
+                  config_grafica.series.push(datos,datos_meta);
 
 
                   $('#container' + index).highcharts(config_grafica);
