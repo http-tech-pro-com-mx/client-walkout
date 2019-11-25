@@ -371,7 +371,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
             this.ip.grids.push(result.grid);
 
 
-            this.ip.km = this.updateKilometros(this.ip.grids);
+            this.ip.pies = this.updateKilometros(this.ip.grids);
 
             $('#modalGrid').modal('hide');
             swal.fire('Exito !', result.message, 'success');
@@ -403,7 +403,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
             });
 
-            this.ip.km = this.updateKilometros(this.ip.grids);
+            this.ip.pies = this.updateKilometros(this.ip.grids);
 
 
             $('#modalGrid').modal('hide');
@@ -456,7 +456,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
             if(el.id_grid != grid.id_grid)return el;
           });
 
-          this.ip.km = this.updateKilometros(this.ip.grids);
+          this.ip.pies = this.updateKilometros(this.ip.grids);
           swal.fire('Exito !', 'Se elimino: ' + grid.numero_plano + ' correctamente ', 'success');
 
         }, error => {
