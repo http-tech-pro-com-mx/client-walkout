@@ -41,7 +41,6 @@
                     <th>FECHA LEVANTAMIENTO</th>
                     <th>KM</th>
                     <th>QC</th>
-                    <th>SP</th>
                     <th>UBICACIÓN</th>
                     <th class="text-center">DETALLE</th>
                     <th class="text-center">ELIMINAR</th>
@@ -56,12 +55,7 @@
                     <td>{{ ip.fecha_levantamiento | date: 'yyyy-MM-dd' }}</td>
                     <td>{{ ip.km }}</td>
                     <td>
-                      <i class="pe-7s-check" *ngIf="ip.qc"></i>
-                      <i class="pe-7s-close-circle" *ngIf="!ip.qc"></i>
-                    </td>
-                    <td>
-                        <i class="pe-7s-check" *ngIf="ip.sp"></i>
-                        <i class="pe-7s-close-circle" *ngIf="!ip.sp"></i>
+                       
                     </td>
                     <td>{{ip.ubicacion}}</td>
                     <td class="text-center">

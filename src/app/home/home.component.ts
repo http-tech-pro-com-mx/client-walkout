@@ -1,4 +1,4 @@
-import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject, OnDestroy } from '@angular/core';
 import { LocationStrategy, PlatformLocation, Location, DatePipe } from '@angular/common';
 import { optionsChartGlobal, optionsChartWeek } from './configCharts';
 import * as Highcharts from 'highcharts';
@@ -16,7 +16,8 @@ declare const CountUp: any;
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+ 
 
   public tipo_reporte: number;
   public proyectoSelected: number;
@@ -130,7 +131,6 @@ export class HomeComponent implements OnInit {
 
           this.service.rptGlobalProyectoSemanal(this.proyectoSelected).subscribe(result => {
             this.showRpt = true;
-            console.log( result );
        
             if (result.successful) {
 
@@ -335,5 +335,10 @@ export class HomeComponent implements OnInit {
 
     }
   }
+
+  ngOnDestroy(): void {
+    $('.proyectos').selectpicker('destroy');
+  }
+
 
 }

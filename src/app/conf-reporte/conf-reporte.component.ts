@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ConfReporteService } from './conf-reporte.service';
 import { Proyecto } from '../models/proyecto';
 import { Configuracion } from '../models/configuracion';
@@ -11,7 +11,7 @@ declare var toastr:any;
   templateUrl: './conf-reporte.component.html',
   styleUrls: ['./conf-reporte.component.scss']
 })
-export class ConfReporteComponent implements OnInit {
+export class ConfReporteComponent implements OnInit, OnDestroy  {
 
 
   public proyectos: Array<Proyecto>;
@@ -82,6 +82,10 @@ export class ConfReporteComponent implements OnInit {
       this.busqueda = false;
       this.filtrar = "";
       this.proyecto_selected = new Proyecto(-1,'','',false,[],[]);
+  }
+
+  ngOnDestroy(): void {
+    $('.proyectos').selectpicker('destroy');
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { IpFormService } from './ip-form.service';
 import { Proyecto } from '../models/proyecto';
@@ -17,7 +17,8 @@ declare var toastr: any;
   templateUrl: './ip-form.component.html',
   styleUrls: ['./ip-form.component.scss']
 })
-export class IpFormComponent implements OnInit {
+export class IpFormComponent implements OnInit, OnDestroy {
+
 
   public proyectos: Array<Proyecto>;
   public walkers: Array<Walker>;
@@ -48,7 +49,7 @@ export class IpFormComponent implements OnInit {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, false, '', new Date(), new Date(), usuario, false, true, 1, new Proyecto(-1, '', '', true));
+    this.ip = new Ip(-1, '', 0.0, '', new Date(), new Date(), usuario, 1 , true, 1, new Proyecto(-1, '', '', true));
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     this.ip.proyecto.id_proyecto = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
     if (this.router.url.includes('crear')) {
@@ -482,6 +483,10 @@ export class IpFormComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    $('.proyectos').selectpicker('destroy');
+    $('.caminador').selectpicker('destroy');
+  }
 
 
 }

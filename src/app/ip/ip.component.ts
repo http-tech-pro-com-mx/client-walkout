@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IpService } from './ip.service';
 import { Ip } from '../models/ip';
 import { Proyecto } from '../models/proyecto';
@@ -12,7 +12,8 @@ declare const toastr: any;
   templateUrl: './ip.component.html',
   styleUrls: ['./ip.component.scss']
 })
-export class IpComponent implements OnInit {
+export class IpComponent implements OnInit, OnDestroy {
+
 
   public ips: Array<Ip>;
   public proyectos: Array<Proyecto>;
@@ -128,6 +129,10 @@ export class IpComponent implements OnInit {
     this.ips = [];
     this.busqueda = false;
     this.filtrar = "";
+  }
+
+  ngOnDestroy(): void {
+    $('.proyectos').selectpicker('destroy');
   }
 
 
