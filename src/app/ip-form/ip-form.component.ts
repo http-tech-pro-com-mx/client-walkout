@@ -49,7 +49,8 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, '', new Date(), new Date(), usuario, 1 , true, 1, new Proyecto(-1, '', '', true));
+    this.ip = new Ip(-1, '', 0.0, '', new Date(), new Date(), usuario, 1, true, 1, new Proyecto(-1, '', '', true));
+
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     this.ip.proyecto.id_proyecto = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
     if (this.router.url.includes('crear')) {
@@ -102,7 +103,9 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
     this.service.getInfoByIp(id_ip).subscribe(result => {
 
+
       this.ip = result.ip;
+
       this.ip.proyecto = new Proyecto(result.id_proyecto, '', '', true);
 
 
@@ -127,7 +130,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
       id_proyecto: new FormControl({ value: this.ip.proyecto.id_proyecto, disabled: !this.create }, [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_levantamiento: new FormControl('', [Validators.required]),
-      km: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      pies: new FormControl({ value: '', disabled: true }, [Validators.required]),
       ubicacion: new FormControl('', [Validators.required, noWhitespaceValidator]),
       tipo: new FormControl('')
     });
@@ -330,6 +333,11 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     $('#modalGrid').modal('show');
 
+    setTimeout(() => {
+      $('.numero_plano')[0].focus();
+    }, 800)
+
+
 
   }
 
@@ -359,6 +367,10 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
     this.submittedGrid = true;
 
+    if(!this.grid.walkers){
+       this.grid.walkers = [];
+    }
+
     if (this.formGrid.valid && this.grid.walkers.length > 0) {
 
       if (this.create_grid) {
@@ -371,7 +383,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
             this.ip.grids.push(result.grid);
 
 
-            this.ip.pies = this.updateKilometros(this.ip.grids);
+            this.ip.pies = this.updateFt(this.ip.grids);
 
             $('#modalGrid').modal('hide');
             swal.fire('Exito !', result.message, 'success');
@@ -403,7 +415,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
             });
 
-            this.ip.pies = this.updateKilometros(this.ip.grids);
+            this.ip.pies = this.updateFt(this.ip.grids);
 
 
             $('#modalGrid').modal('hide');
@@ -453,10 +465,10 @@ export class IpFormComponent implements OnInit, OnDestroy {
         this.service.deleteGrid(grid.id_grid).subscribe(result => {
 
           this.ip.grids = this.ip.grids.filter(el => {
-            if(el.id_grid != grid.id_grid)return el;
+            if (el.id_grid != grid.id_grid) return el;
           });
 
-          this.ip.pies = this.updateKilometros(this.ip.grids);
+          this.ip.pies = this.updateFt(this.ip.grids);
           swal.fire('Exito !', 'Se elimino: ' + grid.numero_plano + ' correctamente ', 'success');
 
         }, error => {
@@ -471,17 +483,17 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
   }
 
-  updateKilometros(grids: Array<Grid>): number {
+  updateFt(grids: Array<Grid>): number {
 
-    if( grids.length == 0) return 0;
+    if (grids.length == 0) return 0;
 
     let total_pies = grids.map(el => el.total_pies).reduce((a, b) => a + b);
 
-    let total_km = parseFloat( (total_pies * 0.0003048).toFixed(5));
-
-    return total_km;
+    return total_pies;
 
   }
+
+
 
   ngOnDestroy(): void {
     $('.proyectos').selectpicker('destroy');

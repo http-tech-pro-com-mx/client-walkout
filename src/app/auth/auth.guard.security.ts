@@ -11,6 +11,7 @@ export class AuthGuardSecurity implements CanActivate {
     
         let roles_usuario= this.auth.getRoles();
     
+
         if(roles_usuario.indexOf(expectedRole) == -1){
             this.router.navigate(['dashboard']);
             return false;

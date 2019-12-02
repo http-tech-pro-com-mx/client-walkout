@@ -3,6 +3,9 @@ import { IpService } from './ip.service';
 import { Ip } from '../models/ip';
 import { Proyecto } from '../models/proyecto';
 import swal from 'sweetalert2';
+import { AuthService } from '../auth/auth.service';
+import { Grid } from '../models/grid';
+import { Walker } from '../models/walker';
 
 declare const $: any;
 declare const toastr: any;
@@ -12,6 +15,7 @@ declare const toastr: any;
   templateUrl: './ip.component.html',
   styleUrls: ['./ip.component.scss']
 })
+
 export class IpComponent implements OnInit, OnDestroy {
 
 
@@ -22,7 +26,17 @@ export class IpComponent implements OnInit, OnDestroy {
   public selectedProject: number;
   public filtrar: string;
 
-  constructor(private service: IpService) { }
+
+
+  public permisos = {
+    crear: false,
+    editar: false,
+    eliminar: false
+
+  }
+
+  constructor(private service: IpService,
+    private auth: AuthService) { }
 
   ngOnInit() {
 
@@ -32,6 +46,11 @@ export class IpComponent implements OnInit, OnDestroy {
     this.proyectos = [];
     this.selectedProject = -1;
     this.filtrar = "";
+
+
+    this.permisos.crear = this.auth.hasPermission('ROLE_HQ');
+    this.permisos.editar = this.auth.hasPermission('ROLE_HQ');
+    this.permisos.eliminar = this.auth.hasPermission('ROLE_HQ');
 
 
     this.service.getInfoProyectos().subscribe(result => {
@@ -65,18 +84,36 @@ export class IpComponent implements OnInit, OnDestroy {
 
   busquedaIp() {
 
-    
+
 
     if (this.selectedProject != -1 && this.selectedProject != null) {
 
-      this.busqueda = true;
+     
 
       this.service.getInfoIPSForProject(this.selectedProject).subscribe(result => {
-     
-        this.ips = result;
+
+        this.ips = result.ips;
+
+
+        this.ips.forEach( (ip, index) =>{
+
+          ip.participantes =  this.getParticipantesByIp( this.ips[index].id_ip, result.participantes );
+
+        });
+        
+       
+
+        //Tiempo de espera
+
+        setTimeout(()=>{
+          this.busqueda = true;
+        }, 900);
+
+
 
       }, error => {
 
+        this.busqueda = false;
         toastr.error(error.error, 'Error!');
 
       });
@@ -84,13 +121,14 @@ export class IpComponent implements OnInit, OnDestroy {
 
     } else {
 
-      toastr.error('Seleccione un proyecto', 'Error!',  {timeOut: 2000});
+      this.busqueda = false;
+      toastr.error('Seleccione un proyecto', 'Error!', { timeOut: 2000 });
 
     }
 
   }
 
-  eliminar(ip: Ip){
+  eliminar(ip: Ip) {
     swal.fire({
       title: '<span style="color: #ffb74d">¿Desea eliminar IP?</span>',
       html: '<p style="color: #ffb74d">IP: ' + ip.ip + '</p>',
@@ -109,7 +147,7 @@ export class IpComponent implements OnInit, OnDestroy {
       if (result.value) {
 
         // this.service.updateEstatus(empleado.id_usuario, empleado.estatus).subscribe(response => {
-          
+
         //   if (response.successful) {
         //     empleado.estatus = !empleado.estatus;
         //     swal.fire('Exito !', response.message, 'success');
@@ -135,5 +173,26 @@ export class IpComponent implements OnInit, OnDestroy {
     $('.proyectos').selectpicker('destroy');
   }
 
+  getParticipantesByIp(id_ip: number, participantes: Array<any>): Array<string> {
+
+    let res = participantes.filter( (el, index) =>{   
+        if( el[0] == id_ip ){
+          return el;
+        }
+    }).map( item => item[1]);
+
+   
+    if( res.length > 0){
+
+       return res[0];
+
+    } else {
+
+      return [" SIN WALKERS "];
+
+    }
+
+  
+  }
 
 }

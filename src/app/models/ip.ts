@@ -17,12 +17,10 @@ export class Ip {
         public proyecto: Proyecto = new Proyecto(-1,'','',true),
         public grids: Array<Grid> = [] ,
         public fecha_update?: Date,
-        public usuario_update?: number
+        public usuario_update?: number,
+        public participantes?: Array<string>
+        //participantes solo es una variable auxiliar para obtener participantes, no forma parte del esquema de bd
     ){
     }
 
-
-    getKilometros(){
-        
-    }
 }

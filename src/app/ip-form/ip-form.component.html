@@ -50,14 +50,20 @@
                       Requerido
                     </small>
                   </div>
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <div class="form-group">
-                      <label>KM</label>
-                      <input type="text" class="form-control" placeholder="KM" [(ngModel)]="ip.km" formControlName='km'>
+                      <label>PIES</label>
+                      <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="ip.pies" formControlName='pies'>
                     </div>
-                    <small *ngIf="form.controls.km.errors?.required && (form.controls.km?.touched || submitted)" class="form-text text-muted text-validator-error">
+                    <small *ngIf="form.controls.pies.errors?.required && (form.controls.pies?.touched || submitted)" class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>KM</label>
+                      <input type="text" class="form-control" placeholder="KM" [value]="ip.pies | ftKm" disabled>
+                    </div>                 
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -181,7 +187,7 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label>NUMERO DE PLANO</label>
-                                <input type="text" class="form-control" placeholder="NO PLANO" [(ngModel)]="grid.numero_plano" formControlName='numero_plano'>
+                                <input type="text" class="form-control numero_plano move1" placeholder="NO PLANO" [(ngModel)]="grid.numero_plano" formControlName='numero_plano'>
                                 <small *ngIf="formGrid.controls.numero_plano.errors?.required && (formGrid.controls.numero_plano?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -195,7 +201,7 @@
                             <div [ngClass]="{'col-md-4': ip.tipo == 1 , 'col-md-8' : ip.tipo == 2 }">
                               <div class="form-group">
                                 <label>PIES</label>
-                                <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="grid.total_pies" formControlName='total_pies'>
+                                <input type="text" class="form-control move2" placeholder="PIES" [(ngModel)]="grid.total_pies" formControlName='total_pies' >
                                 <small *ngIf="formGrid.controls.total_pies.errors?.required && (formGrid.controls.total_pies?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -205,7 +211,7 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>CASAS</label>
-                                <input type="number" class="form-control" placeholder="CASAS" [(ngModel)]="grid.total_casas" formControlName='total_casas'>
+                                <input type="number" class="form-control move3" placeholder="CASAS" [(ngModel)]="grid.total_casas" formControlName='total_casas'>
                                 <small *ngIf="formGrid.controls.total_casas.errors?.required && (formGrid.controls.total_casas?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -219,7 +225,7 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>NEGOCIOS</label>
-                                <input type="number" class="form-control" placeholder="NEGOCIOS" [(ngModel)]="grid.total_negocios" formControlName='total_negocios'>
+                                <input type="number" class="form-control move4" placeholder="NEGOCIOS" [(ngModel)]="grid.total_negocios" formControlName='total_negocios'>
                                 <small *ngIf="formGrid.controls.total_negocios.errors?.required && (formGrid.controls.total_negocios?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -229,7 +235,7 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>ESCUELAS</label>
-                                <input type="number" class="form-control" placeholder="ESCUELAS" [(ngModel)]="grid.total_escuelas" formControlName='total_escuelas'>
+                                <input type="number" class="form-control move5" placeholder="ESCUELAS" [(ngModel)]="grid.total_escuelas" formControlName='total_escuelas' >
                                 <small *ngIf="formGrid.controls.total_escuelas.errors?.required && (formGrid.controls.total_escuelas?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -239,7 +245,7 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>IGLESIAS</label>
-                                <input type="number" class="form-control" placeholder="IGLESIAS" [(ngModel)]="grid.total_iglesias" formControlName='total_iglesias'>
+                                <input type="number" class="form-control move6" placeholder="IGLESIAS" [(ngModel)]="grid.total_iglesias" formControlName='total_iglesias' >
                                 <small *ngIf="formGrid.controls.total_iglesias.errors?.required && (formGrid.controls.total_iglesias?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -253,7 +259,7 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>BALDIOS</label>
-                                <input type="number" class="form-control" placeholder="BALDIOS" [(ngModel)]="grid.total_baldios" formControlName='total_baldios'>
+                                <input type="number" class="form-control move7" placeholder="BALDIOS" [(ngModel)]="grid.total_baldios" formControlName='total_baldios' >
                                 <small *ngIf="formGrid.controls.total_baldios.errors?.required && (formGrid.controls.total_baldios?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
@@ -262,7 +268,7 @@
                             </div>
                             <div class="col-md-8" *ngIf="ip.tipo == 1">
                               <label>COMENTARIOS</label>
-                              <input type="text" class="form-control" placeholder="COMENTARIOS" [(ngModel)]="grid.comentarios" formControlName='comentarios'>
+                              <input type="text" class="form-control move8" placeholder="COMENTARIOS" [(ngModel)]="grid.comentarios" formControlName='comentarios' >
                             </div>
                           </div>
                         </div>

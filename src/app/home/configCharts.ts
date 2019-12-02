@@ -43,9 +43,9 @@ var optionsChartGlobal: any = {
         enabled: true,
         inside: false,
         y: 5,
-        format: '{y:.4f}',
+        format: '{y:.2f}',
         formatter: function(){
-          return parseFloat(this.y).toFixed(4);
+          return parseFloat(this.y).toFixed(2);
         }
         
       },
@@ -112,7 +112,7 @@ var optionsChartWeek: any = {
     categories: []
   },
   tooltip: {
-    valueDecimals: 4
+    valueDecimals: 2
   },
   plotOptions: {
     series: {
@@ -120,9 +120,9 @@ var optionsChartWeek: any = {
         enabled: true,
         inside: false,
         y: 5,
-        format: '{y:.4f}',
+        format: '{y:.2f}',
         formatter: function(){
-          return parseFloat(this.y).toFixed(4);
+          return parseFloat(this.y).toFixed(2);
         }
         
       },

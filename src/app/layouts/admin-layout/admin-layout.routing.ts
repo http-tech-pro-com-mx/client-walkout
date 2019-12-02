@@ -10,8 +10,8 @@ import { AuthGuardSecurity } from '../../auth/auth.guard.security';
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
     { path: 'user', component: UserComponent },
-    { path: 'ip', component: IpComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'HQ' } },
-    { path: 'ip/editar/:id_ip', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'HQ' } },
-    { path: 'ip/crear/:id_proyecto', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'HQ' } },
-    { path: 'configuracion', component: ConfReporteComponent , canActivate: [AuthGuardSecurity],  data: { expectedRole: 'HQ' }}
+    { path: 'ip', component: IpComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_CONSULTA_IP' } },
+    { path: 'ip/editar/:id_ip', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' } },
+    { path: 'ip/crear/:id_proyecto', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' } },
+    { path: 'configuracion', component: ConfReporteComponent , canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' }}
 ];

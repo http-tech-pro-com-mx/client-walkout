@@ -12,11 +12,11 @@ declare interface RouteInfo {
   roles: Array<string>
 }
 export const ROUTES: RouteInfo[] = [
-  { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '', roles: ['ADMIN', 'WALKER' , 'HQ'] },
-  { path: '/user', title: 'Perfil', icon: 'pe-7s-user', class: '', roles: ['ADMIN', 'WALKER' , 'HQ'] },
-  { path: '/ip', title: 'IP', icon: 'pe-7s-folder', class: '', roles: ['HQ'] },
-  { path: '/ip/crear', title: 'Detalle IP', icon: 'pe-7s-folder', class: '', roles: ['HQ'] },
-  { path: '/configuracion', title: 'Configuracion', icon: 'pe-7s-settings', class: '', roles: ['HQ'] }
+  { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '', roles: ['ROLE_ADMIN', 'ROLE_WALKER' , 'ROLE_HQ'] },
+  { path: '/user', title: 'Perfil', icon: 'pe-7s-user', class: '', roles: ['ROLE_ADMIN', 'ROLE_WALKER' , 'ROLE_HQ'] },
+  { path: '/ip', title: 'IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ', 'ROLE_ADMIN'] },
+  { path: '/ip/crear', title: 'Detalle IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ'] },
+  { path: '/configuracion', title: 'Configuracion', icon: 'pe-7s-settings', class: '', roles: ['ROLE_HQ'] }
 ];
 
 @Component({
