@@ -107,7 +107,7 @@ export class IpComponent implements OnInit, OnDestroy {
 
         setTimeout(()=>{
           this.busqueda = true;
-        }, 900);
+        }, 100);
 
 
 
@@ -181,8 +181,7 @@ export class IpComponent implements OnInit, OnDestroy {
         }
     }).map( item => item[1]);
 
-   
-    if( res.length > 0){
+    if( res[0].length > 0){
 
        return res[0];
 
