@@ -194,4 +194,38 @@ export class IpComponent implements OnInit, OnDestroy {
   
   }
 
+  openModalEstatus(estatus: string, ip: string){
+
+    swal.fire({
+      title: 'Cambiar estatus de la IP '+ ip,
+      input: 'select',
+      inputOptions: {
+        0: 'Caminando',
+        1: 'Revisión QC',
+        2: 'Validado QC',
+        3: 'SharedPoint'
+      },
+      inputPlaceholder: 'Selecciona estatus',
+      showCancelButton: true,
+      inputValue: estatus,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if ( value !== '' ) {
+            resolve()
+          } else {
+            resolve('Selecciona un estatus')
+          }
+        })
+      }
+    }).then(function (result) {
+      if (result.value) {
+        swal.fire({
+          type: 'success',
+          html: 'You selected: ' + result.value
+        });
+      }
+    });
+
+  }
+
 }
