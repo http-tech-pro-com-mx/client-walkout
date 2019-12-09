@@ -32,10 +32,14 @@
             <div class="header">
               <h4 class="title">LISTADO DE IP</h4>
               <p class="category">ESTATUS:
-                  <label><img src="assets/img/walking.png" class="icon-description"> CAMINANDO</label>
-                  <label><img src="assets/img/qc.png" class="icon-description"> REVISIÓN QC</label>
-                  <label><img src="assets/img/qcOk.png" class="icon-description"> VALIDADO QC</label>
-                  <label><img src="assets/img/shared.png" class="icon-description"> SHAREDPOINT</label>
+                <label>
+                  <img src="assets/img/walking.png" class="icon-description"> CAMINANDO</label>
+                <label>
+                  <img src="assets/img/qc.png" class="icon-description"> REVISIÓN QC</label>
+                <label>
+                  <img src="assets/img/qcOk.png" class="icon-description"> VALIDADO QC</label>
+                <label>
+                  <img src="assets/img/shared.png" class="icon-description"> SHAREDPOINT</label>
               </p>
             </div>
             <div class="content table-responsive table-full-width">
@@ -65,10 +69,10 @@
                     <td>{{ip.ubicacion}}</td>
                     <td>
                       <a href="javascript:void(0);">
-                         <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0 " (click)="openModalEstatus('0', ip.ip)">
-                         <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 " (click)="openModalEstatus('1', ip.ip)">
-                         <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 3 " (click)="openModalEstatus('2', ip.ip)">
-                         <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 2 " (click)="openModalEstatus('3', ip.ip)">
+                        <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0 " (click)="openModalEstatus('0', ip.ip)">
+                        <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 " (click)="openModalEstatus('1', ip.ip)">
+                        <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 3 " (click)="openModalEstatus('2', ip.ip)">
+                        <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 2 " (click)="openModalEstatus('3', ip.ip)">
                       </a>
                     </td>
                     <td>
@@ -93,7 +97,21 @@
                   </tr>
                 </tbody>
               </table>
-
+            </div>
+            <div class="footer">
+              <div class="container text-center">
+                <ul class="pagination">
+                  <li class="disabled">
+                    <a href="javascript:void(0);">&laquo;</a>
+                  </li>
+                  <li class="active">
+                    <a href="javascript:void(0);">1</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);">&raquo;</a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
