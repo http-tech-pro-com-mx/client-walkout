@@ -32,12 +32,12 @@
             <div class="header">
               <h4 class="title">LISTADO DE IP</h4>
               <p class="category">ESTATUS:
-                <label>
-                  <img src="assets/img/walking.png" class="icon-description"> CAMINANDO</label>
-                <label>
+                <!-- <label>
+                  <img src="assets/img/walking.png" class="icon-description"> CAMINANDO</label>-->
+                <label> 
                   <img src="assets/img/qc.png" class="icon-description"> REVISIÓN QC</label>
-                <label>
-                  <img src="assets/img/qcOk.png" class="icon-description"> VALIDADO QC</label>
+                <!-- <label>
+                  <img src="assets/img/qcOk.png" class="icon-description"> VALIDADO QC</label> -->
                 <label>
                   <img src="assets/img/shared.png" class="icon-description"> SHAREDPOINT</label>
               </p>
@@ -61,7 +61,7 @@
                   <tr *ngIf="ips.length == 0">
                     <td class="text-center" colspan="9">SIN REGISTROS</td>
                   </tr>
-                  <tr *ngFor="let ip of ips | searchIP: filtrar" class="tr-puntero-color">
+                  <tr *ngFor="let ip of ips | searchIP: filtrar | paginate: { itemsPerPage: 10, currentPage: p } " class="tr-puntero-color">
                     <td>{{ ip.ip }}</td>
                     <td>{{ ip.fecha_levantamiento | date: 'fullDate' }}</td>
                     <td>{{ ip.pies }}</td>
@@ -69,10 +69,10 @@
                     <td>{{ip.ubicacion}}</td>
                     <td>
                       <a href="javascript:void(0);">
-                        <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0 " (click)="openModalEstatus('0', ip.ip)">
-                        <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 " (click)="openModalEstatus('1', ip.ip)">
-                        <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 3 " (click)="openModalEstatus('2', ip.ip)">
-                        <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 2 " (click)="openModalEstatus('3', ip.ip)">
+                        <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0 " (click)="openModalEstatus('0', ip)">
+                        <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 " (click)="openModalEstatus('1', ip)">
+                        <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 2 " (click)="openModalEstatus('2', ip)">
+                        <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3 " (click)="openModalEstatus('3', ip)">
                       </a>
                     </td>
                     <td>
@@ -99,8 +99,9 @@
               </table>
             </div>
             <div class="footer">
-              <div class="container text-center">
-                <ul class="pagination">
+              <div class="container text-center pagination">
+                <pagination-controls (pageChange)="pageChanged($event)" previousLabel="ANT" nextLabel="SIG"></pagination-controls>
+                <!-- <ul class="pagination">
                   <li class="disabled">
                     <a href="javascript:void(0);">&laquo;</a>
                   </li>
@@ -110,7 +111,7 @@
                   <li>
                     <a href="javascript:void(0);">&raquo;</a>
                   </li>
-                </ul>
+                </ul> -->
               </div>
             </div>
           </div>

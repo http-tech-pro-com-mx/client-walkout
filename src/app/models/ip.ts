@@ -11,7 +11,7 @@ export class Ip {
         public fecha_levantamiento: Date,
         public fecha_registro: Date,
         public usuario_registro: number,
-        public QC: number,
+        public qc: number,
         public estatus: boolean,
         public tipo: number,
         public proyecto: Proyecto = new Proyecto(-1,'','',true),

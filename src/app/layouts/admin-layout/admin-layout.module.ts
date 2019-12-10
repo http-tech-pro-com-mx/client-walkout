@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PipeModule } from '../../pipe/pipe.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AdminLayoutRoutes } from './admin-layout.routing';
 
@@ -25,7 +26,8 @@ registerLocaleData(localeEsMx);
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     PipeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ],
   declarations: [
     HomeComponent,

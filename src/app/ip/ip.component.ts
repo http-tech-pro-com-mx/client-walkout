@@ -25,6 +25,7 @@ export class IpComponent implements OnInit, OnDestroy {
   public busqueda: boolean;
   public selectedProject: number;
   public filtrar: string;
+  public p: number;
 
 
 
@@ -46,6 +47,7 @@ export class IpComponent implements OnInit, OnDestroy {
     this.proyectos = [];
     this.selectedProject = -1;
     this.filtrar = "";
+    this.p = 1;
 
 
     this.permisos.crear = this.auth.hasPermission('ROLE_HQ');
@@ -88,24 +90,24 @@ export class IpComponent implements OnInit, OnDestroy {
 
     if (this.selectedProject != -1 && this.selectedProject != null) {
 
-     
+
 
       this.service.getInfoIPSForProject(this.selectedProject).subscribe(result => {
 
         this.ips = result.ips;
 
 
-        this.ips.forEach( (ip, index) =>{
+        this.ips.forEach((ip, index) => {
 
-          ip.participantes =  this.getParticipantesByIp( this.ips[index].id_ip, result.participantes );
+          ip.participantes = this.getParticipantesByIp(this.ips[index].id_ip, result.participantes);
 
         });
-        
-       
+
+
 
         //Tiempo de espera
 
-        setTimeout(()=>{
+        setTimeout(() => {
           this.busqueda = true;
         }, 100);
 
@@ -146,18 +148,23 @@ export class IpComponent implements OnInit, OnDestroy {
        */
       if (result.value) {
 
-        // this.service.updateEstatus(empleado.id_usuario, empleado.estatus).subscribe(response => {
+        this.service.deleteIP(ip).subscribe(response => {
 
-        //   if (response.successful) {
-        //     empleado.estatus = !empleado.estatus;
-        //     swal.fire('Exito !', response.message, 'success');
-        //   } else {
-        //     toastr.error(response.message);
-        //   }
-        // }, error => {
-        //   toastr.error('Ocurrió un error al consultar! Error: ' + error.status);
+          if (response.successful) {
 
-        // });
+            this.ips = this.ips.filter( el  => el.id_ip !=  ip.id_ip );
+            swal.fire('Exito !', response.message , 'success');
+
+          } else {
+
+            toastr.error('No se pudo eliminar');
+
+          }
+        }, error => {
+          
+          toastr.error('Ocurrió un error al consultar! Error: ' + error.status);
+
+        });
 
       } else if (result.dismiss === swal.DismissReason.cancel) { }
     })
@@ -175,15 +182,15 @@ export class IpComponent implements OnInit, OnDestroy {
 
   getParticipantesByIp(id_ip: number, participantes: Array<any>): Array<string> {
 
-    let res = participantes.filter( (el, index) =>{   
-        if( el[0] == id_ip ){
-          return el;
-        }
-    }).map( item => item[1]);
+    let res = participantes.filter((el, index) => {
+      if (el[0] == id_ip) {
+        return el;
+      }
+    }).map(item => item[1]);
 
-    if( res[0].length > 0){
+    if (res[0].length > 0) {
 
-       return res[0];
+      return res[0];
 
     } else {
 
@@ -191,18 +198,18 @@ export class IpComponent implements OnInit, OnDestroy {
 
     }
 
-  
+
   }
 
-  openModalEstatus(estatus: string, ip: string){
+  openModalEstatus(estatus: string, ip: Ip) {
 
     swal.fire({
-      title: 'Cambiar estatus de la IP '+ ip,
+      title: 'Cambiar estatus de la IP ' + ip.ip,
       input: 'select',
       inputOptions: {
-        0: 'Caminando',
+        // 0: 'Caminando',
         1: 'Revisión QC',
-        2: 'Validado QC',
+        // 2: 'Validado QC',
         3: 'SharedPoint'
       },
       inputPlaceholder: 'Selecciona estatus',
@@ -210,22 +217,42 @@ export class IpComponent implements OnInit, OnDestroy {
       inputValue: estatus,
       inputValidator: (value) => {
         return new Promise((resolve) => {
-          if ( value !== '' ) {
+          if (value !== '') {
             resolve()
           } else {
             resolve('Selecciona un estatus')
           }
         })
       }
-    }).then(function (result) {
-      if (result.value) {
-        swal.fire({
-          type: 'success',
-          html: 'You selected: ' + result.value
-        });
-      }
+    }).then((result) => {
+
+      ip.qc = parseInt(result.value);
+
+      this.service.changeStatus(ip).subscribe(resp => {
+
+        if (resp.successful) {
+
+          swal.fire({ type: 'success', html: resp.message });
+
+        } else {
+
+          ip.qc = parseInt(estatus);
+          toastr.error('No se actualizo ', 'Error!');
+        }
+
+      }, error => {
+
+        ip.qc = parseInt(estatus);
+        toastr.error(error.error, 'Error!');
+
+      });
+
     });
 
+  }
+
+  pageChanged(event) {
+    this.p = event;
   }
 
 }
