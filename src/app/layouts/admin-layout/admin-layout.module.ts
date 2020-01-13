@@ -17,6 +17,7 @@ import { IpFormComponent } from '../../ip-form/ip-form.component';
 import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AuthGuardSecurity } from '../../auth/auth.guard.security';
+import { ChangePwdComponent } from '../../change-pwd/change-pwd.component';
 
 registerLocaleData(localeEsMx);
 
@@ -35,7 +36,8 @@ registerLocaleData(localeEsMx);
     IpComponent,
     ConfReporteComponent,
     IpFormComponent,
-    LoaderComponent
+    LoaderComponent,
+    ChangePwdComponent
   ],
   providers: [
     AuthGuardSecurity, 

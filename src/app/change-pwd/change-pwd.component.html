@@ -1,0 +1,77 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="body">
+                    <div>
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#change_password_settings" aria-controls="settings" role="tab"
+                                    data-toggle="tab">CAMBIAR</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane fade in active" id="change_password_settings">
+                                <form class="form-horizontal" [formGroup]="form" (ngSubmit)="changePassword()"
+                                    autocomplete="off">
+                                    <div class="form-group">
+                                        <label for="contrasenia_actual" class="col-sm-3 control-label">CONTRASEÑA
+                                            ACTUAL</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control" id="contrasenia_actual"
+                                                    name="contrasenia_actual" placeholder="CONTRASEÑA ACTUAL"
+                                                    [(ngModel)]="contrasenias.actual" formControlName='actual'>
+                                            </div>
+                                            <small
+                                                *ngIf="form.controls.actual.errors?.required && (form.controls.actual?.touched || submitted)"
+                                                class="form-text text-muted text-validator-error">
+                                                Requerido
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contrasenia_nueva" class="col-sm-3 control-label">NUEVA
+                                            CONTRASEÑA</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control" id="contrasenia_nueva"
+                                                    name="contrasenia_nueva" placeholder="NUEVA CONTRASEÑA"
+                                                    [(ngModel)]="contrasenias.nueva" formControlName='nueva'>
+                                            </div>
+                                            <small
+                                                *ngIf="form.controls.nueva.errors?.required && (form.controls.nueva?.touched || submitted)"
+                                                class="form-text text-muted text-validator-error">
+                                                Requerido
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="contrasenia_confirmacion" class="col-sm-3 control-label">NUEVA
+                                            CONTRASEÑA
+                                            (CONFIRMAR)</label>
+                                        <div class="col-sm-8">
+                                            <div class="form-line">
+                                                <input type="password" class="form-control"
+                                                    id="contrasenia_confirmacion"
+                                                    placeholder="NUEVA CONTRASEÑA (CONFIRMAR)"
+                                                    [(ngModel)]="contrasenias.confirmacion"
+                                                    formControlName='confirmacion'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-9">
+                                            <button type="submit" class="btn btn-primary">CAMBIAR</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

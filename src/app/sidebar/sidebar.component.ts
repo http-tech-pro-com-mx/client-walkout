@@ -14,6 +14,7 @@ declare interface RouteInfo {
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '', roles: ['ROLE_ADMIN', 'ROLE_WALKER' , 'ROLE_HQ'] },
   { path: '/user', title: 'Perfil', icon: 'pe-7s-user', class: '', roles: ['ROLE_ADMIN', 'ROLE_WALKER' , 'ROLE_HQ'] },
+  { path: '/security/pwd', title: 'Contraseña', icon: 'pe-7s-key', class: '', roles: ['ROLE_CHANGE_PWD'] },
   { path: '/ip', title: 'IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ', 'ROLE_ADMIN'] },
   { path: '/ip/crear', title: 'Detalle IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ'] },
   { path: '/configuracion', title: 'Configuracion', icon: 'pe-7s-settings', class: '', roles: ['ROLE_HQ'] }
