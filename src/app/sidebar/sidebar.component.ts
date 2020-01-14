@@ -90,4 +90,15 @@ export class SidebarComponent implements OnInit {
     event.preventDefault();
   }
 
+  closeMenu(){
+
+      if( this.isMobileMenu()){
+          
+        const toggleButton =  $('.navbar-toggle.toggled')[0];
+        toggleButton.click();
+
+      }
+
+  }
+
 }
