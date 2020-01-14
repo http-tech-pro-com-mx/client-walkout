@@ -1,5 +1,5 @@
 <div class="main-content login-content">
-  <div class="container-fluid">
+  <div class="container-fluid container-login">
     <div class="bslf">
       <form id="sign_in" [formGroup]="formLogin" class="col s12" (ngSubmit)="login()" autocomplete="off">
         <h2 class="text-center">Login</h2>
@@ -25,7 +25,7 @@
           <button type="submit" class="btn btn-info pull-right" [disabled]='disabled'>{{ !disabled ? 'INICIAR SESIÓN' : 'PROCESANDO'}}</button>
         </div>
         <div class="clearfix">
-          <a href="javascript:void(0);" class="pull-right">Forgot Password?</a>
+          <a routerLink="/forgot-password" class="pull-right">Forgot Password?</a>
         </div>
       </form>
     </div>

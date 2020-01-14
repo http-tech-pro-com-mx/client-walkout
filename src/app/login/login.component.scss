@@ -1,5 +1,5 @@
 .bslf{
-    width: 350px;
+  width: 350px;
   margin: 120px auto;
   padding: 25px 20px;
   background: #eceff1;
@@ -38,6 +38,19 @@
        color: red;
    }
 
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+
+    .bslf{
+       width: calc(100% - 8px);
+       margin-top: 50px;
+    }
+
+   
+}
+
 //    .login-content{
+
+   // calc(100% - 50px)
 //       background-image: url()
 //    }

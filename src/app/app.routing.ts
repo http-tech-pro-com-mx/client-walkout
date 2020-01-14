@@ -13,6 +13,7 @@ import { AuthService } from './auth/auth.service';
 import { TokenInterceptor } from './auth/token.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 registerLocaleData(localeEsMx);
 
@@ -20,6 +21,7 @@ registerLocaleData(localeEsMx);
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [NotAuthGuard] },
+  { path: 'forgot-password', component: ForgotPasswordComponent},
   {
     path: '',
     component: AdminLayoutComponent,
