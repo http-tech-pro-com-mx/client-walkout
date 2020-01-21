@@ -153,7 +153,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                   config_grafica.series = [];
                   config_grafica.xAxis.categories = [];
                   config_grafica.title.text = el[1].nombre;
-                  config_grafica.yAxis.title.text = 'KM';
+                  config_grafica.yAxis.title.text = 'Kilometros';
 
                   
 

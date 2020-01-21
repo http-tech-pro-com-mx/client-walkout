@@ -1,7 +1,11 @@
 var optionsChartGlobal: any = {
 
   chart: {
-    type: 'column'
+    type: 'column',
+    scrollablePlotArea: {
+      minWidth: 400,
+      scrollPositionX: 0
+    }
   },
 
   title: {
@@ -22,7 +26,7 @@ var optionsChartGlobal: any = {
     },
     labels: {
       formatter: function () {
-        return this.value + 'KM';
+        return this.value ;
       }
     }
   },
@@ -44,10 +48,10 @@ var optionsChartGlobal: any = {
         inside: false,
         y: 5,
         format: '{y:.2f}',
-        formatter: function(){
+        formatter: function () {
           return parseFloat(this.y).toFixed(2);
         }
-        
+
       },
       events: {
         legendItemClick: function () {
@@ -80,7 +84,13 @@ var optionsChartGlobal: any = {
 };
 
 var optionsChartWeek: any = {
-  
+
+  chart:{
+    scrollablePlotArea: {
+      minWidth: 400,
+      scrollPositionX: 0
+    }
+  },
   title: {
     text: ''
   },
@@ -121,10 +131,10 @@ var optionsChartWeek: any = {
         inside: false,
         y: 5,
         format: '{y:.2f}',
-        formatter: function(){
+        formatter: function () {
           return parseFloat(this.y).toFixed(2);
         }
-        
+
       },
       events: {
         legendItemClick: function () {
