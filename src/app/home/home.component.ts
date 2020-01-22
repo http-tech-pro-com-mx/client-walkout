@@ -1,10 +1,11 @@
 import { Component, OnInit, LOCALE_ID, Inject, OnDestroy } from '@angular/core';
-import { LocationStrategy, PlatformLocation, Location, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { optionsChartGlobal, optionsChartWeek } from './configCharts';
 import * as Highcharts from 'highcharts';
 import { HomeService } from './home.service';
 import { Proyecto } from '../models/proyecto';
 import { clone } from '../utils';
+import { getTablaUtf8 } from '../utils';
 
 
 declare var $: any;
@@ -202,7 +203,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
           this.service.rptGlobalProyecto(this.proyectoSelected).subscribe(result => {
 
-            this.drawChart(result, '#00897b', 'REPORTE GLOBAL', 2);
+            this.drawChart(result, '#00897b', 'KILOMETRAJE', 2);
 
           }, error => {
 
@@ -290,7 +291,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     let datos = { data: [], color: color, name: 'KM CAMINADOS' };
     optionsChartGlobal.series = [];
     optionsChartGlobal.xAxis.categories = [];
-    optionsChartGlobal.title.text = ' KILOMETRAJE ' + proyecto_name;
+    optionsChartGlobal.title.text = ' REPORTE GLOBAL ' + proyecto_name;
     optionsChartGlobal.yAxis.title.text = 'Kilometros';
 
     this.showRpt = true;
@@ -342,6 +343,40 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     $('.proyectos').selectpicker('destroy');
   }
+
+  downloadExcel(): void {
+
+    let linkFile = document.createElement('a');
+    let data_type = 'data:application/vnd.ms-excel;';
+    let nombreFile = 'Reporte.xls';
+
+    if(this.tipo_reporte == 2){
+      nombreFile = 'REPORTE GLOBAL ' + this.titulo_1er_card;
+    }else if( this.tipo_reporte == 3){
+      nombreFile =  this.titulo_1er_card;
+    }
+ 
+    if (linkFile.download != undefined) {
+      let tabla = getTablaUtf8('reporte-tabla');
+
+      document.body.appendChild(linkFile);
+      linkFile.href = data_type + ', ' + tabla;
+      linkFile.download = nombreFile ;
+
+      linkFile.click();
+      linkFile.remove();
+    } else {
+
+      let elem = $("#reporte-tabla")[0].outerHTML;
+
+      let blobObject = new Blob(["\ufeff", elem], { type: 'application/vnd.ms-excel' });
+      window.navigator.msSaveBlob(blobObject, nombreFile);
+
+    }
+
+
+  }
+
 
 
 }

@@ -4,8 +4,6 @@ import { Ip } from '../models/ip';
 import { Proyecto } from '../models/proyecto';
 import swal from 'sweetalert2';
 import { AuthService } from '../auth/auth.service';
-import { Grid } from '../models/grid';
-import { Walker } from '../models/walker';
 
 declare const $: any;
 declare const toastr: any;
