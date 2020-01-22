@@ -152,8 +152,8 @@ export class IpComponent implements OnInit, OnDestroy {
 
           if (response.successful) {
 
-            this.ips = this.ips.filter( el  => el.id_ip !=  ip.id_ip );
-            swal.fire('Exito !', response.message , 'success');
+            this.ips = this.ips.filter(el => el.id_ip != ip.id_ip);
+            swal.fire('Exito !', response.message, 'success');
 
           } else {
 
@@ -161,7 +161,7 @@ export class IpComponent implements OnInit, OnDestroy {
 
           }
         }, error => {
-          
+
           toastr.error('Ocurrió un error al consultar! Error: ' + error.status);
 
         });
@@ -226,26 +226,29 @@ export class IpComponent implements OnInit, OnDestroy {
       }
     }).then((result) => {
 
-      ip.qc = parseInt(result.value);
+      if (result.value) {
 
-      this.service.changeStatus(ip).subscribe(resp => {
+        ip.qc = parseInt(result.value);
 
-        if (resp.successful) {
+        this.service.changeStatus(ip).subscribe(resp => {
 
-          swal.fire({ type: 'success', html: resp.message });
+          if (resp.successful) {
 
-        } else {
+            swal.fire({ type: 'success', html: resp.message });
+
+          } else {
+
+            ip.qc = parseInt(estatus);
+            toastr.error('No se actualizo ', 'Error!');
+          }
+
+        }, error => {
 
           ip.qc = parseInt(estatus);
-          toastr.error('No se actualizo ', 'Error!');
-        }
+          toastr.error(error.error, 'Error!');
 
-      }, error => {
-
-        ip.qc = parseInt(estatus);
-        toastr.error(error.error, 'Error!');
-
-      });
+        });
+      }
 
     });
 
