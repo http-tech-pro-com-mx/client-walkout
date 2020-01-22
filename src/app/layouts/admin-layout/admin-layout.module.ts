@@ -18,6 +18,7 @@ import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component'
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AuthGuardSecurity } from '../../auth/auth.guard.security';
 import { ChangePwdComponent } from '../../change-pwd/change-pwd.component';
+import { RptTableComponent } from '../../rpt-table/rpt-table.component';
 
 registerLocaleData(localeEsMx);
 
@@ -37,7 +38,8 @@ registerLocaleData(localeEsMx);
     ConfReporteComponent,
     IpFormComponent,
     LoaderComponent,
-    ChangePwdComponent
+    ChangePwdComponent,
+    RptTableComponent
   ],
   providers: [
     AuthGuardSecurity, 

@@ -98,76 +98,7 @@
         </div>
         <div class="row" *ngIf="showRpt && tipo_reporte != 1">
             <br>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        <table id="reporte-tabla" class="table table-bordered table-striped" bordercolor="#bdbdbd"
-                            border="1">
-                            <thead>
-                                <tr>
-                                    <th colspan="4" class="text-center">
-                                        <font color="#1565c0">
-                                            {{ (tipo_reporte == 2 )? 'REPORTE GLOBAL ' + titulo_1er_card  : 'REPORTE ' + titulo_1er_card }}
-                                        </font>
-                                    </th>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        <font color="#1565c0">LUGAR</font>
-                                    </th>
-                                    <th>
-                                        <font color="#1565c0">NOMBRE WALKER</font>
-                                    </th>
-                                    <th>
-                                        <font color="#1565c0">KILOMETROS</font>
-                                    </th>
-                                    <th>
-                                        <font color="#1565c0">PIES</font>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let row of reporte; let indice = index">
-
-                                    <ng-template [ngIf]="indice%2 == 0" [ngIfElse]="sinFondo">
-                                        <td bgcolor="#d9edf7">
-                                            <font color="#1565c0">{{ indice + 1 }}</font>
-                                        </td>
-                                        <td bgcolor="#d9edf7">
-                                            <font color="#1565c0">{{ row[2] }} </font>
-                                        </td>
-                                        <td bgcolor="#d9edf7">
-                                            <font color="#1565c0">{{ row[0] | ftKm }}</font>
-                                        </td>
-                                        <td bgcolor="#d9edf7">
-                                            <font color="#1565c0">{{ row[0] }}</font>
-                                        </td>
-                                    </ng-template>
-                                    <ng-template #sinFondo>
-                                        <td>
-                                            <font color="#1565c0">{{ indice + 1 }}</font>
-                                        </td>
-                                        <td>
-                                            <font color="#1565c0">{{ row[2] }} </font>
-                                        </td>
-                                        <td>
-                                            <font color="#1565c0">{{ row[0] | ftKm }}</font>
-                                        </td>
-                                        <td>
-                                            <font color="#1565c0">{{ row[0] }}</font>
-                                        </td>
-                                    </ng-template>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <br>
-                <a href="javascript:void(0);" (click)="downloadExcel()"><i
-                        class="pe-7s-cloud-download">&nbsp;</i>DESCARGAR EXCEL</a>
-            </div>
+            <app-rpt-table [tipo_reporte]="tipo_reporte" [titulo_1er_card]="titulo_1er_card" [datos]="reporte"></app-rpt-table>
         </div>
         <ng-template [ngIf]="showRpt && tipo_reporte == 1">
             <div class="row" *ngFor="let g of graficas; let i = index">
@@ -176,6 +107,12 @@
                     <div [id]="'container'+i" style="height:300px;"></div>
                 </div>
             </div>
+            <div class="col-md-12">
+                <br>
+                <a href="javascript:void(0);" (click)="downloadExcel()"><i
+                        class="pe-7s-cloud-download">&nbsp;</i>DESCARGAR EXCEL</a>
+            </div>
+
 
         </ng-template>
         <!-- modal calendario -->
