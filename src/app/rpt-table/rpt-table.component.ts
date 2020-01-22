@@ -38,19 +38,21 @@ export class RptTableComponent implements OnInit {
     if (linkFile.download != undefined) {
       
       let tabla = getTablaUtf8('table-reporte');
-      debugger;
+    
       document.body.appendChild(linkFile);
       linkFile.href = data_type + ', ' + tabla;
       linkFile.download = nombreFile ;
 
       linkFile.click();
       linkFile.remove();
+
     } else {
 
-      let elem = $("#table-reporte")[0].outerHTML;
+      alert('Navedor no compatible. Utiliza Chroome , Opera o  Mozilla Firefox.')
 
-      let blobObject = new Blob(["\ufeff", elem], { type: 'application/vnd.ms-excel' });
-      window.navigator.msSaveBlob(blobObject, nombreFile);
+      // let elem = $(".table-reporte")[0].outerHTML;
+      // let blobObject = new Blob(["\ufeff", elem], { type: 'application/vnd.ms-excel' });
+      // window.navigator.msSaveBlob(blobObject, nombreFile);
 
     }
 
