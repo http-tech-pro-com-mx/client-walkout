@@ -98,7 +98,8 @@
         </div>
         <div class="row" *ngIf="showRpt && tipo_reporte != 1">
             <br>
-            <app-rpt-table [tipo_reporte]="tipo_reporte" [titulo_1er_card]="titulo_1er_card" [datos]="reporte"></app-rpt-table>
+            <app-rpt-table [tipo_reporte]="tipo_reporte" [titulo_1er_card]="titulo_1er_card" [datos]="reporte" [isLast]="true">
+            </app-rpt-table>
         </div>
         <ng-template [ngIf]="showRpt && tipo_reporte == 1">
             <div class="row" *ngFor="let g of graficas; let i = index">
@@ -106,14 +107,10 @@
                 <div class="col-md-12">
                     <div [id]="'container'+i" style="height:300px;"></div>
                 </div>
-            </div>
-            <div class="col-md-12">
                 <br>
-                <a href="javascript:void(0);" (click)="downloadExcel()"><i
-                        class="pe-7s-cloud-download">&nbsp;</i>DESCARGAR EXCEL</a>
+                <app-rpt-table [tipo_reporte]="tipo_reporte" [titulo_1er_card]="titulo_1er_card" [datos]="g[0]" [info]="g[1]" [isLast]="(i+1) == graficas.length">
+                </app-rpt-table>
             </div>
-
-
         </ng-template>
         <!-- modal calendario -->
         <div class="modal fade" id="modalCalendario" tabindex="-1" role="dialog" data-backdrop="false">

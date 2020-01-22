@@ -12,6 +12,8 @@ export class RptTableComponent implements OnInit {
   @Input() tipo_reporte: number = -1; 
   @Input() titulo_1er_card: string = ''; 
   @Input() datos: Array<any> = [];
+  @Input() info: any = {};
+  @Input() isLast: boolean = false;
 
   constructor() { }
 
@@ -29,11 +31,14 @@ export class RptTableComponent implements OnInit {
       nombreFile = 'REPORTE GLOBAL ' + this.titulo_1er_card;
     }else if( this.tipo_reporte == 3){
       nombreFile =  this.titulo_1er_card;
+    }else if( this.tipo_reporte == 1){
+      nombreFile = ' REPORTE SEMANAL ';
     }
  
     if (linkFile.download != undefined) {
-      let tabla = getTablaUtf8('reporte-tabla');
-
+      
+      let tabla = getTablaUtf8('table-reporte');
+      debugger;
       document.body.appendChild(linkFile);
       linkFile.href = data_type + ', ' + tabla;
       linkFile.download = nombreFile ;
@@ -42,7 +47,7 @@ export class RptTableComponent implements OnInit {
       linkFile.remove();
     } else {
 
-      let elem = $("#reporte-tabla")[0].outerHTML;
+      let elem = $("#table-reporte")[0].outerHTML;
 
       let blobObject = new Blob(["\ufeff", elem], { type: 'application/vnd.ms-excel' });
       window.navigator.msSaveBlob(blobObject, nombreFile);
