@@ -86,6 +86,7 @@ export class SidebarComponent implements OnInit {
     } catch (e) {
       toastr.error('No se pudo cerrar sesión!');
     }
+    this.closeMenu();
     this.router.navigate(['login']);
     event.preventDefault();
   }

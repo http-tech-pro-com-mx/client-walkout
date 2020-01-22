@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   public mejor_km: string;
   public dia_selected: Date;
   public graficas: Array<any>;
+  public reporte: Array<any>;
 
   public titulo_1er_card: string;
   public titulo_2da_card: string;
@@ -39,6 +40,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.loading = true;
+    this.reporte = [];
     this.showRpt = false;
     this.tipo_reporte = -1;
     this.proyectos = [];
@@ -302,19 +304,20 @@ export class HomeComponent implements OnInit, OnDestroy {
         optionsChartGlobal.subtitle.text = subtitulo;
       }
 
-      let reporte: Array<any> = result.datos;
+      this.reporte = [];
+      this.reporte = result.datos;
 
-      if (reporte.length > 0) {
+      if (this.reporte.length > 0) {
 
-        this.meta_real = reporte.map(el => (el[0] * 0.0003048)).reduce((num1, num2) => num1 + num2);
+        this.meta_real = this.reporte.map(el => (el[0] * 0.0003048)).reduce((num1, num2) => num1 + num2);
 
-        datos.data = reporte.map(el => (el[0] * 0.0003048));
+        datos.data = this.reporte.map(el => (el[0] * 0.0003048));
 
-        optionsChartGlobal.xAxis.categories = reporte.map(el => el[2]);
+        optionsChartGlobal.xAxis.categories = this.reporte.map(el => el[2]);
         optionsChartGlobal.series.push(datos);
 
-        this.mejor_walker = reporte.filter(el => el)[0][2];
-        this.mejor_km = (reporte.filter(el => el)[0][0] * 0.0003048).toFixed(4);
+        this.mejor_walker = this.reporte.filter(el => el)[0][2];
+        this.mejor_km = (this.reporte.filter(el => el)[0][0] * 0.0003048).toFixed(4);
 
         setTimeout(() => {
           Highcharts.chart('container', optionsChartGlobal);

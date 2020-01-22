@@ -131,3 +131,20 @@ input[type="radio"] {
 .modal-body{
   margin-left: 20px;
 }
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #d9edf7;
+}
+
+tr>th{
+  color:#1565c0;
+  font-weight: bold;
+}
+
+tr>td{
+  color:#1565c0;
+}
+
+// .pe-7s-cloud-download{
+//   font-size: small;
+// }

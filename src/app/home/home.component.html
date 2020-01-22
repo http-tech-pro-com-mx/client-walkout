@@ -6,22 +6,30 @@
                 <fieldset>
                     <legend>PARAMETROS DE BUSQUEDA:</legend>
                     <div class="col-md-4">
-                        <select class="proyectos" [(ngModel)]="proyectoSelected" (change)="limpiarBusqueda()" name="proyectos">
-                            <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
+                        <select class="proyectos" [(ngModel)]="proyectoSelected" (change)="limpiarBusqueda()"
+                            name="proyectos">
+                            <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos"
+                                [value]="proyecto.id_proyecto">{{ proyecto.nombre }}</option>
                         </select>
                     </div>
                     <div class="col-md-4 text-center">
                         <div class="group-radio">
-                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte1" value="1" (change)="cambiaTipo(1)" />
-                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 1 }" for="tipo_reporte1">
+                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte1" value="1"
+                                (change)="cambiaTipo(1)" />
+                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 1 }"
+                                for="tipo_reporte1">
                                 SEMANAL
                             </label>
-                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte2" value="2" (change)="cambiaTipo(2)" />
-                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 2 }" for="tipo_reporte2">
+                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte2" value="2"
+                                (change)="cambiaTipo(2)" />
+                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 2 }"
+                                for="tipo_reporte2">
                                 GLOBAL
                             </label>
-                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte3" value="3" (change)="cambiaTipo(3)" />
-                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 3 }" for="tipo_reporte3">
+                            <input class="medium" type="radio" name="tipo_reporte" id="tipo_reporte3" value="3"
+                                (change)="cambiaTipo(3)" />
+                            <label [ngClass]="{'form-check-label': true, 'selected': tipo_reporte == 3 }"
+                                for="tipo_reporte3">
                                 DIA
                             </label>
                         </div>
@@ -88,6 +96,40 @@
                 <div id="container" style="height:400px;"></div>
             </div>
         </div>
+        <div class="row" *ngIf="showRpt && tipo_reporte != 1">
+            <br>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" class="text-center">{{ (tipo_reporte == 2 )? 'REPORTE GLOBAL ' + titulo_1er_card  : 'REPORTE DIA ' + titulo_1er_card }}</th>
+                                </tr>
+                                <tr>
+                                    <th>LUGAR</th>
+                                    <th>NOMBRE WALKER</th>
+                                    <th>KILOMETROS</th>
+                                    <th>PIES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="" *ngFor="let row of reporte; let indice = index">
+                                    <td>{{ indice + 1 }}</td>
+                                    <td>{{ row[2] }} </td>
+                                    <td>{{ row[0] | ftKm }}</td>
+                                    <td>{{ row[0] }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <br>
+                <a href="javascript:void(0);"><i class="pe-7s-cloud-download">&nbsp;</i>DESCARGAR EXCEL</a>
+            </div>
+        </div>
         <ng-template [ngIf]="showRpt && tipo_reporte == 1">
             <div class="row" *ngFor="let g of graficas; let i = index">
                 <br>
@@ -95,6 +137,7 @@
                     <div [id]="'container'+i" style="height:300px;"></div>
                 </div>
             </div>
+
         </ng-template>
         <!-- modal calendario -->
         <div class="modal fade" id="modalCalendario" tabindex="-1" role="dialog" data-backdrop="false">
