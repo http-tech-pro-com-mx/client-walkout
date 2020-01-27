@@ -20,13 +20,13 @@ function clone(json) {
 
 /**
  * @function getTablaUtf8
- * @param  {number} id -  Selector jquery de la tabla
+ * @param  {number} className -  Selector jquery de la tabla
  * @return  {string} 
  * @description funcion utilizada para quitar caracteres especiales cuando se exporta a excel
  */
-function getTablaUtf8(id: string): string {
+function getTablaUtf8(className: string): string {
 
-    let tablas = document.getElementsByClassName(id);
+    let tablas = document.getElementsByClassName(className);
     let output = "";
 
     if (tablas.length > 0) {

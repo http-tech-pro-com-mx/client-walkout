@@ -24,6 +24,7 @@ export class IpComponent implements OnInit, OnDestroy {
   public selectedProject: number;
   public filtrar: string;
   public p: number;
+  public ipSelected: Ip;
 
 
 
@@ -254,6 +255,12 @@ export class IpComponent implements OnInit, OnDestroy {
 
   pageChanged(event) {
     this.p = event;
+  }
+
+  downloadExcelIp(ip: Ip){
+
+    this.ipSelected = ip;
+    console.log('Descargar IP', ip )
   }
 
 }

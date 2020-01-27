@@ -1,0 +1,413 @@
+<div class="col-md-12" [hidden]="true">
+	<table class="tabla-reporte-ip" cellspacing="0" border="0">
+		<colgroup width="194"></colgroup>
+		<colgroup span="5" width="79"></colgroup>
+		<tbody>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" colspan="6" height="28" align="center" valign="middle" bgcolor="#ADB9CA"><b>
+						<font size="4" color="#000000">{{ ip.ip }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" height="20" align="left" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>TOTAL DE CASAS</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>{{ total_casas }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" height="20" align="left" valign="middle"><b>
+						<font>TOTAL DE LOCALES </font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>{{ total_locales }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" height="20" align="left" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>TOTAL IGLESIAS</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>{{ total_iglesias }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" height="20" align="left" valign="middle"><b>
+						<font>TOTAL ESCUELAS</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>{{ total_escuelas }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" height="20" align="left" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>TOTAL BALDIOS</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>{{ total_baldios }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" height="20" align="left" valign="middle"><b>
+						<font>TOTAL PIES</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font><br></font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>{{ total_pies }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>HHPP</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>{{ total_casas + total_locales }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>KM TOTALES</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>{{ total_pies | ftKm  }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>M TOTALES</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>{{ (total_pies | ftKm)* 1000 }}</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>1 PIE</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>1</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>1 KM</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>0.0003048</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>1 PIE</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>1</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>1 M</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>0.3048</font>
+					</b></td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>BUS HHPP</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle" bgcolor="#E2F0D9"><b>
+						<font>RES HHPP</font>
+					</b></td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+			<tr>
+				<td height="20" align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>{{ total_locales }}</font>
+					</b></td>
+				<td style="border-width: thin; border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000;" align="center" valign="middle"><b>
+						<font>{{ total_casas }}</font>
+					</b></td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+				<td align="left" valign="bottom">
+					<font><br></font>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

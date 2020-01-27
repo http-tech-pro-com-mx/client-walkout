@@ -19,6 +19,8 @@ import { LoaderComponent } from '../../shared/loader/loader.component';
 import { AuthGuardSecurity } from '../../auth/auth.guard.security';
 import { ChangePwdComponent } from '../../change-pwd/change-pwd.component';
 import { RptTableComponent } from '../../rpt-table/rpt-table.component';
+import { RptTableIpComponent } from '../../rpt-table-ip/rpt-table-ip.component';
+
 
 registerLocaleData(localeEsMx);
 
@@ -39,7 +41,8 @@ registerLocaleData(localeEsMx);
     IpFormComponent,
     LoaderComponent,
     ChangePwdComponent,
-    RptTableComponent
+    RptTableComponent,
+    RptTableIpComponent
   ],
   providers: [
     AuthGuardSecurity, 
