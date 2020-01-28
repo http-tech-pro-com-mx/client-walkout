@@ -138,12 +138,12 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
     this.formGrid = this.fb.group({
       numero_plano: new FormControl({ value: '' }, [Validators.required]),
-      total_pies: new FormControl({ value: 0 }, [Validators.required]),
-      total_casas: new FormControl({ value: '' }, [Validators.required]),
-      total_negocios: new FormControl({ value: '' }, [Validators.required]),
-      total_escuelas: new FormControl({ value: '' }, [Validators.required]),
-      total_iglesias: new FormControl({ value: '' }, [Validators.required]),
-      total_baldios: new FormControl({ value: '' }, [Validators.required]),
+      total_pies: new FormControl({ value: 0 }, [Validators.required, Validators.pattern(/^[0-9]*([.][0-9]+)?$/)]),
+      total_casas: new FormControl({ value: '' }, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      total_negocios: new FormControl({ value: '' }, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      total_escuelas: new FormControl({ value: '' }, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      total_iglesias: new FormControl({ value: '' }, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
+      total_baldios: new FormControl({ value: '' }, [Validators.required, Validators.pattern(/^[0-9]+$/)]),
       comentarios: new FormControl({ value: '' })
     });
 

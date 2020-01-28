@@ -13,9 +13,13 @@
                 <div class="col-md-12">
                   <label for="">Proyecto</label>
                   <select class="proyectos" [(ngModel)]="ip.proyecto.id_proyecto" formControlName='id_proyecto'>
-                    <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos" [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == ip.proyecto.id_proyecto">{{ proyecto.nombre }}</option>
+                    <option data-tokens="proyecto.nombre" *ngFor="let proyecto of proyectos"
+                      [value]="proyecto.id_proyecto" selected="proyecto.id_proyecto == ip.proyecto.id_proyecto">
+                      {{ proyecto.nombre }}</option>
                   </select>
-                  <small *ngIf="form.controls.id_proyecto.errors?.required && (form.controls.id_proyecto?.touched || submitted)" class="form-text text-muted text-validator-error">
+                  <small
+                    *ngIf="form.controls.id_proyecto.errors?.required && (form.controls.id_proyecto?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
                     Requerido
                   </small>
                   <br>
@@ -27,12 +31,15 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>IP</label>
-                      <input type="text" class="form-control ip" placeholder="IP" [(ngModel)]="ip.ip" formControlName='ip'>
+                      <input type="text" class="form-control ip" placeholder="IP" [(ngModel)]="ip.ip"
+                        formControlName='ip'>
                     </div>
-                    <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)" class="form-text text-muted text-validator-error">
+                    <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
-                    <small *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
+                    <small
+                      *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
                       class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
@@ -40,12 +47,16 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label>UBICACIÓN</label>
-                      <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion" formControlName='ubicacion'>
+                      <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion"
+                        formControlName='ubicacion'>
                     </div>
-                    <small *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)" class="form-text text-muted text-validator-error">
+                    <small
+                      *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
-                    <small *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
+                    <small
+                      *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
                       class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
@@ -53,9 +64,11 @@
                   <div class="col-md-6">
                     <div class="form-group">
                       <label>PIES</label>
-                      <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="ip.pies" formControlName='pies'>
+                      <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="ip.pies"
+                        formControlName='pies'>
                     </div>
-                    <small *ngIf="form.controls.pies.errors?.required && (form.controls.pies?.touched || submitted)" class="form-text text-muted text-validator-error">
+                    <small *ngIf="form.controls.pies.errors?.required && (form.controls.pies?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
                       Requerido
                     </small>
                   </div>
@@ -63,7 +76,7 @@
                     <div class="form-group">
                       <label>KM</label>
                       <input type="text" class="form-control" placeholder="KM" [value]="ip.pies | ftKm" disabled>
-                    </div>                 
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -85,7 +98,8 @@
               <div class="row">
                 <div class="col-md-6">
                   <div class="checkbox">
-                    <input id="checkbox2" type="checkbox" [(ngModel)]="ip.tipo" formControlName='tipo' [checked]="ip.tipo == 2" (change)="changeStatus($event)">
+                    <input id="checkbox2" type="checkbox" [(ngModel)]="ip.tipo" formControlName='tipo'
+                      [checked]="ip.tipo == 2" (change)="changeStatus($event)">
                     <label for="checkbox2">
                       FEEDER
                     </label>
@@ -187,12 +201,15 @@
                             <div class="col-md-4">
                               <div class="form-group">
                                 <label>NUMERO DE PLANO</label>
-                                <input type="text" class="form-control numero_plano move1" placeholder="NO PLANO" [(ngModel)]="grid.numero_plano" formControlName='numero_plano'>
-                                <small *ngIf="formGrid.controls.numero_plano.errors?.required && (formGrid.controls.numero_plano?.touched || submittedGrid)"
+                                <input type="text" class="form-control numero_plano move1" placeholder="NO PLANO"
+                                  [(ngModel)]="grid.numero_plano" formControlName='numero_plano'>
+                                <small
+                                  *ngIf="formGrid.controls.numero_plano.errors?.required && (formGrid.controls.numero_plano?.touched || submittedGrid)"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
                                 </small>
-                                <small *ngIf="formGrid.controls.numero_plano.errors?.whitespace && (formGrid.controls.numero_plano?.touched || submittedGrid) && !formGrid.controls.numero_plano.errors?.required"
+                                <small
+                                  *ngIf="formGrid.controls.numero_plano.errors?.whitespace && (formGrid.controls.numero_plano?.touched || submittedGrid) && !formGrid.controls.numero_plano.errors?.required"
                                   class="form-text text-muted text-validator-error">
                                   Requerido
                                 </small>
@@ -201,21 +218,41 @@
                             <div [ngClass]="{'col-md-4': ip.tipo == 1 , 'col-md-8' : ip.tipo == 2 }">
                               <div class="form-group">
                                 <label>PIES</label>
-                                <input type="text" class="form-control move2" placeholder="PIES" [(ngModel)]="grid.total_pies" formControlName='total_pies' >
-                                <small *ngIf="formGrid.controls.total_pies.errors?.required && (formGrid.controls.total_pies?.touched || submittedGrid)"
-                                  class="form-text text-muted text-validator-error">
-                                  Requerido
-                                </small>
+                                <input type="text" class="form-control move2" placeholder="PIES"
+                                  [(ngModel)]="grid.total_pies" formControlName='total_pies'>
+                                <ng-container *ngIf="formGrid.controls.total_pies?.touched || submittedGrid">
+                                  <small *ngIf="formGrid.controls.total_pies.errors?.required"
+                                    class="form-text text-muted text-validator-error">
+                                    Requerido
+                                  </small>
+                                  <small *ngIf="formGrid.controls.total_pies.errors?.pattern"
+                                    class="form-text text-muted text-validator-error">
+                                    Número inválido
+                                  </small>
+
+                                </ng-container>
+
                               </div>
                             </div>
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>CASAS</label>
-                                <input type="number" class="form-control move3" placeholder="CASAS" [(ngModel)]="grid.total_casas" formControlName='total_casas'>
-                                <small *ngIf="formGrid.controls.total_casas.errors?.required && (formGrid.controls.total_casas?.touched || submittedGrid)"
-                                  class="form-text text-muted text-validator-error">
-                                  Requerido
-                                </small>
+                                <input type="text" class="form-control move3" placeholder="CASAS"
+                                  [(ngModel)]="grid.total_casas" formControlName='total_casas'>
+
+                                <ng-container *ngIf="formGrid.controls.total_casas?.touched || submittedGrid">
+                                  <small *ngIf="formGrid.controls.total_casas.errors?.required"
+                                    class="form-text text-muted text-validator-error">
+                                    Requerido
+                                  </small>
+                                  <small *ngIf="formGrid.controls.total_casas.errors?.pattern"
+                                    class="form-text text-muted text-validator-error">
+                                    Número inválido
+                                  </small>
+                                </ng-container>
+
+
+
                               </div>
                             </div>
                           </div>
@@ -225,31 +262,56 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>NEGOCIOS</label>
-                                <input type="number" class="form-control move4" placeholder="NEGOCIOS" [(ngModel)]="grid.total_negocios" formControlName='total_negocios'>
-                                <small *ngIf="formGrid.controls.total_negocios.errors?.required && (formGrid.controls.total_negocios?.touched || submittedGrid)"
-                                  class="form-text text-muted text-validator-error">
-                                  Requerido
-                                </small>
+                                <input type="text" class="form-control move4" placeholder="NEGOCIOS"
+                                  [(ngModel)]="grid.total_negocios" formControlName='total_negocios'>
+
+                                <ng-container *ngIf="formGrid.controls.total_negocios?.touched || submittedGrid">
+                                  <small *ngIf="formGrid.controls.total_negocios.errors?.required"
+                                    class="form-text text-muted text-validator-error">
+                                    Requerido
+                                  </small>
+                                  <small *ngIf="formGrid.controls.total_negocios.errors?.pattern"
+                                    class="form-text text-muted text-validator-error">
+                                    Número inválido
+                                  </small>
+                                </ng-container>
+
                               </div>
                             </div>
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>ESCUELAS</label>
-                                <input type="number" class="form-control move5" placeholder="ESCUELAS" [(ngModel)]="grid.total_escuelas" formControlName='total_escuelas' >
-                                <small *ngIf="formGrid.controls.total_escuelas.errors?.required && (formGrid.controls.total_escuelas?.touched || submittedGrid)"
-                                  class="form-text text-muted text-validator-error">
-                                  Requerido
-                                </small>
+                                <input type="text" class="form-control move5" placeholder="ESCUELAS"
+                                  [(ngModel)]="grid.total_escuelas" formControlName='total_escuelas'>
+                                <ng-container *ngIf="formGrid.controls.total_escuelas?.touched || submittedGrid">
+                                  <small *ngIf="formGrid.controls.total_escuelas.errors?.required"
+                                    class="form-text text-muted text-validator-error">
+                                    Requerido
+                                  </small>
+                                  <small *ngIf="formGrid.controls.total_escuelas.errors?.pattern"
+                                    class="form-text text-muted text-validator-error">
+                                    Número inválido
+                                  </small>
+                                </ng-container>
+
                               </div>
                             </div>
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>IGLESIAS</label>
-                                <input type="number" class="form-control move6" placeholder="IGLESIAS" [(ngModel)]="grid.total_iglesias" formControlName='total_iglesias' >
-                                <small *ngIf="formGrid.controls.total_iglesias.errors?.required && (formGrid.controls.total_iglesias?.touched || submittedGrid)"
-                                  class="form-text text-muted text-validator-error">
-                                  Requerido
-                                </small>
+                                <input type="text" class="form-control move6" placeholder="IGLESIAS"
+                                  [(ngModel)]="grid.total_iglesias" formControlName='total_iglesias'>
+                                <ng-container *ngIf="formGrid.controls.total_iglesias?.touched || submittedGrid">
+                                  <small *ngIf="formGrid.controls.total_iglesias.errors?.required"
+                                    class="form-text text-muted text-validator-error">
+                                    Requerido
+                                  </small>
+                                  <small *ngIf="formGrid.controls.total_iglesias.errors?.pattern"
+                                    class="form-text text-muted text-validator-error">
+                                    Número inválido
+                                  </small>
+                                </ng-container>
+
                               </div>
                             </div>
                           </div>
@@ -259,16 +321,24 @@
                             <div class="col-md-4" *ngIf="ip.tipo == 1">
                               <div class="form-group">
                                 <label>BALDIOS</label>
-                                <input type="number" class="form-control move7" placeholder="BALDIOS" [(ngModel)]="grid.total_baldios" formControlName='total_baldios' >
-                                <small *ngIf="formGrid.controls.total_baldios.errors?.required && (formGrid.controls.total_baldios?.touched || submittedGrid)"
-                                  class="form-text text-muted text-validator-error">
-                                  Requerido
-                                </small>
+                                <input type="text" class="form-control move7" placeholder="BALDIOS"
+                                  [(ngModel)]="grid.total_baldios" formControlName='total_baldios'>
+                                <ng-container *ngIf="formGrid.controls.total_baldios?.touched || submittedGrid">
+                                  <small *ngIf="formGrid.controls.total_baldios.errors?.required"
+                                    class="form-text text-muted text-validator-error">
+                                    Requerido
+                                  </small>
+                                  <small *ngIf="formGrid.controls.total_baldios.errors?.pattern"
+                                    class="form-text text-muted text-validator-error">
+                                    Número inválido
+                                  </small>
+                                </ng-container>
                               </div>
                             </div>
                             <div class="col-md-8" *ngIf="ip.tipo == 1">
                               <label>COMENTARIOS</label>
-                              <input type="text" class="form-control move8" placeholder="COMENTARIOS" [(ngModel)]="grid.comentarios" formControlName='comentarios' >
+                              <input type="text" class="form-control move8" placeholder="COMENTARIOS"
+                                [(ngModel)]="grid.comentarios" formControlName='comentarios'>
                             </div>
                           </div>
                         </div>
@@ -276,7 +346,9 @@
                       <div class="row">
                         <div class="col-md-12">
                           <select class="caminador" multiple>
-                            <option data-tokens="walker.nombre +' '+ walker.apellido_paterno" *ngFor="let walker of walkers" [value]="walker.id_walker">{{ walker.nombre +' '+ walker.apellido_paterno }}</option>
+                            <option data-tokens="walker.nombre +' '+ walker.apellido_paterno"
+                              *ngFor="let walker of walkers" [value]="walker.id_walker">
+                              {{ walker.nombre +' '+ walker.apellido_paterno }}</option>
                           </select>
                           <small *ngIf="submittedGrid && (grid.walkers.length == 0)"
                             class="form-text text-muted text-validator-error">
