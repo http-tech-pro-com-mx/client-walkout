@@ -72,21 +72,32 @@
                     <td>{{ ip.pies | ftKm }}</td>
                     <td>{{ ip.ubicacion }}</td>
                     <td>
-                      <a href="javascript:void(0);">
-                        <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0 "
-                          (click)="openModalEstatus('0', ip)">
-                        <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 "
-                          (click)="openModalEstatus('1', ip)">
-                        <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 2 "
-                          (click)="openModalEstatus('2', ip)">
-                        <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3 "
-                          (click)="openModalEstatus('3', ip)">
-                      </a>
+
+                      <ng-container *ngIf="permisos.changeStatus">
+                        <a href="javascript:void(0);">
+                          <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0 "
+                            (click)="openModalEstatus('0', ip)">
+                          <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 "
+                            (click)="openModalEstatus('1', ip)">
+                          <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 2 "
+                            (click)="openModalEstatus('2', ip)">
+                          <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3 "
+                            (click)="openModalEstatus('3', ip)">
+                        </a>
+                      </ng-container>
+                      <ng-container *ngIf="!permisos.changeStatus">
+                        <a href="javascript:void(0);">
+                          <img src="assets/img/walking.png" class="icon-status" alt="Caminando" *ngIf="ip.qc == 0">
+                          <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1">
+                          <img src="assets/img/qcOk.png" class="icon-status" alt="QC Terminado" *ngIf="ip.qc == 2">
+                          <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3">
+                        </a>
+                      </ng-container>
                     </td>
                     <td class="text-center">
                       <a href="javascript:void(0);">
-                        <img src="assets/img/icono-excel.png" class="icon-status" alt="Exportar excel" *ngIf="ip.qc == 1 || ip.qc == 3"
-                          (click)="downloadExcelIp(ip)">
+                        <img src="assets/img/icono-excel.png" class="icon-status" alt="Exportar excel"
+                          *ngIf="ip.qc == 1 || ip.qc == 3" (click)="downloadExcelIp(ip)">
                       </a>
                     </td>
                     <td>

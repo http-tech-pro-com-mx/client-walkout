@@ -31,7 +31,8 @@ export class IpComponent implements OnInit, OnDestroy {
   public permisos = {
     crear: false,
     editar: false,
-    eliminar: false
+    eliminar: false,
+    changeStatus: false
 
   }
 
@@ -52,6 +53,7 @@ export class IpComponent implements OnInit, OnDestroy {
     this.permisos.crear = this.auth.hasPermission('ROLE_HQ');
     this.permisos.editar = this.auth.hasPermission('ROLE_HQ');
     this.permisos.eliminar = this.auth.hasPermission('ROLE_HQ');
+    this.permisos.changeStatus = this.auth.hasPermission('ROLE_ESTATUS_IP');
 
 
     this.service.getInfoProyectos().subscribe(result => {
