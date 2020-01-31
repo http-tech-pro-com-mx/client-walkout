@@ -19,6 +19,7 @@ export class Walker {
         public ciudad: string, 
         public codigo_postal: number, 
         public sobre_mi: string,
+        public sexo: number = 0,
         public roles?: Array<Rol>
     ){}
     

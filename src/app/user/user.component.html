@@ -105,7 +105,8 @@
                     <div class="content">
                         <div class="author">
                             <a href="javascript:void(0);">
-                                <img class="avatar border-gray" src="assets/img/faces/face-0.jpg" alt="..." />
+                                <img class="avatar border-gray" src="assets/img/faces/face-1.jpg" *ngIf="usuario.sexo == 1" alt="Image profile"/>
+                                <img class="avatar border-gray" src="assets/img/faces/face-0.webp" *ngIf="usuario.sexo == 0" alt="Image profile"/>
 
                                 <h4 class="title">{{ usuario.nombre + ' ' + usuario.apellido_paterno}}
                                     <br />
