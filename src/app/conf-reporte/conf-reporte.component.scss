@@ -45,10 +45,14 @@
   
 }
 
-@media screen and(max-width: 900px){
+@media screen and(max-width: 991px){
 
     .btn-circle.btn-xl {
         top: 80px;
+    }
+
+    .btn-salto{
+        margin-top: 10px;
     }
 
 }
