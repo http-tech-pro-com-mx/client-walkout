@@ -262,7 +262,6 @@ export class IpComponent implements OnInit, OnDestroy {
   downloadExcelIp(ip: Ip){
 
     this.ipSelected = ip;
-    console.log('Descargar IP', ip )
   }
 
 }

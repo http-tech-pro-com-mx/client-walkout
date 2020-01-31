@@ -47,15 +47,18 @@ export class RptTableIpComponent implements OnInit, OnChanges {
 
         this.total_pies = this.suma(grids.map(grid => grid.total_pies));
 
-        this.total_casas = this.suma(grids.map(grid => grid.total_casas));
+        if( ip.tipo == 1) {
 
-        this.total_locales = this.suma(grids.map(grid => grid.total_negocios));
+            this.total_casas = this.suma(grids.map(grid => grid.total_casas));
 
-        this.total_iglesias = this.suma(grids.map(grid => grid.total_iglesias));
+            this.total_locales = this.suma(grids.map(grid => grid.total_negocios));
 
-        this.total_escuelas = this.suma(grids.map(grid => grid.total_escuelas));
+            this.total_iglesias = this.suma(grids.map(grid => grid.total_iglesias));
 
-        this.total_baldios = this.suma(grids.map(grid => grid.total_baldios));
+            this.total_escuelas = this.suma(grids.map(grid => grid.total_escuelas));
+
+            this.total_baldios = this.suma(grids.map(grid => grid.total_baldios));
+        }
 
       }
 
