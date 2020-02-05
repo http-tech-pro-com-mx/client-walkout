@@ -20,9 +20,9 @@
           </small>
         </div>
         <div class="form-group clearfix">
-          <label class="checkbox-inline pull-left">
-            <input type="checkbox" id="rememberme" (click)="rememberMe($event)" [checked]="remember"> Remember me</label>
-          <button type="submit" class="btn btn-info pull-right" [disabled]='disabled'>{{ !disabled ? 'INICIAR SESIÓN' : 'PROCESANDO'}}</button>
+          <!-- <label class="checkbox-inline pull-left"> -->
+            <!-- <input type="checkbox" id="rememberme" (click)="rememberMe($event)" [checked]="remember"> Remember me</label> -->
+          <button type="submit" class="btn btn-info btn-block" [disabled]='disabled'>{{ !disabled ? 'INICIAR SESIÓN' : 'PROCESANDO'}}</button>
         </div>
         <div class="clearfix">
           <a routerLink="/forgot-password" class="pull-right">Forgot Password?</a>

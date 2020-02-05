@@ -124,10 +124,9 @@
     </div>
 
     <div *ngIf="consultaGrid">
-
       <div class="row">
         <div class="col-md-12 text-center">
-          <button type="button" class="btn btn-primary btn-lg" (click)="agregarGrid()">AGREGAR GRID</button>
+          <button type="button"  class="btn btn-primary btn-lg" (click)="agregarGrid()">AGREGAR GRID</button>
         </div>
       </div>
       <!-- Listado de grids -->
@@ -177,9 +176,10 @@
         </div>
       </div>
       <!-- Fin listado de grids -->
+
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modalGrid" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal fade" id="modalGrid" tabindex="0" role="dialog" data-backdrop="false" >
       <div class="modal-dialog modal-md">
         <div class="modal-content">
           <form id="formGrid" [formGroup]="formGrid" (ngSubmit)="actionFormGrid()" autocomplete="off">
@@ -189,7 +189,7 @@
                 <div class="col-md-12">
                   <div class="card">
                     <div class="header">
-                      <h4 class="title">GRIDS</h4>
+                      <h5 class="title">DATOS GRID</h5>
                       <hr>
                     </div>
                     <div class="content">
@@ -344,6 +344,9 @@
                         </div>
                       </div>
                       <div class="row">
+                        <br>
+                      </div>
+                      <div class="row">
                         <div class="col-md-12">
                           <select class="caminador" multiple>
                             <option data-tokens="walker.nombre +' '+ walker.apellido_paterno"
@@ -364,7 +367,7 @@
               <!-- Fin Formulario grid -->
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">CANCELAR</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="closeModal()">CANCELAR</button>
               <button type="submit" class="btn btn-default" style="z-index:2" *ngIf="create_grid">CREAR</button>
               <button type="submit" class="btn btn-default" style="z-index:2" *ngIf="!create_grid">ACTUALIZAR</button>
             </div>

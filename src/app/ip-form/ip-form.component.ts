@@ -35,6 +35,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
   public submitted: boolean;
   public submittedGrid: boolean;
   public walkerSelected: any;
+  public bHiddenGrids: boolean;
 
   constructor(
     private service: IpFormService,
@@ -46,6 +47,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loading = true;
+    this.bHiddenGrids = false;
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
@@ -325,14 +327,15 @@ export class IpFormComponent implements OnInit, OnDestroy {
   }
 
   agregarGrid(): void {
-
+   
+    
     this.create_grid = true;
     this.walkerSelected.selectpicker('val', []);
     this.formGrid.controls.numero_plano.reset();
     this.submittedGrid = false;
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
+    this.bHiddenGrids = true;
     $('#modalGrid').modal('show');
-
     setTimeout(() => {
       $('.numero_plano')[0].focus();
     }, 800)
@@ -353,6 +356,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
       this.grid.ip = this.ip;
       let arg = this.grid.walkers.map(el => el.id_walker);
       this.walkerSelected.selectpicker('val', arg);
+      this.bHiddenGrids = true;
       $('#modalGrid').modal('show');
 
     }, error => {
@@ -385,12 +389,13 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
             this.ip.pies = this.updateFt(this.ip.grids);
 
+            this.bHiddenGrids = false;
             $('#modalGrid').modal('hide');
             swal.fire('Exito !', result.message, 'success');
 
           } else {
 
-            swal.fire('Exito !', result.message, 'error');
+            swal.fire('Error !', result.message, 'error');
 
           }
 
@@ -416,11 +421,10 @@ export class IpFormComponent implements OnInit, OnDestroy {
             });
 
             this.ip.pies = this.updateFt(this.ip.grids);
-
-
+            
+            this.bHiddenGrids = false;
             $('#modalGrid').modal('hide');
             swal.fire('Exito !', result.message, 'success');
-
           } else {
 
             toastr.error(result.message, 'Error!');
@@ -499,6 +503,9 @@ export class IpFormComponent implements OnInit, OnDestroy {
     $('.proyectos').selectpicker('destroy');
     $('.caminador').selectpicker('destroy');
   }
-
+  
+  closeModal(){
+    this.bHiddenGrids = false;
+  }
 
 }

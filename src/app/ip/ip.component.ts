@@ -109,7 +109,7 @@ export class IpComponent implements OnInit, OnDestroy {
         //Tiempo de espera
 
         setTimeout(() => {
-          this.busqueda = true;
+          this.busqueda = true;       
         }, 100);
 
 
@@ -263,5 +263,6 @@ export class IpComponent implements OnInit, OnDestroy {
 
     this.ipSelected = ip;
   }
+
 
 }

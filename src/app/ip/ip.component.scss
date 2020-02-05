@@ -64,11 +64,22 @@
 
     .btn-circle.btn-xl {
         top: 80px;
+        // visibility: hidden;
     }
 
     .btn-salto{
         margin-top: 10px;
     }
+
+    .table-responsive {
+        overflow-y: visible !important;
+      }
+    
+
+    //  .table-responsive {
+    //      overflow: auto;
+    //  }
+
 
 
 

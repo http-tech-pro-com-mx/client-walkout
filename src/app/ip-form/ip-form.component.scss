@@ -5,3 +5,16 @@
 .title-calendario{
     margin-left: 40px;
 }
+
+
+#modalGrid {
+    position: -webkit-sticky;
+    min-height: max-content !important;
+    height: -webkit-fill-available;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+
+
+
