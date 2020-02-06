@@ -51,7 +51,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, '', new Date(), new Date(), usuario, 1, true, 1, new Proyecto(-1, '', '', true));
+    this.ip = new Ip(-1, '', 0.0, '', new Date(), usuario, 1, true, 1, new Proyecto(-1, '', '', true),[],new Date());
 
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     this.ip.proyecto.id_proyecto = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
