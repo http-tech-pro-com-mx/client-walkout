@@ -508,6 +508,6 @@
       </div>
     </div>
     <!-- Fin modal -->
-    <app-calendario  *ngIf="showCalendar" (closeCalendario)="closeCalendario($event)"></app-calendario>
+    <app-calendario  *ngIf="showCalendar" [ip]="ip" [tipo]="tipoFecha" (closeCalendario)="closeCalendario($event)"></app-calendario>
   </div>
 </div>

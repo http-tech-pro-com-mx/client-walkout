@@ -37,6 +37,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
   public walkerSelected: any;
   public bHiddenGrids: boolean;
   public showCalendar: boolean;
+  public tipoFecha: number = -2;
 
   constructor(
     private service: IpFormService,
@@ -52,7 +53,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, '', new Date(), usuario, 1, true, 1, new Proyecto(-1, '', '', true),[],new Date());
+    this.ip = new Ip(-1, '', 0.0, '', new Date(), usuario, -1 , true, 1, new Proyecto(-1, '', '', true),[],new Date());
 
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     this.ip.proyecto.id_proyecto = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
@@ -133,16 +134,16 @@ export class IpFormComponent implements OnInit, OnDestroy {
       id_proyecto: new FormControl({ value: this.ip.proyecto.id_proyecto, disabled: !this.create }, [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       ubicacion: new FormControl('', [Validators.required, noWhitespaceValidator]),
-      fecha_asignacion: new FormControl({ value: this.ip.fecha_asignacion }, [Validators.required]),
-      fecha_envio_campo: new FormControl({ value: this.ip.fecha_envio_campo }, [Validators.required]),
-      fecha_qc: new FormControl({ value: this.ip.fecha_qc }, [Validators.required]),
-      fecha_levantamiento: new FormControl({ value: this.ip.fecha_levantamiento }, [Validators.required]),
-      fecha_cliente: new FormControl({ value: this.ip.fecha_cliente }, [Validators.required]),
-      fecha_shared_point: new FormControl({ value: this.ip.fecha_shared_point }, [Validators.required]),
+      fecha_asignacion: new FormControl({ value: this.ip.fecha_asignacion, disabled: (this.ip.qc != -1) }, [Validators.required]),
+      fecha_envio_campo: new FormControl({ value: this.ip.fecha_envio_campo, disabled: (this.ip.qc != 0) }, [Validators.required]),
+      fecha_qc: new FormControl({ value: this.ip.fecha_qc, disabled: (this.ip.qc != 1) }, [Validators.required]),
+      fecha_levantamiento: new FormControl({ value: this.ip.fecha_levantamiento, disabled: (this.ip.qc != 1) }, [Validators.required]),
+      fecha_cliente: new FormControl({ value: this.ip.fecha_cliente, disabled: (this.ip.qc != 2)  }, [Validators.required]),
+      fecha_shared_point: new FormControl({ value: this.ip.fecha_shared_point,  disabled: (this.ip.qc != 3) }, [Validators.required]),
       pies: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      total_grids: new FormControl({ value: this.ip.total_grids }, [Validators.required]),
-      actualizacion: new FormControl({ value: this.ip.actualizacion }, [Validators.required]),
-      km_actualizados: new FormControl({ value: this.ip.km_actualizados }, [Validators.required]),
+      total_grids: new FormControl({ value: this.ip.total_grids,  disabled: !(this.ip.qc > 0)  }, [Validators.required]),
+      actualizacion: new FormControl({ value: this.ip.actualizacion, disabled: !(this.ip.qc > 0) }, [Validators.required]),
+      km_actualizados: new FormControl({ value: this.ip.km_actualizados, disabled: !(this.ip.qc > 0) }, [Validators.required]),
       tipo: new FormControl('')
     });
 
@@ -189,6 +190,8 @@ export class IpFormComponent implements OnInit, OnDestroy {
     }, 60);
 
   }
+
+  
 
   changeStatus(event: any) {
 
@@ -521,37 +524,15 @@ export class IpFormComponent implements OnInit, OnDestroy {
   changeFecha( tipo_fecha: number ){
 
     this.showCalendar = true;
+    this.tipoFecha = tipo_fecha;
 
-
-    switch( tipo_fecha ){
-
-      
-
-        case -1:
-      
-          break;
-        case 0:
-      
-          break;
-        case 1:
-      
-          break;
-        case 2:
-      
-          break;
-        case 3:
-      
-          break;
-          default:
-        
-
-    }
-  
   }
 
   closeCalendario(event){
-    console.log( 'datos enviados ' , event );
     this.showCalendar = false;
+    if( event.actualizar ){
+      this.ip = event.ip;
+    }
   }
 
 }
