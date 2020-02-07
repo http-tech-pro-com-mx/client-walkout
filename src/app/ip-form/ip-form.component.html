@@ -26,60 +26,40 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-6">
-                  <div class="col-md-12"></div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>IP</label>
-                      <input type="text" class="form-control ip" placeholder="IP" [(ngModel)]="ip.ip"
-                        formControlName='ip'>
-                    </div>
-                    <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)"
-                      class="form-text text-muted text-validator-error">
-                      Requerido
-                    </small>
-                    <small
-                      *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
-                      class="form-text text-muted text-validator-error">
-                      Requerido
-                    </small>
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                  <div class="form-group">
+                    <label>IP</label>
+                    <input type="text" class="form-control ip" placeholder="IP" [(ngModel)]="ip.ip"
+                      formControlName='ip'>
                   </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <label>UBICACIÓN</label>
-                      <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion"
-                        formControlName='ubicacion'>
-                    </div>
-                    <small
-                      *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)"
-                      class="form-text text-muted text-validator-error">
-                      Requerido
-                    </small>
-                    <small
-                      *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
-                      class="form-text text-muted text-validator-error">
-                      Requerido
-                    </small>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>PIES</label>
-                      <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="ip.pies"
-                        formControlName='pies'>
-                    </div>
-                    <small *ngIf="form.controls.pies.errors?.required && (form.controls.pies?.touched || submitted)"
-                      class="form-text text-muted text-validator-error">
-                      Requerido
-                    </small>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label>KM</label>
-                      <input type="text" class="form-control" placeholder="KM" [value]="ip.pies | ftKm" disabled>
-                    </div>
-                  </div>
+                  <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
+                  <small
+                    *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
                 </div>
-                <div class="col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-6">
+                  <div class="form-group">
+                    <label>UBICACIÓN</label>
+                    <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion"
+                      formControlName='ubicacion'>
+                  </div>
+                  <small
+                    *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
+                  <small
+                    *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
+                </div>
+                <!-- <div class="col-md-6">
                   <div class="row">
                     <div class="col-md-12">
                       <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-1 col-xs-offset-1">
@@ -92,9 +72,120 @@
                       </div>
                     </div>
                   </div>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group date-picker-estilo">
+                    <label class="control-label" for="datepickerEnd">Fecha de asignación</label>
+                    <div class="input-group date colFlush" data-provide="datepicker">
+                      <input id="datepickerEnd" type="text" class="form-control calendario" name="datepickerEnd"
+                        value="" disabled>
+                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group date-picker-estilo">
+                    <label class="control-label" for="datePickerCampo">Fecha de envío a campo </label>
+                    <div class="input-group date colFlush" data-provide="datepicker">
+                      <input id="datePickerCampo" type="text" class="form-control calendario" name="datePickerCampo"
+                        value="" disabled>
+                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group date-picker-estilo">
+                    <label class="control-label" for="datePickerLevan">Fecha de levantamiento</label>
+                    <div class="input-group date colFlush" data-provide="datepicker">
+                      <input id="datePickerLevan" type="text" class="form-control calendario" name="datePickerLevan"
+                        value="" disabled>
+                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group date-picker-estilo">
+                    <label class="control-label" for="datePickerQC">Fecha en QC</label>
+                    <div class="input-group date colFlush" data-provide="datepicker">
+                      <input id="datePickerQC" type="text" class="form-control calendario" name="datePickerQC"
+                        value="" disabled>
+                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group date-picker-estilo">
+                    <label class="control-label" for="datePickerCliente">Fecha de envío a cliente</label>
+                    <div class="input-group date colFlush" data-provide="datepicker">
+                      <input id="datePickerCliente" type="text" class="form-control calendario" name="datePickerCliente"
+                        value="" disabled>
+                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group date-picker-estilo">
+                    <label class="control-label" for="datePickerShared">Fecha en Shared Point</label>
+                    <div class="input-group date colFlush" data-provide="datepicker">
+                      <input id="datePickerShared" type="text" class="form-control calendario" name="datePickerShared"
+                        value="" disabled>
+                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group">
+                    <label>Total Grids</label>
+                    <input type="text" class="form-control" placeholder="TOTAL GRIDS">
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group">
+                    <label for="select-actualizacion">ACTUALIZACION</label>
+                    <select class="form-control" id="select-actualizacion">
+                      <option>NO</option>
+                      <option>SI</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                  <div class="form-group">
+                    <label>KM ACTUALIZADOS</label>
+                    <input type="text" class="form-control" placeholder="KM ACTUALIZADOS">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>PIES</label>
+                    <input type="text" class="form-control" placeholder="PIES" [(ngModel)]="ip.pies"
+                      formControlName='pies'>
+                  </div>
+                  <small *ngIf="form.controls.pies.errors?.required && (form.controls.pies?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>KM</label>
+                    <input type="text" class="form-control" placeholder="KM" [value]="ip.pies | ftKm" disabled>
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col-md-6">
                   <div class="checkbox">
@@ -126,7 +217,7 @@
     <div *ngIf="consultaGrid">
       <div class="row">
         <div class="col-md-12 text-center">
-          <button type="button"  class="btn btn-primary btn-lg" (click)="agregarGrid()">AGREGAR GRID</button>
+          <button type="button" class="btn btn-primary btn-lg" (click)="agregarGrid()">AGREGAR GRID</button>
         </div>
       </div>
       <!-- Listado de grids -->
@@ -179,7 +270,7 @@
 
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="modalGrid" tabindex="0" role="dialog" data-backdrop="false" >
+    <div class="modal fade" id="modalGrid" tabindex="0" role="dialog" data-backdrop="false">
       <div class="modal-dialog modal-md">
         <div class="modal-content">
           <form id="formGrid" [formGroup]="formGrid" (ngSubmit)="actionFormGrid()" autocomplete="off">

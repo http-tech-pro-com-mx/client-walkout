@@ -111,7 +111,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
       this.ip.proyecto = new Proyecto(result.id_proyecto, '', '', true);
 
 
-      this.ip.fecha_levantamiento = new Date(this.ip.fecha_levantamiento);
+      this.ip.fecha_asignacion = new Date(this.ip.fecha_asignacion);
       this.loading = false;
       this.btnConsultaGrids = true;
       this.plugins();
@@ -123,6 +123,10 @@ export class IpFormComponent implements OnInit, OnDestroy {
       toastr.error(error.error, 'Error!');
 
     });
+  }
+
+  openAlgo(){
+    alert()
   }
 
   plugins() {
@@ -168,12 +172,12 @@ export class IpFormComponent implements OnInit, OnDestroy {
         multidate: false,
         format: 'mm/dd/yyyy',
         language: 'es',
-        defaultDate: this.ip.fecha_levantamiento
+        defaultDate: this.ip.fecha_asignacion
       }).on('changeDate', (ev) => {
-        this.ip.fecha_levantamiento = ev.date;
+        this.ip.fecha_asignacion = ev.date;
       });
 
-      $(".calendario").datepicker("setDate", new Date(this.ip.fecha_levantamiento));
+      $(".calendario").datepicker("setDate", new Date(this.ip.fecha_asignacion));
 
 
 

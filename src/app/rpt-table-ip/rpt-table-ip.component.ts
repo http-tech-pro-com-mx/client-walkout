@@ -64,7 +64,7 @@ export class RptTableIpComponent implements OnInit, OnChanges {
 
     } else {
 
-      this.ip = new Ip(-1, '', 0, '', new Date(), new Date(), -1, -1, true, 1);
+      // this.ip = new Ip(-1, '', 0, '', new Date(), -1, -1, true, 1, );
 
     }
 
