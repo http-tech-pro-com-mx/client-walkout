@@ -36,6 +36,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
   public submittedGrid: boolean;
   public walkerSelected: any;
   public bHiddenGrids: boolean;
+  public showCalendar: boolean;
 
   constructor(
     private service: IpFormService,
@@ -123,32 +124,6 @@ export class IpFormComponent implements OnInit, OnDestroy {
       toastr.error(error.error, 'Error!');
 
     });
-  }
-
-  changeFecha( tipo_fecha: number ){
-
-    switch( tipo_fecha ){
-
-        case -1:
-          alert(tipo_fecha)
-          break;
-        case 0:
-          alert(tipo_fecha)
-          break;
-        case 1:
-          alert(tipo_fecha)
-          break;
-        case 2:
-          alert(tipo_fecha)
-          break;
-        case 3:
-          alert(tipo_fecha)
-          break;
-          default:
-            alert(tipo_fecha)
-
-    }
-  
   }
 
   plugins() {
@@ -541,6 +516,42 @@ export class IpFormComponent implements OnInit, OnDestroy {
   
   closeModal(){
     this.bHiddenGrids = false;
+  }
+
+  changeFecha( tipo_fecha: number ){
+
+    this.showCalendar = true;
+
+
+    switch( tipo_fecha ){
+
+      
+
+        case -1:
+      
+          break;
+        case 0:
+      
+          break;
+        case 1:
+      
+          break;
+        case 2:
+      
+          break;
+        case 3:
+      
+          break;
+          default:
+        
+
+    }
+  
+  }
+
+  closeCalendario(event){
+    console.log( 'datos enviados ' , event );
+    this.showCalendar = false;
   }
 
 }

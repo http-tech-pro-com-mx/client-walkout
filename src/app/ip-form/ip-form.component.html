@@ -188,7 +188,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-4">
                   <div class="form-group">
                     <label for="select-actualizacion">ACTUALIZACION</label>
-                    <select class="form-control" id="select-actualizacion" [(ngModel)]="ip.actualizacion" formControlName="actualizacion">
+                    <select class="form-control" id="select-actualizacion" [(ngModel)]="ip.actualizacion"
+                      formControlName="actualizacion">
                       <option value="false">NO</option>
                       <option value="true">SI</option>
                     </select>
@@ -507,5 +508,6 @@
       </div>
     </div>
     <!-- Fin modal -->
+    <app-calendario  *ngIf="showCalendar" (closeCalendario)="closeCalendario($event)"></app-calendario>
   </div>
 </div>
