@@ -29,6 +29,7 @@ export class Ip {
         public participantes?: Array<string>
         //participantes solo es una variable auxiliar para obtener participantes, no forma parte del esquema de bd
     ){
+        this.actualizacion = false;
     }
 
 
