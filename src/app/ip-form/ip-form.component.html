@@ -31,48 +31,34 @@
                     <label>IP</label>
                     <input type="text" class="form-control ip" placeholder="IP" [(ngModel)]="ip.ip"
                       formControlName='ip'>
+                      <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
+                    <small
+                      *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
                   </div>
-                  <small *ngIf="form.controls.ip.errors?.required && (form.controls.ip?.touched || submitted)"
-                    class="form-text text-muted text-validator-error">
-                    Requerido
-                  </small>
-                  <small
-                    *ngIf="form.controls.ip.errors?.whitespace && (form.controls.ip?.touched || submitted) && !form.controls.ip.errors?.required  "
-                    class="form-text text-muted text-validator-error">
-                    Requerido
-                  </small>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6">
                   <div class="form-group">
                     <label>UBICACIÓN</label>
                     <input type="text" class="form-control" placeholder="UBICACIÓN" [(ngModel)]="ip.ubicacion"
                       formControlName='ubicacion'>
+                    <small
+                      *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
+                    <small
+                      *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
                   </div>
-                  <small
-                    *ngIf="form.controls.ubicacion.errors?.required && (form.controls.ubicacion?.touched || submitted)"
-                    class="form-text text-muted text-validator-error">
-                    Requerido
-                  </small>
-                  <small
-                    *ngIf="form.controls.ubicacion.errors?.whitespace && (form.controls.ubicacion?.touched || submitted) && !form.controls.ubicacion.errors?.required"
-                    class="form-text text-muted text-validator-error">
-                    Requerido
-                  </small>
                 </div>
-                <!-- <div class="col-md-6">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <div class="col-lg-offset-4 col-md-offset-4 col-sm-offset-1 col-xs-offset-1">
-                        <label class="title-calendario"> FECHA LEVANTAMIENTO</label>
-                        <div class="calendario"></div>
-                        <input type="hidden" [(ngModel)]="ip.fecha_levantamiento" formControlName='fecha_levantamiento'>
-                        <small *ngIf="ip.fecha_levantamiento == ''" class="form-text text-muted text-validator-error">
-                          Requerido
-                        </small>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
               </div>
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-4">
@@ -80,21 +66,34 @@
                     <label class="control-label" for="datepickerEnd">Fecha de asignación</label>
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datepickerEnd" type="text" class="form-control calendario" name="datepickerEnd"
-                        value="" disabled>
-                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                        [ngModel]="ip.fecha_asignacion | date: 'mediumDate' " (ngModelChange)="ip.fecha_asignacion"
+                        formControlName='fecha_asignacion' disabled>
+                      <div class="input-group-addon" (click)="changeFecha(-1)"><span
+                          class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
+                    <small
+                      *ngIf="form.controls.fecha_asignacion.errors?.required && (form.controls.fecha_asignacion?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
                   <div class="form-group date-picker-estilo">
                     <label class="control-label" for="datePickerCampo">Fecha de envío a campo </label>
                     <div class="input-group date colFlush" data-provide="datepicker">
-                      <input id="datePickerCampo" type="text" class="form-control calendario" name="datePickerCampo"
-                        value="" disabled>
-                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      <input id="datePickerCampo" type="text" class="form-control calendario" name="datePickerCampo"    [ngModel]="ip.fecha_envio_campo | date: 'mediumDate' " (ngModelChange)="ip.fecha_envio_campo"
+                      formControlName='fecha_envio_campo' disabled>
+                      <div class="input-group-addon" (click)="changeFecha(0)"><span
+                          class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
+                    <small
+                    *ngIf="form.controls.fecha_envio_campo.errors?.required && (form.controls.fecha_envio_campo?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
@@ -102,10 +101,16 @@
                     <label class="control-label" for="datePickerLevan">Fecha de levantamiento</label>
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datePickerLevan" type="text" class="form-control calendario" name="datePickerLevan"
-                        value="" disabled>
-                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      [ngModel]="ip.fecha_levantamiento | date: 'mediumDate' " (ngModelChange)="ip.fecha_levantamiento" formControlName='fecha_levantamiento' disabled>
+                      <div class="input-group-addon" (click)="changeFecha()"><span
+                          class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
+                    <small
+                      *ngIf="form.controls.fecha_levantamiento.errors?.required && (form.controls.fecha_levantamiento?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
                   </div>
                 </div>
               </div>
@@ -114,33 +119,52 @@
                   <div class="form-group date-picker-estilo">
                     <label class="control-label" for="datePickerQC">Fecha en QC</label>
                     <div class="input-group date colFlush" data-provide="datepicker">
-                      <input id="datePickerQC" type="text" class="form-control calendario" name="datePickerQC"
-                        value="" disabled>
-                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      <input id="datePickerQC" type="text" class="form-control calendario" name="datePickerQC" 
+                      [ngModel]="ip.fecha_qc | date: 'mediumDate' " (ngModelChange)="ip.fecha_qc" formControlName='fecha_qc'
+                      disabled>
+                      <div class="input-group-addon" (click)="changeFecha(1)"><span
+                          class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
+                    <small
+                      *ngIf="form.controls.fecha_qc.errors?.required && (form.controls.fecha_qc?.touched || submitted)"
+                      class="form-text text-muted text-validator-error">
+                      Requerido
+                    </small>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
                   <div class="form-group date-picker-estilo">
                     <label class="control-label" for="datePickerCliente">Fecha de envío a cliente</label>
                     <div class="input-group date colFlush" data-provide="datepicker">
-                      <input id="datePickerCliente" type="text" class="form-control calendario" name="datePickerCliente"
-                        value="" disabled>
-                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      <input id="datePickerCliente" type="text" class="form-control calendario" name="datePickerCliente"  [ngModel]="ip.fecha_cliente | date: 'mediumDate' " (ngModelChange)="ip.fecha_cliente" formControlName='fecha_cliente'  disabled>
+                      <div class="input-group-addon" (click)="changeFecha(2)"><span
+                          class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
+                    <small
+                    *ngIf="form.controls.fecha_cliente.errors?.required && (form.controls.fecha_cliente?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
                   </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-4">
                   <div class="form-group date-picker-estilo">
                     <label class="control-label" for="datePickerShared">Fecha en Shared Point</label>
                     <div class="input-group date colFlush" data-provide="datepicker">
-                      <input id="datePickerShared" type="text" class="form-control calendario" name="datePickerShared"
-                        value="" disabled>
-                      <div class="input-group-addon" (click)="openAlgo()"><span class="glyphicon glyphicon-th"></span>
+                      <input id="datePickerShared" type="text" class="form-control calendario" name="datePickerShared" 
+                      [ngModel]="ip.fecha_shared_point | date: 'mediumDate' " (ngModelChange)="ip.fecha_shared_point" formControlName='fecha_shared_point' 
+                      disabled>
+                      <div class="input-group-addon" (click)="changeFecha(3)"><span
+                          class="glyphicon glyphicon-th"></span>
                       </div>
                     </div>
+                    <small
+                    *ngIf="form.controls.fecha_shared_point.errors?.required && (form.controls.fecha_shared_point?.touched || submitted)"
+                    class="form-text text-muted text-validator-error">
+                    Requerido
+                  </small>
                   </div>
                 </div>
               </div>

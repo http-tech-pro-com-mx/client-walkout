@@ -125,8 +125,30 @@ export class IpFormComponent implements OnInit, OnDestroy {
     });
   }
 
-  openAlgo(){
-    alert()
+  changeFecha( tipo_fecha: number ){
+
+    switch( tipo_fecha ){
+
+        case -1:
+          alert(tipo_fecha)
+          break;
+        case 0:
+          alert(tipo_fecha)
+          break;
+        case 1:
+          alert(tipo_fecha)
+          break;
+        case 2:
+          alert(tipo_fecha)
+          break;
+        case 3:
+          alert(tipo_fecha)
+          break;
+          default:
+            alert(tipo_fecha)
+
+    }
+  
   }
 
   plugins() {
@@ -135,9 +157,17 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       id_proyecto: new FormControl({ value: this.ip.proyecto.id_proyecto, disabled: !this.create }, [Validators.required]),
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
-      fecha_levantamiento: new FormControl('', [Validators.required]),
-      pies: new FormControl({ value: '', disabled: true }, [Validators.required]),
       ubicacion: new FormControl('', [Validators.required, noWhitespaceValidator]),
+      fecha_asignacion: new FormControl({ value: this.ip.fecha_asignacion }, [Validators.required]),
+      fecha_envio_campo: new FormControl({ value: this.ip.fecha_envio_campo }, [Validators.required]),
+      fecha_qc: new FormControl({ value: this.ip.fecha_qc }, [Validators.required]),
+      fecha_levantamiento: new FormControl({ value: this.ip.fecha_levantamiento }, [Validators.required]),
+      fecha_cliente: new FormControl({ value: this.ip.fecha_cliente }, [Validators.required]),
+      fecha_shared_point: new FormControl({ value: this.ip.fecha_shared_point }, [Validators.required]),
+      pies: new FormControl({ value: '', disabled: true }, [Validators.required]),
+      total_grids: new FormControl({ value: this.ip.total_grids }, [Validators.required]),
+      actualizacion: new FormControl({ value: this.ip.actualizacion }, [Validators.required]),
+      km_actualizados: new FormControl({ value: this.ip.km_actualizados }, [Validators.required]),
       tipo: new FormControl('')
     });
 
@@ -168,16 +198,16 @@ export class IpFormComponent implements OnInit, OnDestroy {
         noneResultsText: 'No hay resultados {0}'
       });
 
-      $('.calendario').datepicker({
-        multidate: false,
-        format: 'mm/dd/yyyy',
-        language: 'es',
-        defaultDate: this.ip.fecha_asignacion
-      }).on('changeDate', (ev) => {
-        this.ip.fecha_asignacion = ev.date;
-      });
+      // $('.calendario').datepicker({
+      //   multidate: false,
+      //   format: 'mm/dd/yyyy',
+      //   language: 'es',
+      //   defaultDate: this.ip.fecha_asignacion
+      // }).on('changeDate', (ev) => {
+      //   this.ip.fecha_asignacion = ev.date;
+      // });
 
-      $(".calendario").datepicker("setDate", new Date(this.ip.fecha_asignacion));
+      // $(".calendario").datepicker("setDate", new Date(this.ip.fecha_asignacion));
 
 
 
@@ -199,6 +229,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
 
   actionFormIp() {
+    
 
     this.submitted = true;
 
