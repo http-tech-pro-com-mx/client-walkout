@@ -15,7 +15,7 @@ export class CalendarioComponent implements OnInit {
   @Output() closeCalendario = new EventEmitter<any>();
   public requerido: boolean = false;
   public titulo: string = "";
-  public fecha: Date;
+  public fecha: Date  = new Date();
 
   constructor() { }
 
@@ -26,27 +26,27 @@ export class CalendarioComponent implements OnInit {
 
       case -1:
         this.titulo = "FECHA DE ASIGNACIÓN";
-        this.fecha = this.ip.fecha_asignacion;
+        this.fecha = this.validaFecha(this.ip.fecha_asignacion);
         break;
       case 0:
         this.titulo = "FECHA DE ENVÍO A CAMPO";
-        this.fecha = this.ip.fecha_envio_campo;
+        this.fecha = this.validaFecha(this.ip.fecha_envio_campo);
         break;
       case 1:
         this.titulo = "FECHA EN QC";
-        this.fecha = this.ip.fecha_qc;
+        this.fecha = this.validaFecha(this.ip.fecha_qc);
         break;
       case 2:
         this.titulo = "FECHA DE ENVÍO A CLIENTE";
-        this.fecha = this.ip.fecha_cliente;
+        this.fecha = this.validaFecha(this.ip.fecha_cliente);
         break;
       case 3:
         this.titulo = "FECHA EN SHARED POINT";
-        this.fecha = this.ip.fecha_shared_point;
+        this.fecha = this.validaFecha(this.ip.fecha_shared_point);
         break;
       default:
         this.titulo = "FECHA DE LEVANTAMIENTO";
-        this.fecha = this.ip.fecha_levantamiento;
+        this.fecha = this.validaFecha(this.ip.fecha_levantamiento);
     }
 
     $('.div-calendario').datepicker({
@@ -87,6 +87,13 @@ export class CalendarioComponent implements OnInit {
 
     }
 
+  }
+
+  validaFecha( date: Date) : Date{
+    if(date == undefined){
+      return new Date();
+    }
+    return date;
   }
 
   setFecha(tipo: number, fecha: Date, ip:Ip) {

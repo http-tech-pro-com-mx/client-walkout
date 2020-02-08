@@ -67,7 +67,7 @@
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datepickerEnd" type="text" class="form-control calendario" name="datepickerEnd"
                         [ngModel]="ip.fecha_asignacion | date: 'mediumDate' " (ngModelChange)="ip.fecha_asignacion"
-                        formControlName='fecha_asignacion' disabled>
+                        formControlName='fecha_asignacion'  [ngStyle]="{'background-color': ip.qc == -1 ? 'white':'#F5F5F5'}" disabled>
                       <div class="input-group-addon" (click)="changeFecha(-1)"><span
                           class="glyphicon glyphicon-th"></span>
                       </div>
@@ -85,7 +85,7 @@
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datePickerCampo" type="text" class="form-control calendario" name="datePickerCampo"
                         [ngModel]="ip.fecha_envio_campo | date: 'mediumDate' " (ngModelChange)="ip.fecha_envio_campo"
-                        formControlName='fecha_envio_campo' disabled>
+                        formControlName='fecha_envio_campo' [ngStyle]="{'background-color': ip.qc == 0 ? 'white':'#F5F5F5'}" disabled>
                       <div class="input-group-addon" (click)="changeFecha(0)"><span
                           class="glyphicon glyphicon-th"></span>
                       </div>
@@ -103,7 +103,7 @@
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datePickerLevan" type="text" class="form-control calendario" name="datePickerLevan"
                         [ngModel]="ip.fecha_levantamiento | date: 'mediumDate' "
-                        (ngModelChange)="ip.fecha_levantamiento" formControlName='fecha_levantamiento' disabled>
+                        (ngModelChange)="ip.fecha_levantamiento" formControlName='fecha_levantamiento'  [ngStyle]="{'background-color': ip.qc == 1 ? 'white':'#F5F5F5'}" disabled>
                       <div class="input-group-addon" (click)="changeFecha()"><span
                           class="glyphicon glyphicon-th"></span>
                       </div>
@@ -123,7 +123,7 @@
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datePickerQC" type="text" class="form-control calendario" name="datePickerQC"
                         [ngModel]="ip.fecha_qc | date: 'mediumDate' " (ngModelChange)="ip.fecha_qc"
-                        formControlName='fecha_qc' disabled>
+                        formControlName='fecha_qc'  [ngStyle]="{'background-color': ip.qc == 1 ? 'white':'#F5F5F5'}" disabled>
                       <div class="input-group-addon" (click)="changeFecha(1)"><span
                           class="glyphicon glyphicon-th"></span>
                       </div>
@@ -141,7 +141,7 @@
                     <div class="input-group date colFlush" data-provide="datepicker">
                       <input id="datePickerCliente" type="text" class="form-control calendario" name="datePickerCliente"
                         [ngModel]="ip.fecha_cliente | date: 'mediumDate' " (ngModelChange)="ip.fecha_cliente"
-                        formControlName='fecha_cliente' disabled>
+                        formControlName='fecha_cliente'  [ngStyle]="{'background-color': ip.qc == 2 ? 'white':'#F5F5F5'}"  disabled>
                       <div class="input-group-addon" (click)="changeFecha(2)"><span
                           class="glyphicon glyphicon-th"></span>
                       </div>
@@ -189,9 +189,9 @@
                   <div class="form-group">
                     <label for="select-actualizacion">ACTUALIZACION</label>
                     <select class="form-control" id="select-actualizacion" [(ngModel)]="ip.actualizacion"
-                      formControlName="actualizacion">
-                      <option value="false">NO</option>
-                      <option value="true">SI</option>
+                      formControlName="actualizacion" (change)="changeActualizacion()">
+                      <option [ngValue]="false">NO</option>
+                      <option [ngValue]="true">SI</option>
                     </select>
                   </div>
                 </div>
@@ -249,7 +249,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="btnConsultaGrids">
+    <div class="row" *ngIf="btnConsultaGrids && ip.qc >= 1">
       <div class="col-md-12 text-center">
         <a href="javascript:void(0);" (click)="consultaGrids()">VER GRIDS</a>
       </div>

@@ -135,15 +135,15 @@ export class IpFormComponent implements OnInit, OnDestroy {
       ip: new FormControl('', [Validators.required, noWhitespaceValidator]),
       ubicacion: new FormControl('', [Validators.required, noWhitespaceValidator]),
       fecha_asignacion: new FormControl({ value: this.ip.fecha_asignacion, disabled: (this.ip.qc != -1) }, [Validators.required]),
-      fecha_envio_campo: new FormControl({ value: this.ip.fecha_envio_campo, disabled: (this.ip.qc != 0) }, [Validators.required]),
+      fecha_envio_campo: new FormControl({ value: this.ip.fecha_envio_campo, disabled: !(this.ip.qc >= 0) }, [Validators.required]),
       fecha_qc: new FormControl({ value: this.ip.fecha_qc, disabled: (this.ip.qc != 1) }, [Validators.required]),
       fecha_levantamiento: new FormControl({ value: this.ip.fecha_levantamiento, disabled: (this.ip.qc != 1) }, [Validators.required]),
       fecha_cliente: new FormControl({ value: this.ip.fecha_cliente, disabled: (this.ip.qc != 2)  }, [Validators.required]),
       fecha_shared_point: new FormControl({ value: this.ip.fecha_shared_point,  disabled: (this.ip.qc != 3) }, [Validators.required]),
       pies: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      total_grids: new FormControl({ value: this.ip.total_grids,  disabled: !(this.ip.qc > 0)  }, [Validators.required]),
-      actualizacion: new FormControl({ value: this.ip.actualizacion, disabled: !(this.ip.qc > 0) }, [Validators.required]),
-      km_actualizados: new FormControl({ value: this.ip.km_actualizados, disabled: !(this.ip.qc > 0) }, [Validators.required]),
+      total_grids: new FormControl({ value: this.ip.total_grids,  disabled: !(this.ip.qc >= 0)  }, [Validators.required]),
+      actualizacion: new FormControl({ value: this.ip.actualizacion, disabled: !(this.ip.qc >= 0) }, [Validators.required]),
+      km_actualizados: new FormControl({ value: this.ip.km_actualizados, disabled: (!this.ip.actualizacion) }, [Validators.required]),
       tipo: new FormControl('')
     });
 
@@ -532,6 +532,15 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.showCalendar = false;
     if( event.actualizar ){
       this.ip = event.ip;
+    }
+  }
+
+  changeActualizacion(){
+    if( this.ip.actualizacion ){
+      this.form.get('km_actualizados').enable();
+    }else{
+      this.form.get('km_actualizados').disable();
+      this.ip.km_actualizados = null;
     }
   }
 

@@ -207,12 +207,7 @@ export class IpComponent implements OnInit, OnDestroy {
     swal.fire({
       title: 'Cambiar estatus de la IP ' + ip.ip,
       input: 'select',
-      inputOptions: {
-        // 0: 'Caminando',
-        1: 'Revisión QC',
-        // 2: 'Validado QC',
-        3: 'SharedPoint'
-      },
+      inputOptions: this.statusIP( estatus ),
       inputPlaceholder: 'Selecciona estatus',
       showCancelButton: true,
       inputValue: estatus,
@@ -253,6 +248,16 @@ export class IpComponent implements OnInit, OnDestroy {
 
     });
 
+  }
+
+  statusIP( status: string ): any{
+      return {
+        '-1': 'Asignado',
+        '0': 'Enviar a campo',
+        '1': 'En revisión QC',
+        '2': 'Enviado a cliente',
+        '3': 'SharedPoint'
+      };
   }
 
   pageChanged(event) {

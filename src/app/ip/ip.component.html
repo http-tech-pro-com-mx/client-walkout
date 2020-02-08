@@ -97,7 +97,7 @@
                       <ng-container *ngIf="permisos.changeStatus">
                         <a href="javascript:void(0);">
                           <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado" *ngIf="ip.qc == -1 "
-                            (click)="openModalEstatus('0', ip)">
+                            (click)="openModalEstatus('-1', ip)">
                           <img src="assets/img/walking.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0 "
                             (click)="openModalEstatus('0', ip)">
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 "
@@ -121,7 +121,7 @@
                     <td class="text-center">
                       <a href="javascript:void(0);">
                         <img src="assets/img/icono-excel.png" class="icon-status" alt="Exportar excel"
-                          *ngIf="ip.qc == 2 || ip.qc == 3" (click)="downloadExcelIp(ip)">
+                          *ngIf="ip.qc == 1 || ip.qc == 2  || ip.qc == 3" (click)="downloadExcelIp(ip)">
                       </a>
                     </td>
                     <td>
