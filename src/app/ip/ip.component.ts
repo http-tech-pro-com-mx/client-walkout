@@ -210,6 +210,7 @@ export class IpComponent implements OnInit, OnDestroy {
       inputOptions: this.statusIP( estatus, ip ),
       inputPlaceholder: 'Selecciona estatus',
       showCancelButton: true,
+      confirmButtonText: 'Cambiar',
       inputValue: estatus,
       inputValidator: (value) => {
         return new Promise((resolve) => {
@@ -225,9 +226,7 @@ export class IpComponent implements OnInit, OnDestroy {
       if (result.value) {
 
         ip.qc = parseInt(result.value);
-      
-
-
+       
         this.service.changeStatus(ip).subscribe(resp => {
 
           if (resp.successful) {
@@ -247,7 +246,9 @@ export class IpComponent implements OnInit, OnDestroy {
                 break;
             }
 
-            swal.fire({ type: 'success', html: resp.message });
+        
+              swal.fire({ type: 'success', html: resp.message });
+
 
           } else {
 
@@ -264,6 +265,68 @@ export class IpComponent implements OnInit, OnDestroy {
       }
 
     });
+
+  }
+
+
+
+
+  async openModalEstatus0(estatus: string, ip: Ip){
+
+    const { value: changeStatus } = await swal.fire({
+      title: 'Cambiar estatus de la IP ' + ip.ip,
+      input: 'select',
+      inputOptions: this.statusIP( estatus, ip ),
+      inputPlaceholder: 'Selecciona estatus',
+      showCancelButton: true,
+      confirmButtonText: 'Siguiente',
+      inputValue: estatus,
+      inputValidator: (value) => {
+        return new Promise((resolve) => {
+          if (value !== '') {
+            resolve()
+          } else {
+            resolve('Selecciona un estatus')
+          }
+        })
+      }
+    });
+
+    if( changeStatus ){
+          swal.fire({
+            title: 'Agregar información a ' + ip.ip,
+            html:  '<input id="numero-grids" class="swal2-input" placeholder="Numero de grids" value="0">' +
+            '<select id="select-update" class="swal2-input"><option value="false">NO</option><option value="true">SI</option></select>'+
+            '<input id="km-update" class="swal2-input" placeholder="KM ACTUALIZADOS" value="0">',
+            showCancelButton: true,
+            confirmButtonText: 'Cambiar y agregar!',
+            cancelButtonText: 'Solo cambiar',
+            preConfirm: ()=>{
+
+              let numero_grids = (<HTMLInputElement>document.getElementById('numero-grids')).value;
+              let valor = (<HTMLInputElement>document.getElementById('select-update')).value;
+              let km_update = (<HTMLInputElement>document.getElementById('km-update')).value;
+
+              console.log( numero_grids , valor, km_update );
+
+              if( this.isValidForm(numero_grids , valor, km_update )){
+
+                alert('correcto');
+
+              } else {
+
+                swal.showValidationMessage('Verifique los datos');
+
+              }
+
+            }
+
+          }).then((result) => {
+
+        
+          });
+    }
+
 
   }
 
@@ -301,6 +364,22 @@ export class IpComponent implements OnInit, OnDestroy {
   downloadExcelIp(ip: Ip){
 
     this.ipSelected = ip;
+  }
+
+  isValidForm( nGrids, actualizacion, km_actualizacion ): boolean{
+    
+    if(!/^[0-9]+$/.test( nGrids )){
+      return false; 
+    }
+
+    if(actualizacion && (!/^[0-9]*([.][0-9]+)?$/.test(km_actualizacion) )){
+       return false;
+    }
+
+    return true;
+
+    
+
   }
 
 

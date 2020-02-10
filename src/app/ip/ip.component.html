@@ -99,7 +99,7 @@
                       <ng-container *ngIf="permisos.changeStatus">
                         <a href="javascript:void(0);">
                           <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado" *ngIf="ip.qc == -1 "
-                            (click)="openModalEstatus('-1', ip)">
+                            (click)="openModalEstatus0('-1', ip)">
                           <img src="assets/img/walking.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0 "
                             (click)="openModalEstatus('0', ip)">
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 "
