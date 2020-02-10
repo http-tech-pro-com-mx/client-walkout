@@ -207,7 +207,7 @@ export class IpComponent implements OnInit, OnDestroy {
     swal.fire({
       title: 'Cambiar estatus de la IP ' + ip.ip,
       input: 'select',
-      inputOptions: this.statusIP( estatus ),
+      inputOptions: this.statusIP( estatus, ip ),
       inputPlaceholder: 'Selecciona estatus',
       showCancelButton: true,
       inputValue: estatus,
@@ -225,10 +225,27 @@ export class IpComponent implements OnInit, OnDestroy {
       if (result.value) {
 
         ip.qc = parseInt(result.value);
+      
+
 
         this.service.changeStatus(ip).subscribe(resp => {
 
           if (resp.successful) {
+
+            switch(ip.qc){
+              case 0:
+                ip.fecha_envio_campo = resp.dia;
+                break;
+              case 1:
+                ip.fecha_qc = resp.dia;
+                break;
+              case 2:
+                ip.fecha_cliente = resp.dia;
+                break;
+              case 3:
+                ip.fecha_shared_point = resp.dia;
+                break;
+            }
 
             swal.fire({ type: 'success', html: resp.message });
 
@@ -250,14 +267,31 @@ export class IpComponent implements OnInit, OnDestroy {
 
   }
 
-  statusIP( status: string ): any{
-      return {
-        '-1': 'Asignado',
-        '0': 'Enviar a campo',
-        '1': 'En revisión QC',
-        '2': 'Enviado a cliente',
-        '3': 'SharedPoint'
-      };
+  statusIP( status: string, ip: Ip ): any{
+
+    let option = {};
+
+    switch( status ){
+      case '-1':
+        option =  {'0': 'Enviar a campo'};
+        break;
+      case '0':
+        option = {'1': 'En revisión QC'};
+
+        break;
+      case '1':
+        option =  {'2': 'Enviado a cliente'};
+        break;
+      case '2':
+        option = {'4': 'Rechazado',  '3': 'SharedPoint' };
+        break;
+      case '4':
+        option = {'2': 'Enviado a cliente',  '3': 'SharedPoint' };
+        break;
+    }
+
+    return option;
+
   }
 
   pageChanged(event) {

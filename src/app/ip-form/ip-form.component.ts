@@ -53,7 +53,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
     this.submitted = false;
     this.submittedGrid = false;
     let usuario = this.auth.getUserid();
-    this.ip = new Ip(-1, '', 0.0, '', new Date(), usuario, -1 , true, 1, new Proyecto(-1, '', '', true),[],new Date());
+    this.ip = new Ip(-1, '', 0.0, '', new Date(), usuario, -1, true, 1, new Proyecto(-1, '', '', true), [], new Date());
 
     this.grid = new Grid(-1, 0, 0, 0, 0, 0, 0, '', '', '', true, this.ip);
     this.ip.proyecto.id_proyecto = parseInt(this._route.snapshot.paramMap.get('id_proyecto'));
@@ -138,10 +138,10 @@ export class IpFormComponent implements OnInit, OnDestroy {
       fecha_envio_campo: new FormControl({ value: this.ip.fecha_envio_campo, disabled: !(this.ip.qc >= 0) }, [Validators.required]),
       fecha_qc: new FormControl({ value: this.ip.fecha_qc, disabled: (this.ip.qc != 1) }, [Validators.required]),
       fecha_levantamiento: new FormControl({ value: this.ip.fecha_levantamiento, disabled: (this.ip.qc != 1) }, [Validators.required]),
-      fecha_cliente: new FormControl({ value: this.ip.fecha_cliente, disabled: (this.ip.qc != 2)  }, [Validators.required]),
-      fecha_shared_point: new FormControl({ value: this.ip.fecha_shared_point,  disabled: (this.ip.qc != 3) }, [Validators.required]),
+      fecha_cliente: new FormControl({ value: this.ip.fecha_cliente, disabled: (this.ip.qc != 2) }, [Validators.required]),
+      fecha_shared_point: new FormControl({ value: this.ip.fecha_shared_point, disabled: (this.ip.qc != 3) }, [Validators.required]),
       pies: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      total_grids: new FormControl({ value: this.ip.total_grids,  disabled: !(this.ip.qc >= 0)  }, [Validators.required]),
+      total_grids: new FormControl({ value: this.ip.total_grids, disabled: !(this.ip.qc >= 0) }, [Validators.required]),
       actualizacion: new FormControl({ value: this.ip.actualizacion, disabled: !(this.ip.qc >= 0) }, [Validators.required]),
       km_actualizados: new FormControl({ value: this.ip.km_actualizados, disabled: (!this.ip.actualizacion) }, [Validators.required]),
       tipo: new FormControl('')
@@ -174,24 +174,12 @@ export class IpFormComponent implements OnInit, OnDestroy {
         noneResultsText: 'No hay resultados {0}'
       });
 
-      // $('.calendario').datepicker({
-      //   multidate: false,
-      //   format: 'mm/dd/yyyy',
-      //   language: 'es',
-      //   defaultDate: this.ip.fecha_asignacion
-      // }).on('changeDate', (ev) => {
-      //   this.ip.fecha_asignacion = ev.date;
-      // });
-
-      // $(".calendario").datepicker("setDate", new Date(this.ip.fecha_asignacion));
-
-
 
     }, 60);
 
   }
 
-  
+
 
   changeStatus(event: any) {
 
@@ -207,7 +195,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
 
   actionFormIp() {
-    
+
 
     this.submitted = true;
 
@@ -283,65 +271,73 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
   }
 
-  consultaGrids() {
+  consultaGrids(levantamiento: Date) {
 
-    this.btnConsultaGrids = false;
+    if (levantamiento) {
 
-    this.service.getGridsByIp(this.ip.id_ip).subscribe(result => {
+      this.btnConsultaGrids = false;
 
-      this.ip.grids = result.grids;
-      this.walkers = result.walkers;
+      this.service.getGridsByIp(this.ip.id_ip).subscribe(result => {
+
+        this.ip.grids = result.grids;
+        this.walkers = result.walkers;
 
 
 
-      this.consultaGrid = true;
+        this.consultaGrid = true;
 
-      setTimeout(() => {
+        setTimeout(() => {
 
-        this.walkerSelected = $('.caminador').selectpicker({
-          container: 'body',
-          liveSearch: true,
-          liveSearchPlaceholder: 'Buscar caminador',
-          title: 'Caminador',
-          width: 100 + '%',
-          noneResultsText: 'No hay resultados {0}'
-        });
+          this.walkerSelected = $('.caminador').selectpicker({
+            container: 'body',
+            liveSearch: true,
+            liveSearchPlaceholder: 'Buscar caminador',
+            title: 'Caminador',
+            width: 100 + '%',
+            noneResultsText: 'No hay resultados {0}'
+          });
 
-        $('.caminador').on('changed.bs.select', (e, clickedIndex, isSelected, newValue, previousValue) => {
+          $('.caminador').on('changed.bs.select', (e, clickedIndex, isSelected, newValue, previousValue) => {
 
-          let wSelect = this.walkerSelected.val();
+            let wSelect = this.walkerSelected.val();
 
-          let walkers: Array<Walker> = [];
+            let walkers: Array<Walker> = [];
 
-          wSelect.forEach(element => {
-            let id_walker = parseInt(element);
+            wSelect.forEach(element => {
+              let id_walker = parseInt(element);
 
-            walkers.push(new Walker(id_walker, '', '', '', '', '', '', true, '', '', '', '', '', 0, ''));
+              walkers.push(new Walker(id_walker, '', '', '', '', '', '', true, '', '', '', '', '', 0, ''));
+
+            });
+
+            this.grid.walkers = walkers;
+
 
           });
 
-          this.grid.walkers = walkers;
+
+        }, 100);
+
+      }, error => {
+
+        this.btnConsultaGrids = true;
+        this.consultaGrid = false;
 
 
-        });
+      });
 
+    } else {
 
-      }, 100);
+      swal.fire({ title:'Agregue la fecha de levantamiento y haga clic en actualizar IP', type:'info'})
 
-    }, error => {
-
-      this.btnConsultaGrids = true;
-      this.consultaGrid = false;
-
-
-    });
+    }
 
 
   }
 
   agregarGrid(): void {
-   
-    
+
+
     this.create_grid = true;
     this.walkerSelected.selectpicker('val', []);
     this.formGrid.controls.numero_plano.reset();
@@ -384,8 +380,8 @@ export class IpFormComponent implements OnInit, OnDestroy {
 
     this.submittedGrid = true;
 
-    if(!this.grid.walkers){
-       this.grid.walkers = [];
+    if (!this.grid.walkers) {
+      this.grid.walkers = [];
     }
 
     if (this.formGrid.valid && this.grid.walkers.length > 0) {
@@ -434,7 +430,7 @@ export class IpFormComponent implements OnInit, OnDestroy {
             });
 
             this.ip.pies = this.updateFt(this.ip.grids);
-            
+
             this.bHiddenGrids = false;
             $('#modalGrid').modal('hide');
             swal.fire('Exito !', result.message, 'success');
@@ -516,29 +512,38 @@ export class IpFormComponent implements OnInit, OnDestroy {
     $('.proyectos').selectpicker('destroy');
     $('.caminador').selectpicker('destroy');
   }
-  
-  closeModal(){
+
+  closeModal() {
     this.bHiddenGrids = false;
   }
 
-  changeFecha( tipo_fecha: number ){
+  changeFecha(tipo_fecha: number) {
 
-    this.showCalendar = true;
-    this.tipoFecha = tipo_fecha;
+    if (this.ip.qc == tipo_fecha) {
+
+      this.showCalendar = true;
+      this.tipoFecha = tipo_fecha;
+
+    } else if (this.ip.qc == 1 && tipo_fecha == null) {
+
+      this.showCalendar = true;
+      this.tipoFecha = tipo_fecha;
+
+    }
 
   }
 
-  closeCalendario(event){
+  closeCalendario(event) {
     this.showCalendar = false;
-    if( event.actualizar ){
+    if (event.actualizar) {
       this.ip = event.ip;
     }
   }
 
-  changeActualizacion(){
-    if( this.ip.actualizacion ){
+  changeActualizacion() {
+    if (this.ip.actualizacion) {
       this.form.get('km_actualizados').enable();
-    }else{
+    } else {
       this.form.get('km_actualizados').disable();
       this.ip.km_actualizados = null;
     }

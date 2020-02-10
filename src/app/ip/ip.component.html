@@ -37,8 +37,10 @@
               <img src="assets/img/walking.png" class="icon-description">EN CAMPO</label>
             <label>
               <img src="assets/img/qc.png" class="icon-description">EN REVISIÓN QC</label>
-              <label>
+            <label>
               <img src="assets/img/cliente-validando.png" class="icon-description">CLIENTE VALIDANDO</label>
+            <label>
+              <img src="assets/img/rechazo-cliente.png" class="icon-description">RECHAZO CLIENTE</label>
             <label>
               <img src="assets/img/shared.png" class="icon-description"> SHAREDPOINT</label>
           </p>
@@ -56,12 +58,12 @@
                 <thead>
                   <tr>
                     <th>IP</th>
-                    <th>GRIDS</th>
+                    <th width="5%">GRIDS</th>
                     <th>ASIGNADO</th>
-                    <th>ENVIADO A CAMPO</th>
-                    <th>REVISION QC</th>
+                    <th style="white-space: nowrap;">ENVIADO A CAMPO</th>
+                    <th style="white-space: nowrap;">REVISION QC</th>
                     <th>LEVANTAMIENTO</th>
-                    <th>ENVIADO A CLIENTE</th>
+                    <th style="white-space: nowrap;">ENVIADO A CLIENTE</th>
                     <th>SHAREDPOINT</th>
                     <th>PIES</th>
                     <th>KM</th>
@@ -83,9 +85,9 @@
                       <p *ngIf="!permisos.editar">{{ ip.ip }}</p>
                     </td>
                     <td>{{ ip.total_grids }}</td>
-                    <td>{{ ip.fecha_asignacion | date: 'mediumDate' }}</td>
+                    <td style="white-space: nowrap;">{{ ip.fecha_asignacion | date: 'mediumDate' }}</td>
                     <td>{{ ip.fecha_envio_campo | date: 'mediumDate' }}</td>
-                    <td>{{ ip.fecha_qc | date: 'mediumDate' }}</td>
+                    <td style="white-space: nowrap;">{{ ip.fecha_qc | date: 'mediumDate' }}</td>
                     <td>{{ ip.fecha_levantamiento | date: 'mediumDate' }}</td>
                     <td>{{ ip.fecha_cliente | date: 'mediumDate' }}</td>
                     <td>{{ ip.fecha_shared_point | date: 'mediumDate' }}</td>
@@ -106,6 +108,8 @@
                             (click)="openModalEstatus('2', ip)">
                           <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3 "
                             (click)="openModalEstatus('3', ip)">
+                          <img src="assets/img/rechazo-cliente.png" class="icon-status" alt="Rechazo cliente" *ngIf="ip.qc == 4 "
+                            (click)="openModalEstatus('4', ip)">
                         </a>
                       </ng-container>
                       <ng-container *ngIf="!permisos.changeStatus">
@@ -115,6 +119,7 @@
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1">
                           <img src="assets/img/cliente-validando.png" class="icon-status" alt="Cliente validando" *ngIf="ip.qc == 2">
                           <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3">
+                          <img src="assets/img/rechazo-cliente.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 4">
                         </a>
                       </ng-container>
                     </td>
