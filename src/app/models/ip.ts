@@ -13,7 +13,7 @@ export class Ip {
         public qc: number,
         public estatus: boolean,
         public tipo: number,
-        public proyecto: Proyecto = new Proyecto(-1,'','',true),
+        public proyecto: Proyecto,
         public grids: Array<Grid> = [] ,
         public fecha_asignacion: Date,
         public fecha_envio_campo?: Date,
@@ -29,6 +29,7 @@ export class Ip {
         public participantes?: Array<string>
         //participantes solo es una variable auxiliar para obtener participantes, no forma parte del esquema de bd
     ){
+        this.proyecto = new Proyecto(-1,'','',true);
         this.actualizacion = false;
     }
 

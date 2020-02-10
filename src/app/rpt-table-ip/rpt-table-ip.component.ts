@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/cor
 import { Ip } from 'app/models/ip';
 import { getTablaUtf8 } from 'app/utils';
 import { Grid } from 'app/models/grid';
+import { Proyecto } from 'app/models/proyecto';
 
 @Component({
   selector: 'app-rpt-table-ip',
@@ -64,7 +65,7 @@ export class RptTableIpComponent implements OnInit, OnChanges {
 
     } else {
 
-      // this.ip = new Ip(-1, '', 0, '', new Date(), -1, -1, true, 1, );
+      this.ip = new Ip(-1,'',0,'', new Date(), -1, null, true,-1, new Proyecto(-1,'','', true),[], new Date());
 
     }
 
