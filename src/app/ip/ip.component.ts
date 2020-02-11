@@ -25,6 +25,7 @@ export class IpComponent implements OnInit, OnDestroy {
   public filtrar: string;
   public p: number;
   public ipSelected: Ip;
+  public longitud: number;
 
 
 
@@ -48,6 +49,7 @@ export class IpComponent implements OnInit, OnDestroy {
     this.selectedProject = -1;
     this.filtrar = "";
     this.p = 1;
+    this.longitud = 0;
 
 
     this.permisos.crear = this.auth.hasPermission('ROLE_HQ');
@@ -97,9 +99,11 @@ export class IpComponent implements OnInit, OnDestroy {
 
         this.ips = result.ips;
 
+        let size = this.ips.length;
 
         this.ips.forEach((ip, index) => {
 
+          ip.index = (size - index);
           ip.participantes = this.getParticipantesByIp(this.ips[index].id_ip, result.participantes);
 
         });

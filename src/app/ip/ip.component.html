@@ -57,6 +57,7 @@
               <table class="table table-hover table-striped">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>IP</th>
                     <th width="5%">GRIDS</th>
                     <th>ASIGNADO</th>
@@ -76,10 +77,11 @@
                 </thead>
                 <tbody>
                   <tr *ngIf="ips.length == 0">
-                    <td class="text-center" colspan="15">SIN REGISTROS</td>
+                    <td class="text-center" colspan="16">SIN REGISTROS</td>
                   </tr>
-                  <tr *ngFor="let ip of ips | searchIP: filtrar | paginate: { itemsPerPage: 10, currentPage: p } "
+                  <tr *ngFor="let ip of ips | searchIP: filtrar | paginate: { itemsPerPage: 10, currentPage: p }  "
                     class="tr-puntero-color">
+                    <td>{{ ip.index }}</td>
                     <td>
                       <a [routerLink]="'editar/'+ip.id_ip" *ngIf="permisos.editar">{{ ip.ip }}</a>
                       <p *ngIf="!permisos.editar">{{ ip.ip }}</p>

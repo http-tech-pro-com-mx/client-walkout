@@ -13,7 +13,7 @@ export class SearchIPPipe implements PipeTransform {
     searchText = searchText.toUpperCase();
     
     return ips.filter(ip => {
-      return ip.ip.includes(searchText) || ip.ubicacion.includes(searchText) || ip.fecha_levantamiento.toString().includes(searchText);
+      return ip.ip.includes(searchText) || ip.ubicacion.includes(searchText) || ip.index.toString().includes(searchText);
     });
 
   }
