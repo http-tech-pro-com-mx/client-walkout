@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy, PopStateEvent } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Location, PopStateEvent } from '@angular/common';
 import 'rxjs/add/operator/filter';
-import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import PerfectScrollbar from 'perfect-scrollbar';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-admin-layout',
@@ -36,6 +34,7 @@ export class AdminLayoutComponent implements OnInit {
       this.location.subscribe((ev:PopStateEvent) => {
           this.lastPoppedUrl = ev.url;
       });
+
        this.router.events.subscribe((event:any) => {
           if (event instanceof NavigationStart) {
              if (event.url != this.lastPoppedUrl)
@@ -52,9 +51,16 @@ export class AdminLayoutComponent implements OnInit {
            elemMainPanel.scrollTop = 0;
            elemSidebar.scrollTop = 0;
       });
-      if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
-          let ps = new PerfectScrollbar(elemMainPanel);
-          ps = new PerfectScrollbar(elemSidebar);
+      if (window.matchMedia(`(min-width: 160px)`).matches && !this.isMac()) {
+          let ps = new PerfectScrollbar(elemMainPanel,{
+            suppressScrollX: true,
+            scrollXMarginOffset: 100
+          });
+          ps = new PerfectScrollbar(elemSidebar,{
+            suppressScrollX: true,
+            scrollXMarginOffset: 100
+          }); 
+          
       }
   }
   ngAfterViewInit() {
@@ -71,12 +77,17 @@ export class AdminLayoutComponent implements OnInit {
       }
   }
   runOnRouteChange(): void {
-    if (window.matchMedia(`(min-width: 960px)`).matches && !this.isMac()) {
+    if (window.matchMedia(`(min-width: 160px)`).matches && !this.isMac()) {
+
       const elemMainPanel = <HTMLElement>document.querySelector('.main-panel');
-      const ps = new PerfectScrollbar(elemMainPanel);
+      const ps = new PerfectScrollbar(elemMainPanel, {
+        suppressScrollX: true,
+        scrollXMarginOffset: 100
+      });
       ps.update();
     }
   }
+
   isMac(): boolean {
       let bool = false;
       if (navigator.platform.toUpperCase().indexOf('MAC') >= 0 || navigator.platform.toUpperCase().indexOf('IPAD') >= 0) {
