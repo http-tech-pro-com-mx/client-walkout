@@ -109,7 +109,7 @@ export class IpComponent implements OnInit, OnDestroy {
         //Tiempo de espera
 
         setTimeout(() => {
-          this.busqueda = true;       
+          this.busqueda = true;
         }, 100);
 
 
@@ -204,10 +204,15 @@ export class IpComponent implements OnInit, OnDestroy {
 
   openModalEstatus(estatus: string, ip: Ip) {
 
+    if (estatus == '1' && (ip.fecha_levantamiento == null || ip.fecha_levantamiento == undefined)) {
+      return  swal.fire({ title: 'Agregue la fecha de levantamiento', type: 'info' })
+    }
+
+
     swal.fire({
       title: 'Cambiar estatus de la IP ' + ip.ip,
       input: 'select',
-      inputOptions: this.statusIP( estatus, ip ),
+      inputOptions: this.statusIP(estatus, ip),
       inputPlaceholder: 'Selecciona estatus',
       showCancelButton: true,
       confirmButtonText: 'Cambiar estatus',
@@ -227,20 +232,22 @@ export class IpComponent implements OnInit, OnDestroy {
 
     });
 
+
+
   }
 
 
-  httpUpdateEstatus(result: any, estatus: string ,ip:Ip){
+  httpUpdateEstatus(result: any, estatus: string, ip: Ip) {
 
     if (result.value) {
 
       ip.qc = parseInt(result.value);
-     
+
       this.service.changeStatus(ip).subscribe(resp => {
 
         if (resp.successful) {
 
-          switch(ip.qc){
+          switch (ip.qc) {
             case 0:
               ip.fecha_envio_campo = resp.dia;
               break;
@@ -255,8 +262,8 @@ export class IpComponent implements OnInit, OnDestroy {
               break;
           }
 
-      
-            swal.fire({ type: 'success', html: resp.message });
+
+          swal.fire({ type: 'success', html: resp.message });
 
 
         } else {
@@ -278,12 +285,12 @@ export class IpComponent implements OnInit, OnDestroy {
 
 
 
-  async openModalEstatus0(estatus: string, ip: Ip){
+  async openModalEstatus0(estatus: string, ip: Ip) {
 
     const { value: changeStatus } = await swal.fire({
       title: 'Cambiar estatus de la IP ' + ip.ip,
       input: 'select',
-      inputOptions: this.statusIP( estatus, ip ),
+      inputOptions: this.statusIP(estatus, ip),
       inputPlaceholder: 'Selecciona estatus',
       showCancelButton: true,
       confirmButtonText: 'Siguiente',
@@ -299,95 +306,95 @@ export class IpComponent implements OnInit, OnDestroy {
       }
     });
 
-    if( changeStatus ){
-          swal.fire({
-            title: 'Agregar información a ' + ip.ip,
-            html:  '<label>No de Grids</label><input id="numero-grids" class="swal2-input" placeholder="Numero de grids" value="0">' +
-            '<label>Actualización</label><select id="select-update" class="swal2-input"><option value=false>NO</option><option value=true>SI</option></select>'+
-            '<label>Km actualizados</label><input id="km-update" class="swal2-input" placeholder="KM ACTUALIZADOS" value="0" disabled>',
-            showCancelButton: true,
-            confirmButtonText: 'Cambiar estatus',
-            cancelButtonText: 'Cancelar',
-            allowOutsideClick: false,
-            onOpen: ()=>{
-              let select = document.getElementById('select-update');
-              let inputKm  = <HTMLInputElement>document.getElementById('km-update');
-              
-              select.addEventListener('change', (event:any) =>{
-                let value = (event.target.value == 'true');
-               
-                if( !value ){
-                  inputKm.value = '0';
-                  inputKm.disabled = true; 
-                }else{
-                  inputKm.disabled = false; 
-                }
+    if (changeStatus) {
+      swal.fire({
+        title: 'Agregar información a ' + ip.ip,
+        html: '<label>No de Grids</label><input id="numero-grids" class="swal2-input" placeholder="Numero de grids" value="0">' +
+          '<label>Actualización</label><select id="select-update" class="swal2-input"><option value=false>NO</option><option value=true>SI</option></select>' +
+          '<label>Km actualizados</label><input id="km-update" class="swal2-input" placeholder="KM ACTUALIZADOS" value="0" disabled>',
+        showCancelButton: true,
+        confirmButtonText: 'Cambiar estatus',
+        cancelButtonText: 'Cancelar',
+        allowOutsideClick: false,
+        onOpen: () => {
+          let select = document.getElementById('select-update');
+          let inputKm = <HTMLInputElement>document.getElementById('km-update');
 
-              });
-            },
-            preConfirm: ()=>{
+          select.addEventListener('change', (event: any) => {
+            let value = (event.target.value == 'true');
 
-              let numero_grids = (<HTMLInputElement>document.getElementById('numero-grids')).value;
-              let valor = (<HTMLInputElement>document.getElementById('select-update')).value;
-              let km_update = (<HTMLInputElement>document.getElementById('km-update')).value;
-
-
-              if( this.isValidForm(numero_grids , (valor == 'true'), km_update )){
-
-                ip.total_grids = parseInt(numero_grids);
-                ip.actualizacion = (valor == 'true');
-
-                if(ip.actualizacion){
-                  ip.km_actualizados = parseFloat(km_update);
-
-                }
-
-              
-              } else {
-
-                swal.showValidationMessage('Verifique los datos capturados');
-
-              }
-
+            if (!value) {
+              inputKm.value = '0';
+              inputKm.disabled = true;
+            } else {
+              inputKm.disabled = false;
             }
 
-          }).then((result) => {
-
-
-            if(result.value){
-            
-              this.httpUpdateEstatus({ value: changeStatus }, estatus, ip);
-
-            }
-
-              
-        
           });
+        },
+        preConfirm: () => {
+
+          let numero_grids = (<HTMLInputElement>document.getElementById('numero-grids')).value;
+          let valor = (<HTMLInputElement>document.getElementById('select-update')).value;
+          let km_update = (<HTMLInputElement>document.getElementById('km-update')).value;
+
+
+          if (this.isValidForm(numero_grids, (valor == 'true'), km_update)) {
+
+            ip.total_grids = parseInt(numero_grids);
+            ip.actualizacion = (valor == 'true');
+
+            if (ip.actualizacion) {
+              ip.km_actualizados = parseFloat(km_update);
+
+            }
+
+
+          } else {
+
+            swal.showValidationMessage('Verifique los datos capturados');
+
+          }
+
+        }
+
+      }).then((result) => {
+
+
+        if (result.value) {
+
+          this.httpUpdateEstatus({ value: changeStatus }, estatus, ip);
+
+        }
+
+
+
+      });
     }
 
 
   }
 
-  statusIP( status: string, ip: Ip ): any{
+  statusIP(status: string, ip: Ip): any {
 
     let option = {};
 
-    switch( status ){
+    switch (status) {
       case '-1':
-        option =  {'0': 'Enviar a campo'};
+        option = { '0': 'Enviar a campo' };
         break;
       case '0':
-        option = {'1': 'En revisión QC'};
+        option = { '1': 'En revisión QC' };
 
         break;
       case '1':
-        option =  {'2': 'Enviado a cliente'};
+        option = { '2': 'Enviado a cliente' };
         break;
       case '2':
-        option = {'4': 'Rechazado',  '3': 'SharedPoint' };
+        option = { '4': 'Rechazado', '3': 'SharedPoint' };
         break;
       case '4':
-        option = {'2': 'Enviado a cliente',  '3': 'SharedPoint' };
+        option = { '2': 'Enviado a cliente', '3': 'SharedPoint' };
         break;
     }
 
@@ -399,19 +406,19 @@ export class IpComponent implements OnInit, OnDestroy {
     this.p = event;
   }
 
-  downloadExcelIp(ip: Ip){
+  downloadExcelIp(ip: Ip) {
 
     this.ipSelected = ip;
   }
 
-  isValidForm( nGrids, actualizacion, km_actualizacion ): boolean{
-    
-    if(!/^[0-9]+$/.test( nGrids )){
-      return false; 
+  isValidForm(nGrids, actualizacion, km_actualizacion): boolean {
+
+    if (!/^[0-9]+$/.test(nGrids)) {
+      return false;
     }
 
-    if(actualizacion && (!/^[0-9]*([.][0-9]+)?$/.test(km_actualizacion) )){
-       return false;
+    if (actualizacion && (!/^[0-9]*([.][0-9]+)?$/.test(km_actualizacion))) {
+      return false;
     }
 
     return true;
