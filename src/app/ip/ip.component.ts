@@ -210,7 +210,7 @@ export class IpComponent implements OnInit, OnDestroy {
       inputOptions: this.statusIP( estatus, ip ),
       inputPlaceholder: 'Selecciona estatus',
       showCancelButton: true,
-      confirmButtonText: 'Cambiar',
+      confirmButtonText: 'Cambiar estatus',
       inputValue: estatus,
       inputValidator: (value) => {
         return new Promise((resolve) => {
@@ -223,48 +223,55 @@ export class IpComponent implements OnInit, OnDestroy {
       }
     }).then((result) => {
 
-      if (result.value) {
-
-        ip.qc = parseInt(result.value);
-       
-        this.service.changeStatus(ip).subscribe(resp => {
-
-          if (resp.successful) {
-
-            switch(ip.qc){
-              case 0:
-                ip.fecha_envio_campo = resp.dia;
-                break;
-              case 1:
-                ip.fecha_qc = resp.dia;
-                break;
-              case 2:
-                ip.fecha_cliente = resp.dia;
-                break;
-              case 3:
-                ip.fecha_shared_point = resp.dia;
-                break;
-            }
-
-        
-              swal.fire({ type: 'success', html: resp.message });
-
-
-          } else {
-
-            ip.qc = parseInt(estatus);
-            toastr.error('No se actualizo ', 'Error!');
-          }
-
-        }, error => {
-
-          ip.qc = parseInt(estatus);
-          toastr.error(error.error, 'Error!');
-
-        });
-      }
+      this.httpUpdateEstatus(result, estatus, ip);
 
     });
+
+  }
+
+
+  httpUpdateEstatus(result: any, estatus: string ,ip:Ip){
+
+    if (result.value) {
+
+      ip.qc = parseInt(result.value);
+     
+      this.service.changeStatus(ip).subscribe(resp => {
+
+        if (resp.successful) {
+
+          switch(ip.qc){
+            case 0:
+              ip.fecha_envio_campo = resp.dia;
+              break;
+            case 1:
+              ip.fecha_qc = resp.dia;
+              break;
+            case 2:
+              ip.fecha_cliente = resp.dia;
+              break;
+            case 3:
+              ip.fecha_shared_point = resp.dia;
+              break;
+          }
+
+      
+            swal.fire({ type: 'success', html: resp.message });
+
+
+        } else {
+
+          ip.qc = parseInt(estatus);
+          toastr.error('No se actualizo ', 'Error!');
+        }
+
+      }, error => {
+
+        ip.qc = parseInt(estatus);
+        toastr.error(error.error, 'Error!');
+
+      });
+    }
 
   }
 
@@ -295,27 +302,50 @@ export class IpComponent implements OnInit, OnDestroy {
     if( changeStatus ){
           swal.fire({
             title: 'Agregar información a ' + ip.ip,
-            html:  '<input id="numero-grids" class="swal2-input" placeholder="Numero de grids" value="0">' +
-            '<select id="select-update" class="swal2-input"><option value="false">NO</option><option value="true">SI</option></select>'+
-            '<input id="km-update" class="swal2-input" placeholder="KM ACTUALIZADOS" value="0">',
+            html:  '<label>No de Grids</label><input id="numero-grids" class="swal2-input" placeholder="Numero de grids" value="0">' +
+            '<label>Actualización</label><select id="select-update" class="swal2-input"><option value=false>NO</option><option value=true>SI</option></select>'+
+            '<label>Km actualizados</label><input id="km-update" class="swal2-input" placeholder="KM ACTUALIZADOS" value="0" disabled>',
             showCancelButton: true,
-            confirmButtonText: 'Cambiar y agregar!',
-            cancelButtonText: 'Solo cambiar',
+            confirmButtonText: 'Cambiar estatus',
+            cancelButtonText: 'Cancelar',
+            allowOutsideClick: false,
+            onOpen: ()=>{
+              let select = document.getElementById('select-update');
+              let inputKm  = <HTMLInputElement>document.getElementById('km-update');
+              
+              select.addEventListener('change', (event:any) =>{
+                let value = (event.target.value == 'true');
+               
+                if( !value ){
+                  inputKm.value = '0';
+                  inputKm.disabled = true; 
+                }else{
+                  inputKm.disabled = false; 
+                }
+
+              });
+            },
             preConfirm: ()=>{
 
               let numero_grids = (<HTMLInputElement>document.getElementById('numero-grids')).value;
               let valor = (<HTMLInputElement>document.getElementById('select-update')).value;
               let km_update = (<HTMLInputElement>document.getElementById('km-update')).value;
 
-              console.log( numero_grids , valor, km_update );
 
-              if( this.isValidForm(numero_grids , valor, km_update )){
+              if( this.isValidForm(numero_grids , (valor == 'true'), km_update )){
 
-                alert('correcto');
+                ip.total_grids = parseInt(numero_grids);
+                ip.actualizacion = (valor == 'true');
 
+                if(ip.actualizacion){
+                  ip.km_actualizados = parseFloat(km_update);
+
+                }
+
+              
               } else {
 
-                swal.showValidationMessage('Verifique los datos');
+                swal.showValidationMessage('Verifique los datos capturados');
 
               }
 
@@ -323,6 +353,14 @@ export class IpComponent implements OnInit, OnDestroy {
 
           }).then((result) => {
 
+
+            if(result.value){
+            
+              this.httpUpdateEstatus({ value: changeStatus }, estatus, ip);
+
+            }
+
+              
         
           });
     }
@@ -377,8 +415,6 @@ export class IpComponent implements OnInit, OnDestroy {
     }
 
     return true;
-
-    
 
   }
 
