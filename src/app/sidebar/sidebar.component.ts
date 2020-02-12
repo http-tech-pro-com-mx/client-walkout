@@ -13,6 +13,7 @@ declare interface RouteInfo {
 }
 export const ROUTES: RouteInfo[] = [
   { path: '/dashboard', title: 'Dashboard', icon: 'pe-7s-graph', class: '', roles: ['ROLE_ADMIN', 'ROLE_WALKER' , 'ROLE_HQ'] },
+  { path: '/ip/reporte', title: 'Reporte IP', icon: 'pe-7s-note2', class: '', roles: ['ROLE_HQ'] }, //Change role
   { path: '/user', title: 'Perfil', icon: 'pe-7s-user', class: '', roles: ['ROLE_ADMIN', 'ROLE_WALKER' , 'ROLE_HQ'] },
   { path: '/security/pwd', title: 'Contraseña', icon: 'pe-7s-key', class: '', roles: ['ROLE_CHANGE_PWD'] },
   { path: '/ip', title: 'IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ', 'ROLE_ADMIN'] },
@@ -37,9 +38,11 @@ export class SidebarComponent implements OnInit {
      
     });
 
+   
+
     // filtra menu basado en roles
     this.menuItems = ROUTES.filter(menuItem => {
-
+     
       let hasPermiso = false;
 
       for (let index = 0; index < menuItem.roles.length ; index++) {
@@ -52,7 +55,7 @@ export class SidebarComponent implements OnInit {
       }
 
       if(hasPermiso){
-
+    
         if (menuItem.path != '/ip/crear' && menuItem.path != '/ip/editar') {
           return menuItem;
         }
@@ -60,6 +63,8 @@ export class SidebarComponent implements OnInit {
       }
 
     });
+
+   
 
   }
 

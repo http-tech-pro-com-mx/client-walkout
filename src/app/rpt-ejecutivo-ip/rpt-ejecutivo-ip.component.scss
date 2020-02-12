@@ -1,0 +1,29 @@
+.thumbnail {
+   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+   transition: 0.3s;
+   min-width: 30%;
+   border-radius: 5px;
+ }
+
+ .thumbnail-description {
+   min-height: 30px;
+ }
+
+ .thumbnail:hover {
+   cursor: pointer;
+   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .7);
+ }
+
+ .smaller{
+     font-weight: bold;
+     font-size: 4vh;
+ }
+
+ .hr{
+    margin-top: 5px;
+    margin-bottom: 5px;
+ }
+
+ .margin-thumbnail{
+    margin-bottom: 5px;
+ }

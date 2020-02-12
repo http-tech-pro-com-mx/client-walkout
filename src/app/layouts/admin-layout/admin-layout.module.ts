@@ -21,7 +21,7 @@ import { ChangePwdComponent } from '../../change-pwd/change-pwd.component';
 import { RptTableComponent } from '../../rpt-table/rpt-table.component';
 import { RptTableIpComponent } from '../../rpt-table-ip/rpt-table-ip.component';
 import { CalendarioComponent } from 'app/calendario/calendario.component';
-
+import { RptEjecutivoIpComponent } from '../../rpt-ejecutivo-ip/rpt-ejecutivo-ip.component';
 
 registerLocaleData(localeEsMx);
 
@@ -44,7 +44,8 @@ registerLocaleData(localeEsMx);
     ChangePwdComponent,
     RptTableComponent,
     RptTableIpComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    RptEjecutivoIpComponent
   ],
   providers: [
     AuthGuardSecurity, 
