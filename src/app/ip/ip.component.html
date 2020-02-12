@@ -51,7 +51,7 @@
           <div class="card">
             <div class="header">
               <h4 class="title">LISTADO DE IP</h4>
-             
+
             </div>
             <div class="content1 table-responsive table-full-width">
               <table class="table table-hover table-striped">
@@ -100,28 +100,31 @@
 
                       <ng-container *ngIf="permisos.changeStatus">
                         <a href="javascript:void(0);">
-                          <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado" *ngIf="ip.qc == -1 "
-                            (click)="openModalEstatus0('-1', ip)">
+                          <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado"
+                            *ngIf="ip.qc == -1 " (click)="openModalEstatus0('-1', ip)">
                           <img src="assets/img/walking.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0 "
                             (click)="openModalEstatus('0', ip)">
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 "
                             (click)="openModalEstatus('1', ip)">
-                          <img src="assets/img/cliente-validando.png" class="icon-status" alt="Cliente validando" *ngIf="ip.qc == 2 "
-                            (click)="openModalEstatus('2', ip)">
+                          <img src="assets/img/cliente-validando.png" class="icon-status" alt="Cliente validando"
+                            *ngIf="ip.qc == 2 " (click)="openModalEstatus('2', ip)">
                           <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3 "
                             (click)="openModalEstatus('3', ip)">
-                          <img src="assets/img/rechazo-cliente.png" class="icon-status" alt="Rechazo cliente" *ngIf="ip.qc == 4 "
-                            (click)="openModalEstatus('4', ip)">
+                          <img src="assets/img/rechazo-cliente.png" class="icon-status" alt="Rechazo cliente"
+                            *ngIf="ip.qc == 4 " (click)="openModalEstatus('4', ip)">
                         </a>
                       </ng-container>
                       <ng-container *ngIf="!permisos.changeStatus">
                         <a href="javascript:void(0);">
-                          <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado" *ngIf="ip.qc == -1">
+                          <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado"
+                            *ngIf="ip.qc == -1">
                           <img src="assets/img/walking.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0">
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1">
-                          <img src="assets/img/cliente-validando.png" class="icon-status" alt="Cliente validando" *ngIf="ip.qc == 2">
+                          <img src="assets/img/cliente-validando.png" class="icon-status" alt="Cliente validando"
+                            *ngIf="ip.qc == 2">
                           <img src="assets/img/shared.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 3">
-                          <img src="assets/img/rechazo-cliente.png" class="icon-status" alt="SharePoint" *ngIf="ip.qc == 4">
+                          <img src="assets/img/rechazo-cliente.png" class="icon-status" alt="SharePoint"
+                            *ngIf="ip.qc == 4">
                         </a>
                       </ng-container>
                     </td>
@@ -154,9 +157,15 @@
               </table>
             </div>
             <div class="footer">
-              <div class="container text-center pagination">
-                <pagination-controls (pageChange)="pageChanged($event)" previousLabel="ANT" nextLabel="SIG">
-                </pagination-controls>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div class="text-center">
+                    <div class="pagination">
+                      <pagination-controls (pageChange)="pageChanged($event)" previousLabel="ANT" nextLabel="SIG">
+                      </pagination-controls>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
