@@ -27,3 +27,19 @@
  .margin-thumbnail{
     margin-bottom: 5px;
  }
+
+.panel-heading .badge{
+    color: #ffffff;
+    margin-left: 5px;
+    background-color: #e53935 !important;
+ }
+
+ .contenedor {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .km-badge{
+      color: black;
+      background-color: white;
+  }

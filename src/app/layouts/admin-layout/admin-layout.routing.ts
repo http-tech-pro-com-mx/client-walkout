@@ -15,7 +15,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ip', component: IpComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_CONSULTA_IP' } },
     { path: 'ip/editar/:id_ip', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' } },
     { path: 'ip/crear/:id_proyecto', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' } },
-    { path: 'ip/reporte', component: RptEjecutivoIpComponent  },
+    { path: 'reporte-ip', component: RptEjecutivoIpComponent  },
     { path: 'configuracion', component: ConfReporteComponent , canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' }},
     { path: 'security/pwd', component: ChangePwdComponent , canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_CHANGE_PWD' }},
 ];
