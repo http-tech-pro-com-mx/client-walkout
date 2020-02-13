@@ -47,3 +47,23 @@
   .panel-body-height{
      min-height: 45vh;
   }
+
+  .btn-consultar{
+     margin-bottom: 20px;
+  }
+
+  .estilo-sombra{
+     color: white;
+     -webkit-box-shadow: 6px 8px 14px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: 6px 8px 14px 0px rgba(0,0,0,0.75);
+      box-shadow: 6px 8px 14px 0px rgba(0,0,0,0.75);
+  }
+
+  .estilo-sombra-text{
+     color: white;
+     text-shadow: 5px 3px 4px rgba(0, 0, 0, 0.75);
+  }
+
+  .btn-info{
+     border-color: white;
+  }
