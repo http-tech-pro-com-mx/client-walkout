@@ -67,3 +67,18 @@
   .btn-info{
      border-color: white;
   }
+
+  @media (min-width:100px) and (max-width: 500px){
+   .h1-responsive {
+     font-size: 20px;
+   }
+}
+
+@media  (min-width:500px) and (max-width: 800px){
+   .h1-responsive {
+     font-size: 35px;
+   }
+}
+   
+   
+
