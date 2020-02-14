@@ -1,5 +1,11 @@
-<div class="main-content" *ngIf="false">
+<div class="main-content" *ngIf="consultaReporte">
   <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <a href="javascript:void(0);" (click)="consultaOtro()">Consulta otro proyecto</a>
+    </div>
+  </div>
+  <div class="row"><br></div>
+  <div class="row" [@status_animation]="status_animation">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
       <div class="thumbnail">
         <div class="caption text-center">
@@ -50,7 +56,7 @@
     </div>
   </div>
   <div class="row">&nbsp;</div>
-  <div class="row">
+  <div class="row" [@status_animation]="status_animation">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
       <div class="panel panel-primary">
         <div class="panel-heading"><b>Detalle semana actual: </b></div>
@@ -129,7 +135,7 @@
   </div>
 </div>
 
-<div class="main-content" *ngIf="true">
+<div class="main-content" *ngIf="!consultaReporte">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <!-- Inicio Carrusel -->
@@ -145,7 +151,7 @@
             <img src="assets/img/carousel-proyecto.webp" alt="Imagen Proyecto" style="background-color: (0,0,0,.9);">
             <div class="carousel-caption">
               <h1><b class="estilo-sombra-text h1-responsive">Proyecto nombre</b></h1>
-              <button class="btn btn-info btn-consultar estilo-sombra"><b>CONSULTAR AHORA!</b></button>
+              <button class="btn btn-info btn-consultar estilo-sombra" (click)="consultaProyecto()"><b>CONSULTAR AHORA!</b></button>
             </div>
           </div>
         </div>
