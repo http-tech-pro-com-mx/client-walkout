@@ -27,7 +27,8 @@ export class Ip {
         public fecha_update?: Date,
         public usuario_update?: number,
         public participantes?: Array<string>,
-        public index?: number
+        public index?: number,
+        public fecha_asignacion_caminar?: Date
         //participantes solo es una variable auxiliar para obtener participantes, no forma parte del esquema de bd
     ){
         this.proyecto = new Proyecto(-1,'','',true);

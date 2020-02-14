@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Ip } from 'app/models/ip';
 import { Proyecto } from 'app/models/proyecto';
 import { IpEnCampoService } from './ip-en-campo.service';
+import swal from 'sweetalert2';
 
 declare const toastr: any;
 declare var $:any;
@@ -20,6 +21,8 @@ export class IpEnCampoComponent implements OnInit, OnDestroy {
   public selectedProject: number;
   public filtrar: string;
   public longitud: number;
+  public fecha: Date;
+  public ip: Ip;
 
 
   constructor(private service: IpEnCampoService) { }
@@ -33,6 +36,7 @@ export class IpEnCampoComponent implements OnInit, OnDestroy {
     this.selectedProject = -1;
     this.filtrar = "";
     this.longitud = 0;
+    this.fecha = new Date();
 
     this.service.getInfoProyectos().subscribe(result => {
 
@@ -63,6 +67,18 @@ export class IpEnCampoComponent implements OnInit, OnDestroy {
         width: 100 + '%',
         noneResultsText: 'No hay resultados {0}'
       });
+
+      $('.div-calendario').datepicker({
+        multidate: false,
+        format: 'mm/dd/yyyy',
+        language: 'es',
+        defaultDate:  new Date()
+      }).on('changeDate', (ev) => {
+          this.fecha = ev.date;
+      });
+  
+
+
     }, 60);
 
   }
@@ -77,12 +93,80 @@ export class IpEnCampoComponent implements OnInit, OnDestroy {
 
     if (this.selectedProject != -1 && this.selectedProject != null) {
 
+      this.service.getIpsEnCampo(this.selectedProject).subscribe(result => {
+
+        
+
+        this.ips = result.ips;
+
+        this.ips.forEach((ip, index) => {
+
+          ip.index = ( index +  1);
+        
+        });
+
+        //Tiempo de espera
+
+        setTimeout(() => {
+          this.busqueda = true;
+        }, 100);
+
+
+
+      }, error => {
+
+        this.busqueda = false;
+        toastr.error(error.error, 'Error!');
+
+      });
+
     } else {
 
       this.busqueda = false;
       toastr.error('Seleccione un proyecto', 'Error!', { timeOut: 2000 });
 
     }
+
+  }
+
+  openModal(ip){
+
+    this.ip = ip;
+
+    if(ip.fecha_asignacion_caminar != null && ip.fecha_asignacion_caminar != undefined && ip.fecha_asignacion_caminar != ""){
+      this.fecha = ip.fecha_asignacion_caminar;
+    }else{
+      this.fecha = new Date();
+    }
+
+
+    $(".div-calendario").datepicker("setDate", new Date( this.fecha ));
+    $('#modal-calendario').modal('show');
+
+  }
+
+  close(){
+
+    $('#modal-calendario').modal('hide');
+  }
+
+  cambiar(){
+
+    this.ip.fecha_asignacion_caminar = this.fecha;
+
+
+    this.service.changeUpdate( this.ip ).subscribe( result=>{
+
+      if(result.successful){
+        $('#modal-calendario').modal('hide');
+        swal.fire('Exito !', result.message, 'success');
+      }else{
+        toastr.error('No se actualizo');
+      }
+
+    }, error =>{
+      toastr.error(error.error, 'Error!');
+    });
 
   }
 
