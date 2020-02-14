@@ -8,6 +8,7 @@ import { ConfReporteComponent } from '../../conf-reporte/conf-reporte.component'
 import { AuthGuardSecurity } from '../../auth/auth.guard.security';
 import { ChangePwdComponent } from '../../change-pwd/change-pwd.component';
 import { RptEjecutivoIpComponent } from 'app/rpt-ejecutivo-ip/rpt-ejecutivo-ip.component';
+import { IpEnCampoComponent } from '../../ip-en-campo/ip-en-campo.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard', component: HomeComponent },
@@ -15,6 +16,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'ip', component: IpComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_CONSULTA_IP' } },
     { path: 'ip/editar/:id_ip', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' } },
     { path: 'ip/crear/:id_proyecto', component: IpFormComponent, canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' } },
+    { path: 'ips/en-campo', component: IpEnCampoComponent  },
     { path: 'reporte-ip', component: RptEjecutivoIpComponent  },
     { path: 'configuracion', component: ConfReporteComponent , canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_HQ' }},
     { path: 'security/pwd', component: ChangePwdComponent , canActivate: [AuthGuardSecurity],  data: { expectedRole: 'ROLE_CHANGE_PWD' }},

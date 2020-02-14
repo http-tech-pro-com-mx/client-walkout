@@ -30,11 +30,12 @@
       </div>
       <div class="row">
         <div class="col-md-12">
-          <p class="category ip-estatus">ESTATUS:
+          ESTATUS:
+          <p class="category ip-estatus">
             <label>
               <img src="assets/img/entrega-paquete.png" class="icon-description">ASIGNADO</label>
             <label>
-              <img src="assets/img/walking.png" class="icon-description">EN CAMPO</label>
+              <img src="assets/img/envio-campo.png" class="icon-description">EN CAMPO</label>
             <label>
               <img src="assets/img/qc.png" class="icon-description">EN REVISIÓN QC</label>
             <label>
@@ -102,7 +103,7 @@
                         <a href="javascript:void(0);">
                           <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado"
                             *ngIf="ip.qc == -1 " (click)="openModalEstatus0('-1', ip)">
-                          <img src="assets/img/walking.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0 "
+                          <img src="assets/img/envio-campo.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0 "
                             (click)="openModalEstatus('0', ip)">
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1 "
                             (click)="openModalEstatus('1', ip)">
@@ -118,7 +119,7 @@
                         <a href="javascript:void(0);">
                           <img src="assets/img/entrega-paquete.png" class="icon-status" alt="Asignado"
                             *ngIf="ip.qc == -1">
-                          <img src="assets/img/walking.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0">
+                          <img src="assets/img/envio-campo.png" class="icon-status" alt="Enviado campo" *ngIf="ip.qc == 0">
                           <img src="assets/img/qc.png" class="icon-status" alt="Revisando" *ngIf="ip.qc == 1">
                           <img src="assets/img/cliente-validando.png" class="icon-status" alt="Cliente validando"
                             *ngIf="ip.qc == 2">

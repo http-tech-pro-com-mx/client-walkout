@@ -17,7 +17,7 @@
             <div class="position-relative">
               <img src="assets/img/walking_64x64.png" style="width:48px;height:48px;" />
             </div>
-            <h5 id="thumbnail-label" class="margin-thumbnail"><a href="javascript:void(0);">Caminados</a></h5>
+            <h5 id="thumbnail-label" class="margin-thumbnail"><a href="javascript:void(0);">Total proyecto</a></h5>
             <hr class="hr">
             <div class="thumbnail-description smaller">{{ km_total_shared | ftKm }}</div>
           </div>
@@ -41,7 +41,7 @@
             <div class="position-relative">
               <img src="assets/img/semana_64x64.png" style="width:48px;height:48px;" />
             </div>
-            <h5 class="margin-thumbnail"><a href="javascript:void(0);">Semana</a></h5>
+            <h5 class="margin-thumbnail"><a href="javascript:void(0);">En semana actual</a></h5>
             <hr class="hr">
             <div class="thumbnail-description smaller">{{ qc_sem  | ftKm }}</div>
           </div>
@@ -79,10 +79,11 @@
                     <li class="list-group-item contenedor" *ngFor="let ip of enSharedPoint">{{ ip.ip }} <span>{{ ip.fecha_shared_point | date: 'mediumDate' }}</span><span
                       class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
                       KM</span></li>
+                    <li *ngIf="enSharedPoint.length == 0" class="list-group-item">SIN REGISTROS</li>
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
-                      <span class="badge badge-pill">Total KM</span>
+                      <span class="badge badge-pill">Total:  {{ shared_sem | ftKm  }} KM</span>
                     </div>
                   </div>
                 </div>
@@ -103,7 +104,7 @@
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
-                      <span class="badge badge-pill">Total KM</span>
+                      <span class="badge badge-pill">Total: {{ pool_cliente_sem | ftKm  }}  KM</span>
                     </div>
                   </div>
                 </div>
@@ -124,7 +125,7 @@
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
-                      <span class="badge badge-pill">Total KM</span>
+                      <span class="badge badge-pill">Total: {{ qc_sem | ftKm  }} KM</span>
                     </div>
                   </div>
                 </div>

@@ -18,6 +18,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/security/pwd', title: 'Contraseña', icon: 'pe-7s-key', class: '', roles: ['ROLE_CHANGE_PWD'] },
   { path: '/ip', title: 'IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ', 'ROLE_ADMIN'] },
   { path: '/ip/crear', title: 'Detalle IP', icon: 'pe-7s-folder', class: '', roles: ['ROLE_HQ'] },
+  { path: '/ips/en-campo', title: 'IP´s en campo', icon: 'pe-7s-photo', class: '', roles: ['ROLE_HQ'] },
   { path: '/configuracion', title: 'Configuracion', icon: 'pe-7s-settings', class: '', roles: ['ROLE_HQ'] }
 ];
 
