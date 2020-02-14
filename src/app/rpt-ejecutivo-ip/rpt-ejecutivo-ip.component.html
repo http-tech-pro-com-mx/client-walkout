@@ -1,171 +1,178 @@
-<div class="main-content" *ngIf="consultaReporte">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <a href="javascript:void(0);" (click)="consultaOtro()">Consulta otro proyecto</a>
-    </div>
-  </div>
-  <div class="row"><br></div>
-  <div class="row" [@status_animation]="status_animation">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-      <div class="thumbnail">
-        <div class="caption text-center">
-          <div class="position-relative">
-            <img src="assets/img/walking_64x64.png" style="width:48px;height:48px;" />
-          </div>
-          <h5 id="thumbnail-label" class="margin-thumbnail"><a href="javascript:void(0);">Caminados</a></h5>
-          <hr class="hr">
-          <div class="thumbnail-description smaller">40.7</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-      <div class="thumbnail">
-        <div class="caption text-center">
-          <div class="position-relative">
-            <img src="assets/img/pool-cliente.png" style="width:48px;height:48px;" />
-          </div>
-          <h5 class="margin-thumbnail"><a href="javascript:void(0);">Pool cliente</a></h5>
-          <hr class="hr">
-          <div class="thumbnail-description smaller">4.34</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-      <div class="thumbnail">
-        <div class="caption text-center">
-          <div class="position-relative">
-            <img src="assets/img/semana_64x64.png" style="width:48px;height:48px;" />
-          </div>
-          <h5 class="margin-thumbnail"><a href="javascript:void(0);">Semana</a></h5>
-          <hr class="hr">
-          <div class="thumbnail-description smaller">4.34</div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
-      <div class="thumbnail">
-        <div class="caption text-center">
-          <div class="position-relative">
-            <img src="assets/img/shared_64x64.png" style="width:48px;height:48px;" />
-          </div>
-          <h5 class="margin-thumbnail"><a href="javascript:void(0);">SharedPoint</a></h5>
-          <hr class="hr">
-          <div class="thumbnail-description smaller">4.34</div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">&nbsp;</div>
-  <div class="row" [@status_animation]="status_animation">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-      <div class="panel panel-primary">
-        <div class="panel-heading"><b>Detalle semana actual: </b></div>
-        <div class="panel-body panel-body-height">
-          <div class="panel-group" id="accordion">
-            <div class="panel panel-info">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">SharedPoint</a>
-                  <span class="badge">3</span>
-                </h4>
-              </div>
-              <div id="collapse1" class="panel-collapse collapse">
-                <ul class="list-group">
-                  <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
-                      class="badge badge-pill km-badge">99
-                      KM</span></li>
-                  <li class="list-group-item">3000IP46</li>
-                  <li class="list-group-item">3000IP47</li>
-                </ul>
-                <div class="panel-footer">
-                  <div class="text-right">
-                    <span class="badge badge-pill">Total KM</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-warning">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Pool cliente</a>
-                  <span class="badge">3</span>
-                </h4>
-              </div>
-              <div id="collapse2" class="panel-collapse collapse">
-                <ul class="list-group">
-                  <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
-                      class="badge badge-pill km-badge">99
-                      KM</span></li>
-                  <li class="list-group-item">3000IP46</li>
-                  <li class="list-group-item">3000IP47</li>
-                </ul>
-                <div class="panel-footer">
-                  <div class="text-right">
-                    <span class="badge badge-pill">Total KM</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                <h4 class="panel-title">
-                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Revisión QC </a>
-                  <span class="badge">3</span>
-                </h4>
-              </div>
-              <div id="collapse3" class="panel-collapse collapse">
-                <ul class="list-group">
-                  <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
-                      class="badge badge-pill km-badge">99
-                      KM</span></li>
-                  <li class="list-group-item">3000IP46</li>
-                  <li class="list-group-item">3000IP47</li>
-                </ul>
-                <div class="panel-footer">
-                  <div class="text-right">
-                    <span class="badge badge-pill">Total KM</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="main-content" *ngIf="loading">
+  <app-loader></app-loader>
 </div>
 
-<div class="main-content" *ngIf="!consultaReporte">
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <!-- Inicio Carrusel -->
-      <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-          <div class="item active">
-            <img src="assets/img/carousel-proyecto.webp" alt="Imagen Proyecto" style="background-color: (0,0,0,.9);">
-            <div class="carousel-caption">
-              <h1><b class="estilo-sombra-text h1-responsive">Proyecto nombre</b></h1>
-              <button class="btn btn-info btn-consultar estilo-sombra" (click)="consultaProyecto()"><b>CONSULTAR AHORA!</b></button>
+<div *ngIf="!loading">
+  <div class="main-content" *ngIf="consultaReporte">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <a href="javascript:void(0);" (click)="consultaOtro()">Consulta otro proyecto</a>
+      </div>
+    </div>
+    <div class="row"><br></div>
+    <div class="row" [@status_animation]="status_animation">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+        <div class="thumbnail">
+          <div class="caption text-center">
+            <div class="position-relative">
+              <img src="assets/img/walking_64x64.png" style="width:48px;height:48px;" />
+            </div>
+            <h5 id="thumbnail-label" class="margin-thumbnail"><a href="javascript:void(0);">Caminados</a></h5>
+            <hr class="hr">
+            <div class="thumbnail-description smaller">40.7</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+        <div class="thumbnail">
+          <div class="caption text-center">
+            <div class="position-relative">
+              <img src="assets/img/pool-cliente.png" style="width:48px;height:48px;" />
+            </div>
+            <h5 class="margin-thumbnail"><a href="javascript:void(0);">Pool cliente</a></h5>
+            <hr class="hr">
+            <div class="thumbnail-description smaller">4.34</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+        <div class="thumbnail">
+          <div class="caption text-center">
+            <div class="position-relative">
+              <img src="assets/img/semana_64x64.png" style="width:48px;height:48px;" />
+            </div>
+            <h5 class="margin-thumbnail"><a href="javascript:void(0);">Semana</a></h5>
+            <hr class="hr">
+            <div class="thumbnail-description smaller">4.34</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3">
+        <div class="thumbnail">
+          <div class="caption text-center">
+            <div class="position-relative">
+              <img src="assets/img/shared_64x64.png" style="width:48px;height:48px;" />
+            </div>
+            <h5 class="margin-thumbnail"><a href="javascript:void(0);">SharedPoint</a></h5>
+            <hr class="hr">
+            <div class="thumbnail-description smaller">4.34</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">&nbsp;</div>
+    <div class="row" [@status_animation]="status_animation">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="panel panel-primary">
+          <div class="panel-heading"><b>Detalle semana actual: </b></div>
+          <div class="panel-body panel-body-height">
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">SharedPoint</a>
+                    <span class="badge">3</span>
+                  </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
+                        class="badge badge-pill km-badge">99
+                        KM</span></li>
+                    <li class="list-group-item">3000IP46</li>
+                    <li class="list-group-item">3000IP47</li>
+                  </ul>
+                  <div class="panel-footer">
+                    <div class="text-right">
+                      <span class="badge badge-pill">Total KM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-warning">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Pool cliente</a>
+                    <span class="badge">3</span>
+                  </h4>
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
+                        class="badge badge-pill km-badge">99
+                        KM</span></li>
+                    <li class="list-group-item">3000IP46</li>
+                    <li class="list-group-item">3000IP47</li>
+                  </ul>
+                  <div class="panel-footer">
+                    <div class="text-right">
+                      <span class="badge badge-pill">Total KM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Revisión QC </a>
+                    <span class="badge">3</span>
+                  </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                  <ul class="list-group">
+                    <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
+                        class="badge badge-pill km-badge">99
+                        KM</span></li>
+                    <li class="list-group-item">3000IP46</li>
+                    <li class="list-group-item">3000IP47</li>
+                  </ul>
+                  <div class="panel-footer">
+                    <div class="text-right">
+                      <span class="badge badge-pill">Total KM</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right"></span>
-          <span class="sr-only">Next</span>
-        </a>
       </div>
-      <!-- Fin Carrusel -->
+    </div>
+  </div>
+
+  <div class="main-content" *ngIf="!consultaReporte">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Inicio Carrusel -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <div [ngClass]="{'item':true,  'active': ( i == 0)}" *ngFor="let proyecto of proyectos; let i = index">
+              <img src="assets/img/carousel-proyecto.webp" alt="Imagen Proyecto" style="background-color: (0,0,0,.9);">
+              <div class="carousel-caption">
+                <h1><b class="estilo-sombra-text h1-responsive">{{ proyecto.nombre }}</b></h1>
+                <button class="btn btn-info btn-consultar estilo-sombra" (click)="consultaProyecto()"><b>CONSULTAR
+                    AHORA!</b></button>
+              </div>
+            </div>
+          </div>
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+        <!-- Fin Carrusel -->
+      </div>
     </div>
   </div>
 </div>

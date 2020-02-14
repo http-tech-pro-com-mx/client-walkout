@@ -6,7 +6,11 @@ import {
   animate,
   transition,
 } from '@angular/animations';
+import { Proyecto } from 'app/models/proyecto';
+import { RptEjecutivoIpService } from './rpt-ejecutivo-ip.service';
 
+declare const toastr: any;
+declare const CountUp: any;
 @Component({
   selector: 'app-rpt-ejecutivo-ip',
   templateUrl: './rpt-ejecutivo-ip.component.html',
@@ -33,12 +37,29 @@ export class RptEjecutivoIpComponent implements OnInit {
 
   public consultaReporte: boolean;
   public status_animation: string;
+  public proyectos: Array<Proyecto>;
+  public loading: boolean;
 
-  constructor() { }
+  constructor( private service: RptEjecutivoIpService) { }
 
   ngOnInit() {
     this.consultaReporte = false;
     this.status_animation = "closed";
+    this.proyectos = [];
+    this.loading = true;
+
+    this.service.getProyectos().subscribe(result => {
+
+      this.proyectos = result;
+      this.loading = false;
+
+    }, error => {
+
+      this.loading = false;
+      toastr.error(error.error, 'Error!');
+
+    });
+
   }
 
   consultaProyecto(){
