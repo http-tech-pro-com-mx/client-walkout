@@ -9,6 +9,7 @@ import {
 import { Proyecto } from 'app/models/proyecto';
 import { RptEjecutivoIpService } from './rpt-ejecutivo-ip.service';
 import { Ip } from 'app/models/ip';
+import { Configuracion } from 'app/models/configuracion';
 
 declare const toastr: any;
 declare const CountUp: any;
@@ -48,6 +49,7 @@ export class RptEjecutivoIpComponent implements OnInit {
   public conCliente: Array<Ip>;
   public enQC: Array<Ip>;
   public enSharedPoint: Array<Ip>;
+  public semanaActual: Configuracion;
 
   constructor( private service: RptEjecutivoIpService) { }
 
@@ -87,21 +89,23 @@ export class RptEjecutivoIpComponent implements OnInit {
 
       if (result.successful) {
 
+        this.semanaActual =  result.semana;
         this.km_total_shared = result.km_total_shared;
 
         this.enSharedPoint = result.shared_sem;
         this.enQC = result.qc_sem;
         this.conCliente = result.pool_cliente_sem;
 
-        this.pool_cliente_sem = 0.0;
-        this.qc_sem = 0.0;
-        this.shared_sem = 0.0;
+        this.pool_cliente_sem =  this.sumarPies(this.conCliente);
+        this.qc_sem =  this.sumarPies(this.enQC);
+        this.shared_sem =  this.sumarPies(this.enSharedPoint);
 
         
         const container = document.querySelector('.main-panel');
         container.scrollTop = 0;
     
         setTimeout( () =>{
+
           this.consultaReporte = true;
 
           setTimeout(()=>{
@@ -141,5 +145,17 @@ export class RptEjecutivoIpComponent implements OnInit {
     });
 
   }
+
+  sumarPies(ips: Array<Ip>): number{
+
+    if(ips.length == 0){
+      return 0;
+    }else{
+      return ips.map( ip => ip.pies ).reduce( (total, num) => total + num)
+    }
+
+  }
+
+
 
 }

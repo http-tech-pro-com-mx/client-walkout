@@ -19,7 +19,7 @@
             </div>
             <h5 id="thumbnail-label" class="margin-thumbnail"><a href="javascript:void(0);">Caminados</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">{{ km_total_shared }}</div>
+            <div class="thumbnail-description smaller">{{ km_total_shared | ftKm }}</div>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
             </div>
             <h5 class="margin-thumbnail"><a href="javascript:void(0);">Pool cliente</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">{{ pool_cliente_sem }}</div>
+            <div class="thumbnail-description smaller">{{ pool_cliente_sem  | ftKm }}</div>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
             </div>
             <h5 class="margin-thumbnail"><a href="javascript:void(0);">Semana</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">{{ qc_sem }}</div>
+            <div class="thumbnail-description smaller">{{ qc_sem  | ftKm }}</div>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
             </div>
             <h5 class="margin-thumbnail"><a href="javascript:void(0);">SharedPoint</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">{{ shared_sem }}</div>
+            <div class="thumbnail-description smaller">{{ shared_sem  | ftKm }}</div>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
     <div class="row" [@status_animation]="status_animation">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <div class="panel panel-primary">
-          <div class="panel-heading"><b>Detalle semana actual: </b></div>
+          <div class="panel-heading"><b>Detalle semana actual: </b>{{ semanaActual.fecha_inicio | date: 'mediumDate' }} al {{ semanaActual.fecha_fin | date: 'mediumDate'  }}</div>
           <div class="panel-body panel-body-height">
             <div class="panel-group" id="accordion">
               <div class="panel panel-info">
@@ -76,7 +76,7 @@
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <li class="list-group-item contenedor" *ngFor="let ip of enSharedPoint">{{ ip.ip }} <span>{{ ip.fecha_shared_point}}</span><span
+                    <li class="list-group-item contenedor" *ngFor="let ip of enSharedPoint">{{ ip.ip }} <span>{{ ip.fecha_shared_point | date: 'mediumDate' }}</span><span
                       class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
                       KM</span></li>
                   </ul>
@@ -96,9 +96,10 @@
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <li class="list-group-item contenedor" *ngFor="let ip of conCliente">{{ ip.ip }} <span>{{ ip.fecha_shared_point}}</span><span
+                    <li class="list-group-item contenedor" *ngFor="let ip of conCliente">{{ ip.ip }} <span>{{ ip.fecha_cliente | date: 'mediumDate' }}</span><span
                         class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
                         KM</span></li>
+                    <li *ngIf="conCliente.length == 0" class="list-group-item">SIN REGISTROS</li>
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
@@ -116,9 +117,10 @@
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <li class="list-group-item contenedor"  *ngFor="let ip of enQC">{{ ip.ip }} <span>{{ ip.fecha_qc}}</span><span
+                    <li class="list-group-item contenedor"  *ngFor="let ip of enQC">{{ ip.ip }} <span>{{ ip.fecha_qc | date: 'mediumDate' }}</span><span
                         class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
                         KM</span></li>
+                      <li *ngIf="enQC.length == 0" class="list-group-item">SIN REGISTROS</li>
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
