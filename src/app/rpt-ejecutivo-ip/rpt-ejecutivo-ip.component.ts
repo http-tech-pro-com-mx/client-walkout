@@ -8,6 +8,7 @@ import {
 } from '@angular/animations';
 import { Proyecto } from 'app/models/proyecto';
 import { RptEjecutivoIpService } from './rpt-ejecutivo-ip.service';
+import { Ip } from 'app/models/ip';
 
 declare const toastr: any;
 declare const CountUp: any;
@@ -39,14 +40,30 @@ export class RptEjecutivoIpComponent implements OnInit {
   public status_animation: string;
   public proyectos: Array<Proyecto>;
   public loading: boolean;
+  public km_total_shared: number;
+  public pool_cliente_sem: number;
+  public qc_sem: number;
+  public shared_sem: number;
+
+  public conCliente: Array<Ip>;
+  public enQC: Array<Ip>;
+  public enSharedPoint: Array<Ip>;
 
   constructor( private service: RptEjecutivoIpService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.consultaReporte = false;
     this.status_animation = "closed";
     this.proyectos = [];
-    this.loading = true;
+    this.conCliente = [];
+    this.enQC = [];
+    this.enSharedPoint = [];
+
+    this.km_total_shared = 0.0;
+    this.pool_cliente_sem = 0.0;
+    this.qc_sem = 0.0;
+    this.shared_sem = 0.0;
 
     this.service.getProyectos().subscribe(result => {
 
@@ -62,21 +79,62 @@ export class RptEjecutivoIpComponent implements OnInit {
 
   }
 
-  consultaProyecto(){
-    this.consultaReporte = true;
+  consultaProyecto(id_proyecto: number){
 
-    const container = document.querySelector('.main-panel');
-    container.scrollTop = 0;
+    this.service.getReporteSemanaActual(id_proyecto).subscribe( result =>{
 
-    setTimeout( () =>{
-      this.status_animation = "open";
-    },200);
+      console.log( result )
+
+      if (result.successful) {
+
+        this.km_total_shared = result.km_total_shared;
+
+        this.enSharedPoint = result.shared_sem;
+        this.enQC = result.qc_sem;
+        this.conCliente = result.pool_cliente_sem;
+
+        this.pool_cliente_sem = 0.0;
+        this.qc_sem = 0.0;
+        this.shared_sem = 0.0;
+
+        
+        const container = document.querySelector('.main-panel');
+        container.scrollTop = 0;
+    
+        setTimeout( () =>{
+          this.consultaReporte = true;
+
+          setTimeout(()=>{
+            this.status_animation = "open";
+          },100);
+         
+        },200);
+
+
+      }else{
+        toastr.error( result.message , 'Error!' );
+      }
+
+    }, error =>{
+
+      toastr.error(error.error, 'Error!');
+
+    });
+
    
 
   }
 
   consultaOtro(){
+
     this.consultaReporte = false;
+    this.km_total_shared = 0.0;
+    this.pool_cliente_sem = 0.0;
+    this.qc_sem = 0.0;
+    this.shared_sem = 0.0;
+    this.conCliente = [];
+    this.enQC = [];
+    this.enSharedPoint = [];
 
     setTimeout( () =>{
       this.status_animation = "closed";

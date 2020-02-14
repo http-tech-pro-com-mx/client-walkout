@@ -19,7 +19,7 @@
             </div>
             <h5 id="thumbnail-label" class="margin-thumbnail"><a href="javascript:void(0);">Caminados</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">40.7</div>
+            <div class="thumbnail-description smaller">{{ km_total_shared }}</div>
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@
             </div>
             <h5 class="margin-thumbnail"><a href="javascript:void(0);">Pool cliente</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">4.34</div>
+            <div class="thumbnail-description smaller">{{ pool_cliente_sem }}</div>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@
             </div>
             <h5 class="margin-thumbnail"><a href="javascript:void(0);">Semana</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">4.34</div>
+            <div class="thumbnail-description smaller">{{ qc_sem }}</div>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
             </div>
             <h5 class="margin-thumbnail"><a href="javascript:void(0);">SharedPoint</a></h5>
             <hr class="hr">
-            <div class="thumbnail-description smaller">4.34</div>
+            <div class="thumbnail-description smaller">{{ shared_sem }}</div>
           </div>
         </div>
       </div>
@@ -71,16 +71,14 @@
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">SharedPoint</a>
-                    <span class="badge">3</span>
+                    <span class="badge">{{ enSharedPoint.length }}</span>
                   </h4>
                 </div>
                 <div id="collapse1" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
-                        class="badge badge-pill km-badge">99
-                        KM</span></li>
-                    <li class="list-group-item">3000IP46</li>
-                    <li class="list-group-item">3000IP47</li>
+                    <li class="list-group-item contenedor" *ngFor="let ip of enSharedPoint">{{ ip.ip }} <span>{{ ip.fecha_shared_point}}</span><span
+                      class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
+                      KM</span></li>
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
@@ -93,16 +91,14 @@
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Pool cliente</a>
-                    <span class="badge">3</span>
+                    <span class="badge">{{ conCliente.length }}</span>
                   </h4>
                 </div>
                 <div id="collapse2" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
-                        class="badge badge-pill km-badge">99
+                    <li class="list-group-item contenedor" *ngFor="let ip of conCliente">{{ ip.ip }} <span>{{ ip.fecha_shared_point}}</span><span
+                        class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
                         KM</span></li>
-                    <li class="list-group-item">3000IP46</li>
-                    <li class="list-group-item">3000IP47</li>
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
@@ -115,16 +111,14 @@
                 <div class="panel-heading">
                   <h4 class="panel-title">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Revisión QC </a>
-                    <span class="badge">3</span>
+                    <span class="badge">{{ enQC.length }}</span>
                   </h4>
                 </div>
                 <div id="collapse3" class="panel-collapse collapse">
                   <ul class="list-group">
-                    <li class="list-group-item contenedor">3000IP44 <span>2 Feb 20</span><span
-                        class="badge badge-pill km-badge">99
+                    <li class="list-group-item contenedor"  *ngFor="let ip of enQC">{{ ip.ip }} <span>{{ ip.fecha_qc}}</span><span
+                        class="badge badge-pill km-badge">{{ ip.pies | ftKm }}
                         KM</span></li>
-                    <li class="list-group-item">3000IP46</li>
-                    <li class="list-group-item">3000IP47</li>
                   </ul>
                   <div class="panel-footer">
                     <div class="text-right">
@@ -156,7 +150,7 @@
               <img src="assets/img/carousel-proyecto.webp" alt="Imagen Proyecto" style="background-color: (0,0,0,.9);">
               <div class="carousel-caption">
                 <h1><b class="estilo-sombra-text h1-responsive">{{ proyecto.nombre }}</b></h1>
-                <button class="btn btn-info btn-consultar estilo-sombra" (click)="consultaProyecto()"><b>CONSULTAR
+                <button class="btn btn-info btn-consultar estilo-sombra" (click)="consultaProyecto(proyecto.id_proyecto)"><b>CONSULTAR
                     AHORA!</b></button>
               </div>
             </div>
