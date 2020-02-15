@@ -3,6 +3,7 @@ import { Ip } from 'app/models/ip';
 import { Proyecto } from 'app/models/proyecto';
 import { IpEnCampoService } from './ip-en-campo.service';
 import swal from 'sweetalert2';
+import { getTablaUtf8 } from 'app/utils';
 
 declare const toastr: any;
 declare var $:any;
@@ -167,6 +168,31 @@ export class IpEnCampoComponent implements OnInit, OnDestroy {
     }, error =>{
       toastr.error(error.error, 'Error!');
     });
+
+  }
+
+  downloadExcel(): void {
+
+    let linkFile = document.createElement('a');
+    let data_type = 'data:application/vnd.ms-excel;';
+    let nombreFile = 'Reporte-ips-campo.xls';
+
+    if (linkFile.download != undefined) {
+      
+      let tabla = getTablaUtf8('table-reporte');
+    
+      document.body.appendChild(linkFile);
+      linkFile.href = data_type + ', ' + tabla;
+      linkFile.download = nombreFile ;
+
+      linkFile.click();
+      linkFile.remove();
+
+    } else {
+
+      alert('Navedor no compatible. Utiliza Chroome , Opera o  Mozilla Firefox.')
+
+    }
 
   }
 

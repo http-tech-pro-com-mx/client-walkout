@@ -50,10 +50,6 @@ export class RptTableComponent implements OnInit {
 
       alert('Navedor no compatible. Utiliza Chroome , Opera o  Mozilla Firefox.')
 
-      // let elem = $(".table-reporte")[0].outerHTML;
-      // let blobObject = new Blob(["\ufeff", elem], { type: 'application/vnd.ms-excel' });
-      // window.navigator.msSaveBlob(blobObject, nombreFile);
-
     }
 
 

@@ -147,8 +147,8 @@ export class HomeComponent implements OnInit, OnDestroy {
                  
                   // Formato dia
                   let datePipe = new DatePipe('es-MX');
-                  el[1].fecha_inicio = datePipe.transform( el[1].fecha_inicio , 'fullDate');
-                  el[1].fecha_fin = datePipe.transform( el[1].fecha_fin , 'fullDate');
+                  el[1].fecha_inicio = datePipe.transform( new Date(el[1].fecha_inicio) , 'mediumDate');
+                  el[1].fecha_fin = datePipe.transform( new Date(el[1].fecha_fin) , 'mediumDate');
                   // Fin formato dia
 
                   let datos = { data: [], color: '#0d47a1', name: 'KM CAMINADOS',  type: 'column' };
