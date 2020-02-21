@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  BASE_URL: 'http://192.168.16.244:8080/ApiW'
+  BASE_URL: 'http://tech-pro.fortiddns.com:8082/ApiW' 
 };
